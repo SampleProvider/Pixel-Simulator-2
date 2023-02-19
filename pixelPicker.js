@@ -67,6 +67,7 @@ var updateDisabled = function() {
         }
         if (i == "air") {
             document.getElementById(`picker-${i}`).style.display = "inline-block";
+            continue;
         }
         // .classList.add("pickerPixelDisabled");
         if (sandbox == false && pixelInventory[i] == -1) {

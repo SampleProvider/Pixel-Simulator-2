@@ -21,17 +21,13 @@ var loadSaveCode = function(saveCode) {
     };
     var index = 0;
     var string = "";
+    var placeableState = false;
     var layer = 0;
     for (var i = 0; i < saveCode.length; i++) {
         if (saveCode[i] == ":") {
-            if (string == "") {
+            if (string == "" && layer != 2) {
                 string = saveCode.substring(index, i);
-                if (layer == 2) {
-                    placeableGrid[y][x] = string == "true";
-                }
-                else {
-                    grid[y][x][layer] = string;
-                }
+                grid[y][x][layer] = string;
                 incrementPosition();
                 string = "";
                 index = i + 1;
@@ -39,12 +35,15 @@ var loadSaveCode = function(saveCode) {
             else {
                 for (var j = 0; j < parseInt(saveCode.substring(index, i), 10); j++) {
                     if (layer == 2) {
-                        placeableGrid[y][x] = string == "true";
+                        placeableGrid[y][x] = placeableState;
                     }
                     else {
                         grid[y][x][layer] = string;
                     }
                     incrementPosition();
+                }
+                if (layer == 2) {
+                    placeableState = !placeableState;
                 }
                 string = "";
                 index = i + 1;
@@ -55,6 +54,11 @@ var loadSaveCode = function(saveCode) {
             index = i + 1;
         }
         if (saveCode[i] == ";") {
+            if (layer == 2) {
+                placeableState = saveCode.substring(index, i) == "1";
+                index = i + 1;
+                continue;
+            }
             if (isNaN(saveCode.substring(index, i))) {
                 index = i + 1;
                 continue;
@@ -193,18 +197,14 @@ var generateSaveCode = function() {
             saveCode += string + "-" + number + ":";
         }
     }
-    string = false;
+    string = placeableGrid[0][0];
     number = 0;
+    saveCode += placeableGrid[0][0] ? 1 : 0 + ";";
     for (let i = 0; i < gridSize; i++) {
         for (let j = 0; j < gridSize; j++) {
             if (placeableGrid[i][j] != string) {
                 if (number != 0) {
-                    if (number == 1) {
-                        saveCode += string + ":";
-                    }
-                    else {
-                        saveCode += string + "-" + number + ":";
-                    }
+                    saveCode += number + ":";
                 }
                 string = placeableGrid[i][j];
                 number = 0;
@@ -213,12 +213,7 @@ var generateSaveCode = function() {
         }
     }
     if (number != 0) {
-        if (number == 1) {
-            saveCode += string + ":";
-        }
-        else {
-            saveCode += string + "-" + number + ":";
-        }
+        saveCode += number + ":";
     }
     return saveCode;
 };

@@ -2582,6 +2582,7 @@ var pixels = {
         draw: function(x, y, ctx) {
         },
         drawBackground: function(x, y, width, ctx) {
+            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
             ctx.fillStyle = colors.explosive_light;
             ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, width * pixelSize, pixelSize / 3);
         },
@@ -2606,7 +2607,7 @@ var pixels = {
                 changePixel(x, y, null, "air");
                 return;
             }
-            if (grid[y][x][0] != "air" || grid[y][x - 1][0] != "air") {
+            if (grid[y][x][0] != "air" || grid[y][x - 1][0] != "air" || (grid[y][x - 1][1] != "air" && grid[y][x - 1][1] != "fire" && grid[y][x - 1][1] != "ignitor_laser_beam_left")) {
                 explode(x, y, 5, "fire", 1, 0.5);
                 return;
             }
@@ -2631,6 +2632,7 @@ var pixels = {
         draw: function(x, y, ctx) {
         },
         drawBackground: function(x, y, width, ctx) {
+            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
             ctx.fillStyle = colors.explosive_light;
             ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, width * pixelSize, pixelSize / 3);
         },
@@ -2655,7 +2657,7 @@ var pixels = {
                 changePixel(x, y, null, "air");
                 return;
             }
-            if (grid[y][x][0] != "air" || grid[y][x + 1][0] != "air") {
+            if (grid[y][x][0] != "air" || grid[y][x + 1][0] != "air" || (grid[y][x + 1][1] != "air" && grid[y][x + 1][1] != "fire" && grid[y][x + 1][1] != "ignitor_laser_beam_right")) {
                 explode(x, y, 5, "fire", 1, 0.5);
                 return;
             }
@@ -2682,6 +2684,7 @@ var pixels = {
             ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
         },
         drawBackground: function(x, y, width, ctx) {
+            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors.air;
@@ -2704,7 +2707,7 @@ var pixels = {
                 changePixel(x, y, null, "air");
                 return;
             }
-            if (grid[y][x][0] != "air" || grid[y - 1][x][0] != "air") {
+            if (grid[y][x][0] != "air" || grid[y - 1][x][0] != "air" || (grid[y - 1][x][1] != "air" && grid[y - 1][x][1] != "fire" && grid[y - 1][x][1] != "ignitor_laser_beam_up")) {
                 explode(x, y, 5, "fire", 1, 0.5);
                 return;
             }
@@ -2731,6 +2734,7 @@ var pixels = {
             ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
         },
         drawBackground: function(x, y, width, ctx) {
+            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors.air;
@@ -2753,7 +2757,7 @@ var pixels = {
                 changePixel(x, y, null, "air");
                 return;
             }
-            if (grid[y][x][0] != "air" || grid[y + 1][x][0] != "air") {
+            if (grid[y][x][0] != "air" || grid[y + 1][x][0] != "air" || (grid[y + 1][x][1] != "air" && grid[y + 1][x][1] != "fire" && grid[y + 1][x][1] != "ignitor_laser_beam_down")) {
                 explode(x, y, 5, "fire", 1, 0.5);
                 return;
             }
@@ -3204,6 +3208,7 @@ var pixels = {
         draw: function(x, y, ctx) {
         },
         drawBackground: function(x, y, width, ctx) {
+            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
             ctx.fillStyle = colors.frost_explosive_light;
             ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, width * pixelSize, pixelSize / 3);
         },
@@ -3228,7 +3233,7 @@ var pixels = {
                 changePixel(x, y, null, "air");
                 return;
             }
-            if (grid[y][x][0] != "air" || grid[y][x - 1][0] != "air") {
+            if (grid[y][x][0] != "air" || grid[y][x - 1][0] != "air" || (grid[y][x - 1][1] != "air" && grid[y][x - 1][1] != "frost_fire" && grid[y][x - 1][1] != "frost_ignitor_laser_beam_left")) {
                 explode(x, y, 5, "frost_fire", 1, 0.5);
                 return;
             }
@@ -3253,6 +3258,7 @@ var pixels = {
         draw: function(x, y, ctx) {
         },
         drawBackground: function(x, y, width, ctx) {
+            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
             ctx.fillStyle = colors.frost_explosive_light;
             ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, width * pixelSize, pixelSize / 3);
         },
@@ -3277,7 +3283,7 @@ var pixels = {
                 changePixel(x, y, null, "air");
                 return;
             }
-            if (grid[y][x][0] != "air" || grid[y][x + 1][0] != "air") {
+            if (grid[y][x][0] != "air" || grid[y][x + 1][0] != "air" || (grid[y][x + 1][1] != "air" && grid[y][x + 1][1] != "frost_fire" && grid[y][x + 1][1] != "frost_ignitor_laser_beam_right")) {
                 explode(x, y, 5, "frost_fire", 1, 0.5);
                 return;
             }
@@ -3304,6 +3310,7 @@ var pixels = {
             ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
         },
         drawBackground: function(x, y, width, ctx) {
+            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors.air;
@@ -3326,7 +3333,7 @@ var pixels = {
                 changePixel(x, y, null, "air");
                 return;
             }
-            if (grid[y][x][0] != "air" || grid[y - 1][x][0] != "air") {
+            if (grid[y][x][0] != "air" || grid[y - 1][x][0] != "air" || (grid[y - 1][x][1] != "air" && grid[y - 1][x][1] != "frost_fire" && grid[y - 1][x][1] != "frost_ignitor_laser_beam_up")) {
                 explode(x, y, 5, "frost_fire", 1, 0.5);
                 return;
             }
@@ -3353,6 +3360,7 @@ var pixels = {
             ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
         },
         drawBackground: function(x, y, width, ctx) {
+            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors.air;
@@ -3375,7 +3383,7 @@ var pixels = {
                 changePixel(x, y, null, "air");
                 return;
             }
-            if (grid[y][x][0] != "air" || grid[y + 1][x][0] != "air") {
+            if (grid[y][x][0] != "air" || grid[y + 1][x][0] != "air" || (grid[y + 1][x][1] != "air" && grid[y + 1][x][1] != "frost_fire" && grid[y + 1][x][1] != "frost_ignitor_laser_beam_down")) {
                 explode(x, y, 5, "frost_fire", 1, 0.5);
                 return;
             }

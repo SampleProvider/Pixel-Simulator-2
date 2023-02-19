@@ -245,9 +245,20 @@ document.getElementById("uploadSaveCodeButton").onclick = function() {
         reader.readAsText(input.files[0]);
     };
 };
-document.getElementById("copySaveCodeButton").onclick = async function() {
+document.getElementById("copySaveCodeButton").onclick = function() {
     navigator.clipboard.writeText(generateSaveCode());
     promptNotification("Copied save code!");
+};
+document.getElementById("loadCopiedSaveCodeButton").onclick = async function() {
+    var saveCode = await navigator.clipboard.readText();
+    if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+        if (sandbox) {
+            loadSaveCode(saveCode);
+        }
+        else {
+            loadLevelSaveCode(saveCode);
+        }
+    }
 };
 document.getElementById("loadStoredSaveCodeButton").onclick = async function() {
     if (Object.keys(saveCodes).length == 0) {
