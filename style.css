@@ -1,10 +1,13 @@
 .p5Canvas {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    border: 2px solid black;
+    display: none;
 }
 body {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
     --max-sidebar-width: 600px;
     font-family: 'Courier New', Courier, monospace;
 /*     font-weight: bold; */
@@ -12,6 +15,7 @@ body {
     user-select: none;
     word-wrap: break-word;
     scroll-snap-type: y mandatory;
+    overflow-x: hidden
 }
 body::-webkit-scrollbar {
     width: 0px;
@@ -22,12 +26,142 @@ main {
     scroll-snap-stop: always;
 }
 
+#menuScreen {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    z-index: 3;
+    background-color: black;
+    transition: 500ms linear opacity;
+}
+#gameScreen {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+}
+
+#canvas {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    border: 2px solid black;
+    cursor: none;
+    image-rendering: pixelated;
+}
+#effectCanvas {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    pointer-events: none;
+    z-index: 1;
+    image-rendering: pixelated;
+}
+#placeableCanvas {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    pointer-events: none;
+    z-index: 1;
+    image-rendering: pixelated;
+}
 #overlayCanvas {
     position: absolute;
     left: 10px;
     top: 10px;
     pointer-events: none;
     z-index: 1;
+    image-rendering: pixelated;
+}
+#menuCanvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+}
+
+#menuTitle {
+    visibility: hidden;
+    color: #ffffff;
+    font-size: 60px;
+    font-weight: bold;
+    transform: translateY(-75px);
+    transition: 500ms ease transform;
+}
+#levelsButton {
+    visibility: hidden;
+    position: absolute;
+    right: 50%;
+    bottom: 20vh;
+    width: 25vw;
+    font-size: 35px;
+    background-color: #aaaaaa;
+    box-shadow: 0px 0px 3vh rgba(255, 255, 255, 0.7); 
+    transform: translateX(-53vw);
+    transition: 500ms ease transform;
+}
+#sandboxButton {
+    visibility: hidden;
+    position: absolute;
+    left: 50%;
+    bottom: 20vh;
+    width: 25vw;
+    font-size: 35px;
+    background-color: #aaaaaa;
+    box-shadow: 0px 0px 3vh rgba(255, 255, 255, 0.7); 
+    transform: translateX(53vw);
+    transition: 500ms ease transform;
+}
+#levelSelect {
+    visibility: hidden;
+    position: absolute;
+    left: 15vw;
+    right: 15vw;
+    top: 15vh;
+    bottom: 15vh;
+    border: 4px solid black;
+    color: black;
+    background-color: lightgray;
+    text-align: center;
+    transform: translateY(-85vh);
+    transition: 500ms ease transform;
+}
+#levelSelectButtons {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    padding: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+#levelSelectButtons::-webkit-scrollbar {
+    width: 0px;
+}
+#levelSelectCancelButton {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    transform: translate(40%, -40%);
+}
+#winScreen {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    opacity: 0;
+    transition: 500ms linear opacity;
+    pointer-events: none;
+    z-index: 2;
 }
 
 #sidebar {
@@ -41,6 +175,9 @@ main {
     scroll-snap-align: start;
     scroll-snap-stop: always;
     user-select: none;
+}
+#sidebar::-webkit-scrollbar {
+    width: 0px;
 }
 
 #gameControls {
@@ -68,6 +205,16 @@ main {
     border-color: white;
     transform: translateY(-5px);
 }
+.pickerPixelDisabled {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    margin: 2px;
+    border: 2px solid transparent;
+    transition: 50ms linear transform;
+    cursor: not-allowed !important;
+    opacity: 0.2;
+}
 .pickerPixelSelected {
     margin-top: 0px;
     margin-left: -0.5px;
@@ -86,11 +233,74 @@ main {
     margin-right: 8px;
     height: min-content;
 }
+#levelDescription {
+    max-width: calc(var(--max-sidebar-width) - 40px);
+    border: 2px solid black;
+    padding: 4px;
+    margin-top: 8px;
+    margin-right: 8px;
+    height: min-content;
+}
+
+#promptContainer {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0005;
+    opacity: 0;
+    transition: 500ms linear opacity;
+    pointer-events: none;
+    z-index: 4;
+}
+#prompt {
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    width: 50vw;
+    height: fit-content;
+    margin-left: -25vw;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 4px solid black;
+    background-color: lightgray;
+    text-align: center;
+    transform: translateY(-100vh);
+    transition: 500ms ease transform;
+}
+#promptInput {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 20px;
+    display: inline-block;
+    width: 50%;
+    height: 20px;
+    margin-bottom: 20px;
+    background-color: #aaaaaa;
+    outline: none;
+}
+#promptSelect {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 20px;
+    display: inline-block;
+    width: 50%;
+    margin-bottom: 20px;
+    background-color: #aaaaaa;
+    outline: none;
+}
+.promptButton {
+    width: 100px;
+    margin-bottom: 20px;
+}
 
 b {
     /* background-color: beige; */
     border: 1px solid black;
     border-radius: 4px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 div {
     font-family: 'Courier New', Courier, monospace;
@@ -101,11 +311,18 @@ button {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     font-size: 20px;
+    margin-top: 2px;
+    margin-bottom: 2px;
     outline: none;
+    transition: 250ms ease background;
     cursor: pointer;
 }
 button:active {
     border-style: inset;
+}
+button:disabled {
+    background-color: #aaaaaa !important;
+    cursor: not-allowed;
 }
 table {
     max-width: calc(var(--max-sidebar-width) - 40px);
@@ -118,6 +335,7 @@ table {
 td {
     border: 2px solid black;
     padding: 2px 4px;
+    padding-bottom: -8px;
     overflow-wrap: break-word;
     max-width: calc(var(--max-sidebar-width) - 48px);
     vertical-align: top;
@@ -135,6 +353,9 @@ td {
         border-color: white;
     }
     #pixelDescription {
+        border-color: white;
+    }
+    #levelDescription {
         border-color: white;
     }
 }
