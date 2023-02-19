@@ -5,18 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Pixel Simulator 2</title>
-    <link rel="icon" type="image/x-icon" href="./PixelSimulator.png">
+    <link rel="icon" type="image/x-icon" href="./img/PixelSimulator.png">
     <script src="p5.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <!--OG tags-->
+    <meta content="Pixel Simulator 2" property="og:title"/>
+    <meta content="website" property="og:type"/>
+    <meta content="Pixel simuator with tens of levels, dozens of pixels, and a sandbox!" property="og:description"/>
+    <meta content="https://pixel-simulator-2.maitiansha1.repl.co" property="og:url"/>
+    <meta content="https://pixel-simulator-2.maitiansha1.repl.co/img/PixelSimulator.png" property="og:image"/>
+	<meta content="100" property="og:image:width"/>
+	<meta content="100" property="og:image:height"/>
 </head>
 
 <body>
     <div id="menuScreen">
         <canvas id="menuCanvas"></canvas>
         <div id="menuTitle">
-            <img src="./Monster.png" style="box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
+            <img src="./img/Monster.png" style="box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
             <span style="text-shadow: 0px 0px 3vh rgba(255, 255, 255, 0.7); ">Pixel Simulator 2</span>
-            <img src="./Monster.png" style="box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
+            <img src="./img/Monster.png" style="box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
         </div>
         <button id="levelsButton">LEVELS</button>
         <button id="sandboxButton">SANDBOX</button>
@@ -109,9 +117,9 @@
         </div>
         <div id="winScreen">
             <h1 style="font-size: 100px; color: #000000; ">
-                <img src="./Monster.png">
+                <img src="./img/Monster.png">
                 You Win!
-                <img src="./Monster.png">
+                <img src="./img/Monster.png">
             </h1>
             <button id="winResetGrid" style="background-color: #aaaaaa;">BACK TO LEVEL</button>
             <button id="winScreenDownloadSaveCode" style="background-color: #aaaaaa;">DOWNLOAD SAVE CODE</button>
