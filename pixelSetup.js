@@ -580,6 +580,9 @@ var push = function(x, y, direction, distance, updateFirstPixel) {
             if (!(updateFirstPixel && i == 1) && pixels[grid[y][x - i][0]].pushDirection == "left") {
                 return false;
             }
+            if (grid[y][x - i][0] == "slider_vertical") {
+                return false;
+            }
             if (!pixels[grid[y][x - i][0]].pushable) {
                 return false;
             }
@@ -622,6 +625,9 @@ var push = function(x, y, direction, distance, updateFirstPixel) {
                 return true;
             }
             if (!(updateFirstPixel && i == 1) && pixels[grid[y][x + i][0]].pushDirection == "right") {
+                return false;
+            }
+            if (grid[y][x + i][0] == "slider_vertical") {
                 return false;
             }
             if (!pixels[grid[y][x + i][0]].pushable) {
@@ -668,6 +674,9 @@ var push = function(x, y, direction, distance, updateFirstPixel) {
             if (!(updateFirstPixel && i == 1) && pixels[grid[y - i][x][0]].pushDirection == "up") {
                 return false;
             }
+            if (grid[y - i][x][0] == "slider_horizontal") {
+                return false;
+            }
             if (!pixels[grid[y - i][x][0]].pushable) {
                 return false;
             }
@@ -710,6 +719,9 @@ var push = function(x, y, direction, distance, updateFirstPixel) {
                 return true;
             }
             if (!(updateFirstPixel && i == 1) && pixels[grid[y + i][x][0]].pushDirection == "down") {
+                return false;
+            }
+            if (grid[y + i][x][0] == "slider_horizontal") {
                 return false;
             }
             if (!pixels[grid[y + i][x][0]].pushable) {

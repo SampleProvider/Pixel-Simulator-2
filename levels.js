@@ -17,7 +17,7 @@ var levels = {
         description: "Dirt and Grass fall downwards unless there are at least 4 pixels touching them. Sand falls and will fall 1 tile sideways if there is a pixel underneath it. Water will fall and move left and right to reach the lowest altitude. Place these pixels on the shaded tiles and destroy all the monsters to win!",
     },
     "1-3": {
-        saveCode: "20;air-44:water:air:water:air-4:water:air-43:leaf-3:air-16:leaf-5:monster:air-10:leaf-2:air:leaf-7:air-9:leaf-3:air:leaf-3:wood:leaf-3:air-6:leaf-2:air:leaf:wood:leaf:air-2:leaf-2:wood-2:air-8:leaf:wood:air:wood:air-6:wood-2:air-4:leaf-3:air-3:wood-2:air-6:wood-2:air-3:leaf-5:air-3:wood:air-6:wood-3:air-2:leaf-5:air-3:wood:air-7:wood-2:air-4:wood:air-5:wood:air-7:wood-2:grass:air-3:wood:air-5:wood:air-7:grass:dirt-2:air:monster:air:wood:air-2:monster:air-2:wood:air-6:grass-2:dirt-2:grass-8:air:wood:air-2:monster:grass-4:dirt-10:grass-6:dirt-47:air-400:0;50:1:1:3:5:8:3:4:5:8:6:1:5:8:12:5:15:5:15:5:15:5:215:",
+        saveCode: "20;air-4:water:air-41:water:air-4:water:air-43:leaf-3:air-16:leaf-5:monster:air-10:leaf-2:air:leaf-7:air-9:leaf-3:air:leaf-3:wood:leaf-3:air-6:leaf-2:air:leaf:wood:leaf:air-2:leaf-2:wood-2:air-8:leaf:wood:air:wood:air-6:wood-2:air-4:leaf-3:air-3:wood-2:air-6:wood-2:air-3:leaf-5:air-3:wood:air-6:wood-3:air-2:leaf-5:air-3:wood:air-7:wood-2:air-4:wood:air-5:wood:air-7:wood-2:grass:air-3:wood:air-5:wood:air-7:grass:dirt-2:air:monster:air:wood:air-2:monster:air-2:wood:air-6:grass-2:dirt-2:grass-8:air:wood:air-2:monster:grass-4:dirt-10:grass-6:dirt-47:air-400:0;50:1:1:3:5:8:3:4:5:8:6:1:5:8:12:5:15:5:15:5:15:5:215:",
         pixelInventory: {
             sand: 1,
             wood: 2,

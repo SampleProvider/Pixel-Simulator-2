@@ -355,7 +355,7 @@ var updateGrid = function() {
         var monsterAlive = false;
         for (var i = 0; i < gridSize; i++) {
             for (var j = 0; j < gridSize; j++) {
-                if (grid[i][j][0] == "monster") {
+                if (pixels[grid[i][j][0]].monster) {
                     monsterAlive = true;
                     break;
                 }
@@ -376,6 +376,8 @@ var updateGrid = function() {
             ctx.drawImage(offscreenCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
             ctx.drawImage(offscreenEffectCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
             ctx.drawImage(offscreenPlaceableCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
+            winMusic.currentTime = 0;
+            winMusic.play();
         }
     }
 

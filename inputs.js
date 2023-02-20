@@ -90,6 +90,9 @@ document.onmousemove = function(event) {
     cursorY = (event.clientY - 10) / (600 * canvasScale - 20) * 600;
 };
 document.onmousedown = function(event) {
+    if (event.button == 1) {
+        event.preventDefault();
+    }
     if (inPrompt) {
         return;
     }
@@ -100,9 +103,10 @@ document.onmousedown = function(event) {
         rightClicking = true;
     }
     else if (event.button == 1 && !menuScreen) {
-        clickPixel = grid[Math.floor((cameraY + cursorY) / pixelSize)][Math.floor((cameraX + cursorX) / pixelSize)][0];
-        setPixel();
-        event.preventDefault();
+        if (Math.floor((cameraX * cameraZoom + cursorX) / pixelSize) >= 0 && Math.floor((cameraX * cameraZoom + cursorX) / pixelSize) < gridSize && Math.floor((cameraY * cameraZoom + cursorY) / pixelSize) >= 0 && Math.floor((cameraY * cameraZoom + cursorY) / pixelSize) < gridSize) {
+            clickPixel = grid[Math.floor((cameraY * cameraZoom + cursorY) / pixelSize)][Math.floor((cameraX * cameraZoom + cursorX) / pixelSize)][0];
+            setPixel();
+        }
     }
 };
 document.onmouseup = function(event) {

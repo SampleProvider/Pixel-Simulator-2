@@ -80,6 +80,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -5,
         blastResistance: 1,
+        monster: false,
         name: "Air",
         description: "It's air. What did you expect?",
         hidden: false,
@@ -116,6 +117,7 @@ var pixels = {
         deletePushed: 0,
         flammable: 15,
         blastResistance: 1,
+        monster: false,
         name: "Dirt",
         description: "Pretty dirty.",
         type: "A Pixel World",
@@ -163,6 +165,7 @@ var pixels = {
         deletePushed: 0,
         flammable: 15,
         blastResistance: 1,
+        monster: false,
         name: "Grass",
         description: "This grass is pretty OP. It can grow on cliffs and on the bottom of floating islands.",
         type: "A Pixel World",
@@ -201,6 +204,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Sand",
         description: "A fine, light-yellow powder. It likes to make pyramids.",
         type: "A Pixel World",
@@ -238,6 +242,7 @@ var pixels = {
         deletePushed: 0,
         flammable: 0,
         blastResistance: 3,
+        monster: false,
         name: "Water",
         description: "Flows everywhere. Not very realistic.",
         type: "A Pixel World",
@@ -272,6 +277,7 @@ var pixels = {
         deletePushed: 0,
         flammable: 10,
         blastResistance: 3,
+        monster: false,
         name: "Wood",
         description: "A thick, rough, oak log.",
         type: "A Pixel World",
@@ -310,6 +316,7 @@ var pixels = {
         deletePushed: 0,
         flammable: 5,
         blastResistance: 1,
+        monster: false,
         name: "Leaf",
         description: "A nice, springy leaf. Drops saplings when it decays.",
         type: "A Pixel World",
@@ -441,6 +448,7 @@ var pixels = {
         deletePushed: 0,
         flammable: 15,
         blastResistance: 1,
+        monster: false,
         name: "Sapling",
         description: "Plant it and see what grows!",
         type: "A Pixel World",
@@ -480,6 +488,7 @@ var pixels = {
         deletePushed: 0,
         flammable: 25,
         blastResistance: 3,
+        monster: false,
         name: "Mud",
         description: "It's like dirt, but wet and slightly liquid.",
         type: "A Pixel World",
@@ -519,6 +528,7 @@ var pixels = {
         deletePushed: 0,
         flammable: 5,
         blastResistance: 3,
+        monster: false,
         name: "Dried Mud",
         description: "Extremely flammable.",
         type: "A Pixel World",
@@ -591,6 +601,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 3,
+        monster: false,
         name: "Lava",
         description: "Extremely hot and melts rocks. Burns flammable pixels. Flows everywhere but slowly. Water can cool it into rocks.",
         type: "Pixel Volcano",
@@ -637,6 +648,11 @@ var pixels = {
                     return;
                 }
             }
+            if (getTouchingDiagonal(x, y, "air", null) == 0 && getRandom() < 0.5) {
+                if (changePixel(x, y, null, "air")) {
+                    return;
+                }
+            }
             if (getRandom() < 1 / (pixels[grid[y][x][0]].flammable * 10)) {
                 if (getRandom() < 0.25) {
                     if (changePixel(x, y, "ash", null)) {
@@ -658,7 +674,7 @@ var pixels = {
                         }
                     }
                 }
-                else if (grid[y1][x1][1] != "fire" && getRandom() < 1 / pixels[grid[y1][x1][0]].flammable) {
+                else if (grid[y1][x1][1] != "fire" && pixels[grid[y1][x1][0]].flammable > 0 && getRandom() < 1 / pixels[grid[y1][x1][0]].flammable) {
                     // var canChange = true;
                     // forAllTouchingDiagonal(x1, y1, function(x2, y2) {
                     //     if (pixels[grid[y2][x2][0]].flammable == 0) {
@@ -675,8 +691,10 @@ var pixels = {
                 if (y != 0) {
                     if (grid[y - 1][x][1] != "fire" && (pixels[grid[y - 1][x][0]].flammable > 0 || grid[y - 1][x][0] == "air") && getRandom() < 5 / Math.abs(pixels[grid[y - 1][x][0]].flammable)) {
                         if (move(x, y, [{ x: 0, y: -1 }], 1)) {
-                            if (nextGrid[y][x][1] == "air" && getRandom() < 0.5) {
-                                nextGrid[y][x][1] = "fire";
+                            if (nextGrid[y][x][1] == "air") {
+                                if (getRandom() < pixels[grid[y][x][0]].flammable > 0 ? 0.75 : 0.25) {
+                                    nextGrid[y][x][1] = "fire";
+                                }
                             }
                         }
                     }
@@ -689,20 +707,20 @@ var pixels = {
                     }
                 }
             }
-            else if (moveRandom < 0.15) {
-                if (x != 0) {
-                    if (grid[y][x - 1][1] != "fire" && (pixels[grid[y][x - 1][0]].flammable > 0 || grid[y][x - 1][0] == "air") && getRandom() < 5 / Math.abs(pixels[grid[y][x - 1][0]].flammable)) {
-                        move(x, y, [{ x: -1, y: 0 }], 1);
-                    }
-                }
-            }
-            else if (moveRandom < 0.2) {
-                if (x != gridSize - 1) {
-                    if (grid[y][x + 1][1] != "fire" && (pixels[grid[y][x + 1][0]].flammable > 0 || grid[y][x + 1][0] == "air") && getRandom() < 5 / Math.abs(pixels[grid[y][x + 1][0]].flammable)) {
-                        move(x, y, [{ x: 1, y: 0 }], 1);
-                    }
-                }
-            }
+            // else if (moveRandom < 0.15) {
+            //     if (x != 0) {
+            //         if (grid[y][x - 1][1] != "fire" && (pixels[grid[y][x - 1][0]].flammable > 0 || grid[y][x - 1][0] == "air") && getRandom() < 5 / Math.abs(pixels[grid[y][x - 1][0]].flammable)) {
+            //             move(x, y, [{ x: -1, y: 0 }], 1);
+            //         }
+            //     }
+            // }
+            // else if (moveRandom < 0.2) {
+            //     if (x != gridSize - 1) {
+            //         if (grid[y][x + 1][1] != "fire" && (pixels[grid[y][x + 1][0]].flammable > 0 || grid[y][x + 1][0] == "air") && getRandom() < 5 / Math.abs(pixels[grid[y][x + 1][0]].flammable)) {
+            //             move(x, y, [{ x: 1, y: 0 }], 1);
+            //         }
+            //     }
+            // }
         },
         updateStage: 0,
         animated: false,
@@ -715,6 +733,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Fire",
         description: "Super hot! Burns flammable pixels.",
         type: "Pixel Volcano",
@@ -731,7 +750,19 @@ var pixels = {
         },
         update: function(x, y) {
             if (getRandom() < 0.01) {
-                if (changePixel(x, y, "water")) {
+                if (changePixel(x, y, "water", null)) {
+                    return;
+                }
+            }
+            var burned = false;
+            forAllTouchingDiagonal(x, y, function(x1, y1) {
+                if (grid[y1][x1][1] != "fire" && pixels[grid[y1][x1][0]].flammable > 0 && getRandom() < 1 / pixels[grid[y1][x1][0]].flammable) {
+                    burned = true;
+                    changePixel(x1, y1, null, "fire");
+                }
+            });
+            if (burned) {
+                if (changePixel(x, y, "water", null)) {
                     return;
                 }
             }
@@ -748,6 +779,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Steam",
         description: "Hot water steam.",
         type: "Pixel Volcano",
@@ -776,6 +808,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 10,
+        monster: false,
         name: "Quartz",
         description: "A perfectly smooth quartz crystal.",
         type: "Pixel Volcano",
@@ -807,8 +840,9 @@ var pixels = {
         pushable: true,
         pushDirection: null,
         deletePushed: 0,
-        flammable: 75,
+        flammable: 50,
         blastResistance: 1,
+        monster: false,
         name: "Ash",
         description: "A semi-liquid black dust. Can sustain fires.",
         type: "Pixel Volcano",
@@ -842,6 +876,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -1,
         blastResistance: 1,
+        monster: false,
         name: "Silt",
         description: "A compact mixture of water and ash. It's has a rough gravel texture.",
         type: "Pixel Volcano",
@@ -875,6 +910,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Stone",
         description: "Very sturdy and dense. Lava can melt it easily.",
         type: "Pixel Volcano",
@@ -905,6 +941,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 15,
+        monster: false,
         name: "Basalt",
         description: "A hard, volcanic, rock. Very blast resistant. BUH-salt.",
         type: "Pixel Volcano",
@@ -935,6 +972,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 25,
+        monster: false,
         name: "Obsidian",
         description: "A smooth, very blast resistant rock. Hard to move.",
         type: "Pixel Volcano",
@@ -971,6 +1009,7 @@ var pixels = {
         deletePushed: 0,
         flammable: 10,
         blastResistance: 1,
+        monster: false,
         name: "Gunpowder",
         description: "Explodes when lit on fire. Not very powerful, but spreads lots of fire.",
         type: "Pixel Volcano",
@@ -1015,6 +1054,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Snow",
         description: "Cold! Will freeze water.",
         type: "Frozen Tundra",
@@ -1067,6 +1107,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 3,
+        monster: false,
         name: "Ice",
         description: "Freezing! Can melt.",
         type: "Frozen Tundra",
@@ -1118,6 +1159,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -1,
         blastResistance: 1,
+        monster: false,
         name: "Slush",
         description: "Frozen silt. ",
         type: "Frozen Tundra",
@@ -1193,20 +1235,20 @@ var pixels = {
                         }
                     }
                 }
-                else if (moveRandom < 0.15) {
-                    if (x != 0) {
-                        if (grid[y][x - 1][1] != "frost_fire") {
-                            move(x, y, [{ x: -1, y: 0 }], 1);
-                        }
-                    }
-                }
-                else if (moveRandom < 0.2) {
-                    if (x != gridSize - 1) {
-                        if (grid[y][x + 1][1] != "frost_fire") {
-                            move(x, y, [{ x: 1, y: 0 }], 1);
-                        }
-                    }
-                }
+                // else if (moveRandom < 0.15) {
+                //     if (x != 0) {
+                //         if (grid[y][x - 1][1] != "frost_fire") {
+                //             move(x, y, [{ x: -1, y: 0 }], 1);
+                //         }
+                //     }
+                // }
+                // else if (moveRandom < 0.2) {
+                //     if (x != gridSize - 1) {
+                //         if (grid[y][x + 1][1] != "frost_fire") {
+                //             move(x, y, [{ x: 1, y: 0 }], 1);
+                //         }
+                //     }
+                // }
             }
         },
         updateStage: 0,
@@ -1220,9 +1262,178 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Frost Fire",
         description: "Super cold! Freezes pixels and makes them function 9 times slower!",
         type: "Frozen Tundra",
+        hidden: false,
+    },
+    "piston_left": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(0, 20, 10, 20);
+            ctx.fillRect(10, 10, 10, 40);
+        },
+        update: function(x, y) {
+            if (x == 0) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            push(x + 1, y, "left", gridSize, true);
+        },
+        updateStage: 0,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: "left",
+        deletePushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Piston (Left)",
+        description: "Pushes pixels to the left.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "piston_right": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(50, 20, 10, 20);
+            ctx.fillRect(40, 10, 10, 40);
+        },
+        update: function(x, y) {
+            if (x == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            push(x - 1, y, "right", gridSize, true);
+        },
+        updateStage: 0,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: "right",
+        deletePushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Piston (Right)",
+        description: "Pushes pixels to the right.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "piston_up": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(20, 0, 20, 10);
+            ctx.fillRect(10, 10, 40, 10);
+        },
+        update: function(x, y) {
+            if (y == 0) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            push(x, y + 1, "up", gridSize, true);
+        },
+        updateStage: 0,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: "up",
+        deletePushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Piston (Up)",
+        description: "Pushes pixels upwards.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "piston_down": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 5 / 6, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize * 2 / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(20, 50, 20, 10);
+            ctx.fillRect(10, 40, 40, 10);
+        },
+        update: function(x, y) {
+            if (y == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            push(x, y - 1, "down", gridSize, true);
+        },
+        updateStage: 0,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: "down",
+        deletePushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Piston (Down)",
+        description: "Pushes pixels downwards.",
+        type: "Mechanical Movement",
         hidden: false,
     },
     "cloner_left": {
@@ -1274,6 +1485,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Cloner (Left)",
         description: "Clones the pixel on the right. The cloned pixel is pushed on the left.",
         type: "Mechanical Movement",
@@ -1328,6 +1540,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Cloner (Right)",
         description: "Clones the pixel on the left. The cloned pixel is pushed on the right.",
         type: "Mechanical Movement",
@@ -1382,6 +1595,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Cloner (Up)",
         description: "Clones the pixel underneath it. The cloned pixel is pushed upwards.",
         type: "Mechanical Movement",
@@ -1436,172 +1650,9 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Cloner (Down)",
         description: "Clones the pixel above it. The cloned pixel is pushed downwards.",
-        type: "Mechanical Movement",
-        hidden: false,
-    },
-    "piston_left": {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors.push_lerp;
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-        },
-        drawBackground: function(x, y, width, ctx) {
-            ctx.fillStyle = colorToRGB(colors.stone);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
-        },
-        drawPreview: function(ctx) {
-            ctx.fillStyle = colorToRGB(colors.stone);
-            ctx.fillRect(0, 0, 60, 60);
-            ctx.fillStyle = colors.push;
-            ctx.fillRect(0, 20, 10, 20);
-            ctx.fillRect(10, 10, 10, 40);
-        },
-        update: function(x, y) {
-            if (x == 0) {
-                return;
-            }
-            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
-                return;
-            }
-            push(x + 1, y, "left", gridSize, true);
-        },
-        updateStage: 0,
-        animated: true,
-        drawNoise: false,
-        density: 4,
-        liquid: false,
-        pushable: true,
-        pushDirection: "left",
-        deletePushed: 0,
-        flammable: -10,
-        blastResistance: 5,
-        name: "Piston (Left)",
-        description: "Pushes pixels to the left.",
-        type: "Mechanical Movement",
-        hidden: false,
-    },
-    "piston_right": {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors.push_lerp;
-            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-        },
-        drawBackground: function(x, y, width, ctx) {
-            ctx.fillStyle = colorToRGB(colors.stone);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
-        },
-        drawPreview: function(ctx) {
-            ctx.fillStyle = colorToRGB(colors.stone);
-            ctx.fillRect(0, 0, 60, 60);
-            ctx.fillStyle = colors.push;
-            ctx.fillRect(50, 20, 10, 20);
-            ctx.fillRect(40, 10, 10, 40);
-        },
-        update: function(x, y) {
-            if (x == gridSize - 1) {
-                return;
-            }
-            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
-                return;
-            }
-            push(x - 1, y, "right", gridSize, true);
-        },
-        updateStage: 0,
-        animated: true,
-        drawNoise: false,
-        density: 4,
-        liquid: false,
-        pushable: true,
-        pushDirection: "right",
-        deletePushed: 0,
-        flammable: -10,
-        blastResistance: 5,
-        name: "Piston (Right)",
-        description: "Pushes pixels to the right.",
-        type: "Mechanical Movement",
-        hidden: false,
-    },
-    "piston_up": {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors.push_lerp;
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize / 6);
-        },
-        drawBackground: function(x, y, width, ctx) {
-            ctx.fillStyle = colorToRGB(colors.stone);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
-        },
-        drawPreview: function(ctx) {
-            ctx.fillStyle = colorToRGB(colors.stone);
-            ctx.fillRect(0, 0, 60, 60);
-            ctx.fillStyle = colors.push;
-            ctx.fillRect(20, 0, 20, 10);
-            ctx.fillRect(10, 10, 40, 10);
-        },
-        update: function(x, y) {
-            if (y == 0) {
-                return;
-            }
-            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
-                return;
-            }
-            push(x, y + 1, "up", gridSize, true);
-        },
-        updateStage: 0,
-        animated: true,
-        drawNoise: false,
-        density: 4,
-        liquid: false,
-        pushable: true,
-        pushDirection: "up",
-        deletePushed: 0,
-        flammable: -10,
-        blastResistance: 5,
-        name: "Piston (Up)",
-        description: "Pushes pixels upwards.",
-        type: "Mechanical Movement",
-        hidden: false,
-    },
-    "piston_down": {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors.push_lerp;
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 5 / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize * 2 / 3, pixelSize / 6);
-        },
-        drawBackground: function(x, y, width, ctx) {
-            ctx.fillStyle = colorToRGB(colors.stone);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
-        },
-        drawPreview: function(ctx) {
-            ctx.fillStyle = colorToRGB(colors.stone);
-            ctx.fillRect(0, 0, 60, 60);
-            ctx.fillStyle = colors.push;
-            ctx.fillRect(20, 50, 20, 10);
-            ctx.fillRect(10, 40, 40, 10);
-        },
-        update: function(x, y) {
-            if (y == gridSize - 1) {
-                return;
-            }
-            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
-                return;
-            }
-            push(x, y - 1, "down", gridSize, true);
-        },
-        updateStage: 0,
-        animated: true,
-        drawNoise: false,
-        density: 4,
-        liquid: false,
-        pushable: true,
-        pushDirection: "down",
-        deletePushed: 0,
-        flammable: -10,
-        blastResistance: 5,
-        name: "Piston (Down)",
-        description: "Pushes pixels downwards.",
         type: "Mechanical Movement",
         hidden: false,
     },
@@ -1689,6 +1740,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Rotator (Clockwise)",
         description: "Rotates pixels 90 degrees clockwise.",
         type: "Mechanical Movement",
@@ -1778,6 +1830,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Rotator (Counter Clockwise)",
         description: "Rotates pixels 90 degrees counter clockwise.",
         type: "Mechanical Movement",
@@ -1855,6 +1908,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Alternator",
         description: "Rotates pixels 180 degrees.",
         type: "Mechanical Movement",
@@ -1904,6 +1958,7 @@ var pixels = {
         deletePushed: 2,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Deleter",
         description: "Deletes pixels.",
         type: "Mechanical Movement",
@@ -1984,6 +2039,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Swapper (Horizontal)",
         description: "Swaps the pixels on its left and right.",
         type: "Mechanical Movement",
@@ -2065,8 +2121,77 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Swapper (Vertical)",
         description: "Swaps the pixels above it and below it.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "slider_horizontal": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize, pixelSize / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(0, 20, 60, 20);
+        },
+        update: function(x, y) {
+
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        deletePushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Slider (Horizontal)",
+        description: "Can only be pushed horizontally.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "slider_vertical": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(20, 0, 20, 60);
+        },
+        update: function(x, y) {
+
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        deletePushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Slider (Vertical)",
+        description: "Can only be pushed vertically.",
         type: "Mechanical Movement",
         hidden: false,
     },
@@ -2106,6 +2231,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Reflector (Horizontal)",
         description: "Can reflect lasers.",
         type: "Mechanical Movement",
@@ -2147,6 +2273,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Reflector (Vertical)",
         description: "Can reflect lasers.",
         type: "Mechanical Movement",
@@ -2197,9 +2324,10 @@ var pixels = {
         deletePushed: 0,
         flammable: 10,
         blastResistance: 3,
+        monster: false,
         name: "Explosives",
         description: "Explodes when lit on fire.",
-        type: "Mechanical Movement",
+        type: "Fiery Destruction",
         hidden: false,
     },
     "ignitor_left": {
@@ -2243,9 +2371,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Ignitor (Left)",
         description: "Lights the pixel to the left of it on fire.",
-        type: "Mechanical Movement",
+        type: "Fiery Destruction",
         hidden: false,
     },
     "ignitor_right": {
@@ -2289,9 +2418,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Ignitor (Right)",
         description: "Lights the pixel to the right of it on fire.",
-        type: "Mechanical Movement",
+        type: "Fiery Destruction",
         hidden: false,
     },
     "ignitor_up": {
@@ -2335,9 +2465,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Ignitor (Up)",
         description: "Lights the pixel above it on fire.",
-        type: "Mechanical Movement",
+        type: "Fiery Destruction",
         hidden: false,
     },
     "ignitor_down": {
@@ -2381,9 +2512,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Ignitor (Down)",
         description: "Lights the pixel underneath it on fire.",
-        type: "Mechanical Movement",
+        type: "Fiery Destruction",
         hidden: false,
     },
     "ignitor_laser_left": {
@@ -2429,9 +2561,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Ignitor Laser (Left)",
         description: "Shoots a fire laser to the left of it.",
-        type: "Mechanical Movement",
+        type: "Fiery Destruction",
         hidden: false,
     },
     "ignitor_laser_right": {
@@ -2477,9 +2610,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Ignitor Laser (Right)",
         description: "Shoots a fire laser to the right of it.",
-        type: "Mechanical Movement",
+        type: "Fiery Destruction",
         hidden: false,
     },
     "ignitor_laser_up": {
@@ -2525,9 +2659,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Ignitor Laser (Up)",
         description: "Shoots a fire laser above it.",
-        type: "Mechanical Movement",
+        type: "Fiery Destruction",
         hidden: false,
     },
     "ignitor_laser_down": {
@@ -2573,9 +2708,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Ignitor Laser (Down)",
         description: "Shoots a fire laser underneath it.",
-        type: "Mechanical Movement",
+        type: "Fiery Destruction",
         hidden: false,
     },
     "ignitor_laser_beam_left": {
@@ -2624,6 +2760,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Ignitor Laser Beam (Left)",
         description: "Explodes on impact.",
         hidden: true,
@@ -2674,6 +2811,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Ignitor Laser Beam (Right)",
         description: "Explodes on impact.",
         hidden: true,
@@ -2724,6 +2862,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Ignitor Laser Beam (Up)",
         description: "Explodes on impact.",
         hidden: true,
@@ -2774,6 +2913,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Ignitor Laser Beam (Down)",
         description: "Explodes on impact.",
         hidden: true,
@@ -2823,9 +2963,10 @@ var pixels = {
         deletePushed: 0,
         flammable: 10,
         blastResistance: 3,
+        monster: false,
         name: "Frost Explosives",
-        description: "Explodes when lit on fire.",
-        type: "Mechanical Movement",
+        description: "Explodes when lit on frost fire.",
+        type: "Frozen Destruction",
         hidden: false,
     },
     "frost_ignitor_left": {
@@ -2869,9 +3010,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Frost Ignitor (Left)",
         description: "Lights the pixel to the left of it on frost fire.",
-        type: "Mechanical Movement",
+        type: "Frozen Destruction",
         hidden: false,
     },
     "frost_ignitor_right": {
@@ -2915,9 +3057,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Frost Ignitor (Right)",
         description: "Lights the pixel to the right of it on frost fire.",
-        type: "Mechanical Movement",
+        type: "Frozen Destruction",
         hidden: false,
     },
     "frost_ignitor_up": {
@@ -2961,9 +3104,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Frost Ignitor (Up)",
         description: "Lights the pixel above it on frost fire.",
-        type: "Mechanical Movement",
+        type: "Frozen Destruction",
         hidden: false,
     },
     "frost_ignitor_down": {
@@ -3007,9 +3151,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Frost Ignitor (Down)",
         description: "Lights the pixel underneath it on frost fire.",
-        type: "Mechanical Movement",
+        type: "Frozen Destruction",
         hidden: false,
     },
     "frost_ignitor_laser_left": {
@@ -3055,9 +3200,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Frost Ignitor Laser (Left)",
         description: "Shoots a frost fire laser to the left of it.",
-        type: "Mechanical Movement",
+        type: "Frozen Destruction",
         hidden: false,
     },
     "frost_ignitor_laser_right": {
@@ -3103,9 +3249,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Frost Ignitor Laser (Right)",
         description: "Shoots a frost fire laser to the right of it.",
-        type: "Mechanical Movement",
+        type: "Frozen Destruction",
         hidden: false,
     },
     "frost_ignitor_laser_up": {
@@ -3151,9 +3298,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Frost Ignitor Laser (Up)",
         description: "Shoots a frost fire laser above it.",
-        type: "Mechanical Movement",
+        type: "Frozen Destruction",
         hidden: false,
     },
     "frost_ignitor_laser_down": {
@@ -3199,9 +3347,10 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 5,
+        monster: false,
         name: "Frost Ignitor Laser (Down)",
         description: "Shoots a frost fire laser underneath it.",
-        type: "Mechanical Movement",
+        type: "Frozen Destruction",
         hidden: false,
     },
     "frost_ignitor_laser_beam_left": {
@@ -3250,6 +3399,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Frost Ignitor Laser Beam (Left)",
         description: "Explodes on impact.",
         hidden: true,
@@ -3300,6 +3450,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Frost Ignitor Laser Beam (Right)",
         description: "Explodes on impact.",
         hidden: true,
@@ -3350,6 +3501,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Frost Ignitor Laser Beam (Up)",
         description: "Explodes on impact.",
         hidden: true,
@@ -3400,6 +3552,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: 1,
+        monster: false,
         name: "Frost Ignitor Laser Beam (Down)",
         description: "Explodes on impact.",
         hidden: true,
@@ -3446,6 +3599,7 @@ var pixels = {
         deletePushed: 1,
         flammable: 10,
         blastResistance: 1,
+        monster: true,
         name: "Monster",
         description: "Can be killed with any pixel. All monsters need to be killed to finish the level.",
         type: "Level Construction",
@@ -3487,6 +3641,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: Infinity,
+        monster: false,
         name: "Placeable",
         description: "Allows placing on these tiles in levels.",
         type: "Level Construction",
@@ -3525,6 +3680,7 @@ var pixels = {
         deletePushed: 0,
         flammable: -10,
         blastResistance: Infinity,
+        monster: false,
         name: "Not Placeable",
         description: "Prevents placing on these tiles in levels.",
         type: "Level Construction",

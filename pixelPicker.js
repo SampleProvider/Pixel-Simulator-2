@@ -22,6 +22,7 @@ for (let id in pixels) {
             if (box.disabled) {
                 return;
             }
+            ping();
             clickPixel = id;
             setPixel();
         };

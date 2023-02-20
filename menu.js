@@ -143,6 +143,7 @@ var showMenuScreen = function() {
 };
 
 document.getElementById("sandboxButton").onclick = function() {
+    ping();
     sandbox = true;
     document.getElementById("levelDescription").style.display = "none";
     document.getElementById("sandboxTools").style.display = "inline";
@@ -151,6 +152,7 @@ document.getElementById("sandboxButton").onclick = function() {
 };
 document.getElementById("levelsButton").onclick = function() {
     if (menuAnimationStage == 2) {
+        ping();
         document.getElementById("levelDescription").style.display = "block";
         document.getElementById("sandboxTools").style.display = "none";
         document.getElementById("levelSelect").style.visibility = "visible";
@@ -177,6 +179,8 @@ var loadLevel = function(level) {
         }, 500);
     }
     currentLevel = level;
+    clickPixel = "air";
+    setPixel();
     loadSaveCode(levels[level].saveCode);
     loadPixelInventory(levels[level].pixelInventory);
     document.getElementById("levelDescriptionName").innerHTML = levels[level].name;

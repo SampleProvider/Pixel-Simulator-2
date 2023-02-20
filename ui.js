@@ -146,6 +146,7 @@ var updateButtons = function() {
 };
 
 document.getElementById("runButton").onclick = function() {
+    ping();
     running = !running;
     if (!running) {
         simulating = false;
@@ -153,6 +154,7 @@ document.getElementById("runButton").onclick = function() {
     updateButtons();
 };
 document.getElementById("stepButton").onclick = function() {
+    ping();
     updateGrid();
     ctx.drawImage(offscreenCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
     ctx.drawImage(offscreenEffectCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
@@ -168,6 +170,7 @@ document.getElementById("simulateButton").onclick = async function() {
             updateButtons();
         }
         else {
+            ping();
             simulateSpeed = newSimulateSpeed;
         }
     }
@@ -175,6 +178,7 @@ document.getElementById("simulateButton").onclick = async function() {
 document.getElementById("resetButton").onclick = async function() {
     if (resetable) {
         if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+            ping();
             for (var i = 0; i < gridSize; i++) {
                 for (var j = 0; j < gridSize; j++) {
                     grid[i][j] = lastGrid[i][j];
@@ -191,6 +195,7 @@ document.getElementById("downloadSaveCodeButton").onclick = async function() {
     if (name == false) {
         return;
     }
+    ping();
     var link = document.createElement("a");
     link.download = name + ".pixel";
     var saveCode = generateSaveCode();
@@ -203,6 +208,7 @@ document.getElementById("downloadSaveCodeButton").onclick = async function() {
     URL.revokeObjectURL(link);
 };
 document.getElementById("winScreenDownloadSaveCode").onclick = async function() {
+    ping();
     var link = document.createElement("a");
     link.download = currentLevel + ".pixel";
     for (var i = 0; i < gridSize; i++) {
@@ -232,6 +238,7 @@ document.getElementById("uploadSaveCodeButton").onclick = function() {
         var reader = new FileReader();
         reader.onload = async function(event) {
             if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+                ping();
                 var saveCode = atob(event.target.result);
                 if (sandbox) {
                     loadSaveCode(saveCode);
@@ -248,10 +255,12 @@ document.getElementById("uploadSaveCodeButton").onclick = function() {
 document.getElementById("copySaveCodeButton").onclick = function() {
     navigator.clipboard.writeText(generateSaveCode());
     promptNotification("Copied save code!");
+    ping();
 };
 document.getElementById("loadCopiedSaveCodeButton").onclick = async function() {
     var saveCode = await navigator.clipboard.readText();
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+        ping();
         if (sandbox) {
             loadSaveCode(saveCode);
         }
@@ -273,6 +282,7 @@ document.getElementById("loadStoredSaveCodeButton").onclick = async function() {
     await new Promise(p => setTimeout(p, 500));
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
         loadSaveCode(saveCodes[saveCodeName]);
+        ping();
     }
 };
 document.getElementById("changeGridSizeButton").onclick = async function() {
@@ -283,6 +293,7 @@ document.getElementById("changeGridSizeButton").onclick = async function() {
     inPrompt = true;
     await new Promise(p => setTimeout(p, 500));
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+        ping();
         gridSize = newGridSize;
         createGrid();
         resetGrid();
@@ -290,6 +301,7 @@ document.getElementById("changeGridSizeButton").onclick = async function() {
 };
 document.getElementById("resetGridButton").onclick = async function() {
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+        ping();
         if (sandbox) {
             createGrid();
             resetGrid();
@@ -301,11 +313,13 @@ document.getElementById("resetGridButton").onclick = async function() {
 };
 document.getElementById("backToMenuButton").onclick = async function() {
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+        ping();
         showMenuScreen();
     }
 };
 document.getElementById("winResetGrid").onclick = async function() {
     if (resetable) {
+        ping();
         for (var i = 0; i < gridSize; i++) {
             for (var j = 0; j < gridSize; j++) {
                 grid[i][j] = lastGrid[i][j];
