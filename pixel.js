@@ -51,8 +51,10 @@ var clickSize = 1;
 var clickPixel = "air";
 
 var running = false;
-var simulating = false;
-var simulateSpeed = 1;
+var runSpeedRaw = 0.25;
+//input varies from 0 to 1, but true speed changes exponentially
+var runSpeed = 1;
+var runsToExecute = 0;
 var sandbox = false;
 var resetable = false;
 var lastGrid = [];
@@ -270,7 +272,6 @@ var resetGrid = function() {
     drawGrid(function() { return true });
     drawPlaceableGrid();
     running = false;
-    simulating = false;
     resetable = false;
     updateButtons();
     updateDisabled();
@@ -333,11 +334,11 @@ var updateGrid = function() {
         }
     }
 
-    if (!simulating) {
+    if (runSpeed < 3) {
         updateNoiseGrid();
         drawGrid(function(x, y, layer) { return (nextGrid[y][x][layer] != null) || pixels[grid[y][x][layer]].animated; });
     }
-    else if (gameTick % 100 == 0) {
+    else if (gameTick % Math.round(runSpeed * 13) == 0) {
         updateNoiseGrid();
         drawGrid(function() { return true });
     }
@@ -369,7 +370,7 @@ var updateGrid = function() {
             inPrompt = true;
             document.getElementById("winScreen").style.opacity = 1;
             document.getElementById("winScreen").style.pointerEvents = "all";
-            if (simulating) {
+            if (runSpeed > 3) {
                 updateNoiseGrid();
                 drawGrid(function() { return true });
             }
@@ -565,19 +566,25 @@ var update = function() {
             updateClick();
             pastCursorX = cursorX;
             pastCursorY = cursorY;
+            if (document.getElementById("runSpeedSlider").value != runSpeedRaw) {
+                runSpeedRaw = parseFloat(document.getElementById("runSpeedSlider").value);
+            }
+            runSpeed = (runSpeedRaw + 0.75) ** 7;
+            if (runSpeed > 0.5) {
+                document.getElementById('runSpeedDisplay').innerHTML = "Running at x" + (Math.round(runSpeed * 10) / 10).toString();
+            } 
+            else {
+                document.getElementById('runSpeedDisplay').innerHTML = "Running at x" + (Math.round(runSpeed * 100) / 100).toString();
+            }
             if (running) {
-                if (simulating) {
-                    for (var i = 0; i < simulateSpeed; i++) {
-                        updateGrid();
-                        updateFPS();
-                        if (inPrompt) {
-                            break;
-                        }
-                    }
-                }
-                else {
+                runsToExecute += runSpeed;
+                while (runsToExecute > 0) {
                     updateGrid();
                     updateFPS();
+                    runsToExecute--;
+                    if (inPrompt) {
+                        break;
+                    }
                 }
             }
             else {

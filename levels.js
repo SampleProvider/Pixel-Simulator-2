@@ -108,7 +108,7 @@ var levels = {
             all: 1000000,
         },
         name: "noLASERSplz",
-        description: "oof",
+        description: "Nice try.",
     },
     "nuked": {
         saveCode: "100;air-4763:deleter-15:air-85:deleter:air-13:deleter:air-85:deleter:air-13:deleter:air-85:deleter:air-13:deleter:air-85:deleter:air-5:rotator_clockwise:cloner_left:cloner_up:air-5:deleter:air-85:deleter:air-5:rotator_clockwise:cloner_left:cloner_up:air-5:deleter:air-85:deleter:air-3:cloner_left-2:obsidian-3:rotator_counter_clockwise-2:air-3:deleter:air-85:deleter:air-3:cloner_down-2:obsidian:monster:obsidian:cloner_up-2:air-3:deleter:air-85:deleter:air-3:rotator_counter_clockwise-2:obsidian-3:cloner_right-2:air-3:deleter:air-85:deleter:air-5:cloner_down:cloner_right:rotator_clockwise:air-5:deleter:air-85:deleter:air-5:cloner_down:cloner_right:rotator_clockwise:air-5:deleter:air-85:deleter:air-13:deleter:air-85:deleter:air-13:deleter:air-85:deleter:air-13:deleter:air-85:deleter-15:air-3822:air-10000:1;3042:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:42:58:2200:",
@@ -121,8 +121,8 @@ var levels = {
     "box": {
         saveCode: "20;air-9:obsidian:cloner_right:obsidian:ignitor_right:ignitor_laser_right:air-15:obsidian:cloner_right:obsidian:deleter:obsidian:air-15:obsidian:cloner_right:obsidian:deleter:obsidian:air-15:obsidian:cloner_right:obsidian:deleter:obsidian:air-15:obsidian:cloner_right:obsidian:deleter:obsidian:air-15:obsidian:cloner_right:obsidian:deleter:obsidian:air-15:obsidian:cloner_right:obsidian:deleter:obsidian-7:air-9:obsidian:cloner_right:obsidian:deleter-8:air-9:obsidian:cloner_right:obsidian-9:air-9:obsidian:deleter:cloner_up-9:air-9:obsidian-11:air-173:monster:air-6:air-400:0;16:4:16:4:16:4:16:4:320:",
         pixelInventory: {
-            fire: 1,
-            frost_fire: 1,
+            fire: 10,
+            frost_fire: 10,
             cloner_left: 1,
             cloner_right: 1,
             cloner_up: 1,
@@ -148,7 +148,7 @@ var levels = {
             frost_ignitor_up: 1,
             frost_ignitor_down: 1,
         },
-        name: "box",
-        description: "idk",
+        name: "Boxed In",
+        description: "Can you even break obsidian?",
     },
 };

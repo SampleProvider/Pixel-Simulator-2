@@ -139,18 +139,12 @@ var promptSaveCode = function(question) {
 var updateButtons = function() {
     document.getElementById("runButton").innerHTML = running ? "PAUSE" : "RUN";
     document.getElementById("runButton").style.background = running ? "#ff0000" : "#00ff00";
-    document.getElementById("simulateButton").disabled = running ? false : true;
-    document.getElementById("simulateButton").innerHTML = simulating ? "STOP SIMULATING" : "SIMULATE";
-    document.getElementById("simulateButton").style.background = simulating ? "#ff0000" : "#00ff00";
     document.getElementById("resetButton").disabled = resetable ? false : true;
 };
 
 document.getElementById("runButton").onclick = function() {
     ping();
     running = !running;
-    if (!running) {
-        simulating = false;
-    }
     updateButtons();
 };
 document.getElementById("stepButton").onclick = function() {
@@ -159,21 +153,6 @@ document.getElementById("stepButton").onclick = function() {
     ctx.drawImage(offscreenCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
     ctx.drawImage(offscreenEffectCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
     ctx.drawImage(offscreenPlaceableCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
-};
-document.getElementById("simulateButton").onclick = async function() {
-    simulating = !simulating;
-    updateButtons();
-    if (simulating) {
-        var newSimulateSpeed = await promptNumber("Enter the simulating speed factor:");
-        if (newSimulateSpeed == false) {
-            simulating = false;
-            updateButtons();
-        }
-        else {
-            ping();
-            simulateSpeed = newSimulateSpeed;
-        }
-    }
 };
 document.getElementById("resetButton").onclick = async function() {
     if (resetable) {
