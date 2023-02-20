@@ -48,8 +48,6 @@ var clickSize = 1;
 var clickPixel = "air";
 
 var running = false;
-var runSpeedRaw = 0.25;
-//input varies from 0 to 1, but true speed changes exponentially
 var runSpeed = 1;
 var runsToExecute = 0;
 var sandbox = false;
@@ -570,15 +568,11 @@ var update = function() {
             updateClick();
             pastCursorX = cursorX;
             pastCursorY = cursorY;
-            if (document.getElementById("runSpeedSlider").value != runSpeedRaw) {
-                runSpeedRaw = parseFloat(document.getElementById("runSpeedSlider").value);
-            }
-            runSpeed = (runSpeedRaw + 0.75) ** 7;
-            if (runSpeed > 0.5) {
-                document.getElementById('runSpeedDisplay').innerHTML = "Running at x" + (Math.round(runSpeed * 10) / 10).toString();
-            } 
-            else {
-                document.getElementById('runSpeedDisplay').innerHTML = "Running at x" + (Math.round(runSpeed * 100) / 100).toString();
+            if (document.getElementById("runSpeedNumber").value !== runSpeed.toString()) {
+                runSpeed = parseFloat(document.getElementById("runSpeedNumber").value);
+                if (document.getElementById("runSpeedNumber").value === "" || document.getElementById("runSpeedNumber").value < 0) {
+                    document.getElementById("runSpeedNumber").value = runSpeed = 0.1;
+                }
             }
             if (running) {
                 runsToExecute += runSpeed;
