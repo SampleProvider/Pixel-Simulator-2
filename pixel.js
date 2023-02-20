@@ -48,8 +48,8 @@ var clickSize = 1;
 var clickPixel = "air";
 
 var running = false;
-var simulating = false;
-var simulateSpeed = 1;
+var runSpeed = 1;
+var runsToExecute = 0;
 var sandbox = false;
 var resetable = false;
 var lastGrid = [];
@@ -267,7 +267,6 @@ var resetGrid = function() {
     drawGrid(function() { return true });
     drawPlaceableGrid();
     running = false;
-    simulating = false;
     resetable = false;
     updateButtons();
     updateDisabled();
@@ -330,11 +329,11 @@ var updateGrid = function() {
         }
     }
 
-    if (!simulating) {
+    if (runSpeed < 3) {
         updateNoiseGrid();
         drawGrid(function(x, y, layer) { return (nextGrid[y][x][layer] != null) || pixels[grid[y][x][layer]].animated; });
     }
-    else if (gameTick % 100 == 0) {
+    else if (gameTick % Math.round(runSpeed * 13) == 0) {
         updateNoiseGrid();
         drawGrid(function() { return true });
     }
@@ -373,7 +372,7 @@ var updateGrid = function() {
             }
             document.getElementById("winScreen").style.opacity = 1;
             document.getElementById("winScreen").style.pointerEvents = "all";
-            if (simulating) {
+            if (runSpeed > 3) {
                 updateNoiseGrid();
                 drawGrid(function() { return true });
             }
@@ -569,19 +568,21 @@ var update = function() {
             updateClick();
             pastCursorX = cursorX;
             pastCursorY = cursorY;
-            if (running) {
-                if (simulating) {
-                    for (var i = 0; i < simulateSpeed; i++) {
-                        updateGrid();
-                        updateFPS();
-                        if (inPrompt) {
-                            break;
-                        }
-                    }
+            if (document.getElementById("runSpeedNumber").value !== runSpeed.toString()) {
+                runSpeed = parseFloat(document.getElementById("runSpeedNumber").value);
+                if (document.getElementById("runSpeedNumber").value === "" || document.getElementById("runSpeedNumber").value < 0) {
+                    document.getElementById("runSpeedNumber").value = runSpeed = 0.1;
                 }
-                else {
+            }
+            if (running) {
+                runsToExecute += runSpeed;
+                while (runsToExecute > 0) {
                     updateGrid();
                     updateFPS();
+                    runsToExecute--;
+                    if (inPrompt) {
+                        break;
+                    }
                 }
             }
             else {
