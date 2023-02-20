@@ -5,108 +5,104 @@ saveCodes["Fireworks"] = "100;sapling-100:cloner_down-100:air-9700:frost_ignitor
 saveCodes["Ignitor Advancer"] = "100;piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:piston_down:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:rotator_clockwise:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:piston_down:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:quartz:air:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:rotator_clockwise:quartz:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air:ignitor_down:air-2:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air:ignitor_laser_down:air-8502:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:frost_fire:air:";
 
 var loadSaveCode = function(saveCode) {
-    var x = 0;
-    var y = 0;
-    var incrementPosition = function() {
-        x += 1;
-        if (x == gridSize) {
-            x = 0;
-            y += 1;
-        }
-        if (y == gridSize) {
-            layer += 1;
-            x = 0;
-            y = 0;
-        }
-    };
-    var index = 0;
-    var string = "";
-    var placeableState = false;
-    var layer = 0;
-    for (var i = 0; i < saveCode.length; i++) {
-        if (saveCode[i] == ":") {
-            if (string == "" && layer != 2) {
-                string = saveCode.substring(index, i);
-                grid[y][x][layer] = string;
-                incrementPosition();
-                string = "";
-                index = i + 1;
+    try {
+        var x = 0;
+        var y = 0;
+        var incrementPosition = function() {
+            x += 1;
+            if (x == gridSize) {
+                x = 0;
+                y += 1;
             }
-            else {
-                for (var j = 0; j < parseInt(saveCode.substring(index, i), 10); j++) {
-                    if (layer == 2) {
-                        placeableGrid[y][x] = placeableState;
-                    }
-                    else {
-                        grid[y][x][layer] = string;
-                    }
+            if (y == gridSize) {
+                layer += 1;
+                x = 0;
+                y = 0;
+            }
+        };
+        var index = 0;
+        var string = "";
+        var placeableState = false;
+        var layer = 0;
+        for (var i = 0; i < saveCode.length; i++) {
+            if (saveCode[i] == ":") {
+                if (string == "" && layer != 2) {
+                    string = saveCode.substring(index, i);
+                    grid[y][x][layer] = string;
                     incrementPosition();
+                    string = "";
+                    index = i + 1;
                 }
+                else {
+                    for (var j = 0; j < parseInt(saveCode.substring(index, i), 10); j++) {
+                        if (layer == 2) {
+                            placeableGrid[y][x] = placeableState;
+                        }
+                        else {
+                            grid[y][x][layer] = string;
+                        }
+                        incrementPosition();
+                    }
+                    if (layer == 2) {
+                        placeableState = !placeableState;
+                    }
+                    string = "";
+                    index = i + 1;
+                }
+            }
+            if (saveCode[i] == "-") {
+                string = saveCode.substring(index, i);
+                index = i + 1;
+            }
+            if (saveCode[i] == ";") {
                 if (layer == 2) {
-                    placeableState = !placeableState;
+                    placeableState = saveCode.substring(index, i) == "1";
+                    index = i + 1;
+                    continue;
                 }
+                if (isNaN(saveCode.substring(index, i))) {
+                    index = i + 1;
+                    continue;
+                }
+                gridSize = parseInt(saveCode.substring(index, i), 10);
+                createGrid();
                 string = "";
                 index = i + 1;
             }
         }
-        if (saveCode[i] == "-") {
-            string = saveCode.substring(index, i);
-            index = i + 1;
-        }
-        if (saveCode[i] == ";") {
-            if (layer == 2) {
-                placeableState = saveCode.substring(index, i) == "1";
-                index = i + 1;
-                continue;
-            }
-            if (isNaN(saveCode.substring(index, i))) {
-                index = i + 1;
-                continue;
-            }
-            gridSize = parseInt(saveCode.substring(index, i), 10);
-            createGrid();
-            string = "";
-            index = i + 1;
-        }
+        resetGrid();
     }
-    resetGrid();
+    catch (error) {
+        gridSize = 100;
+        createGrid();
+        resetGrid();
+        promptNotification(`An error has occured while loading the save code. ${error.stack}`);
+    }
 };
 var loadLevelSaveCode = function(saveCode) {
-    var x = 0;
-    var y = 0;
-    var incrementPosition = function() {
-        x += 1;
-        if (x == gridSize) {
-            x = 0;
-            y += 1;
-        }
-        if (y == gridSize) {
-            layer += 1;
-            x = 0;
-            y = 0;
-        }
-    };
-    var index = 0;
-    var string = "";
-    var layer = 0;
-    var level = "";
-    for (var i = 0; i < saveCode.length; i++) {
-        if (saveCode[i] == ":") {
-            if (string == "") {
-                string = saveCode.substring(index, i);
-                if (placeableGrid[y][x] && (string == "air" || pixelInventory[string] > 0)) {
-                    grid[y][x][layer] = string;
-                    pixelInventory[string] -= 1;
-                }
-                incrementPosition();
-                if (layer == 2) {
-                    break;
-                }
-                string = "";
-                index = i + 1;
+    try {
+        var x = 0;
+        var y = 0;
+        var incrementPosition = function() {
+            x += 1;
+            if (x == gridSize) {
+                x = 0;
+                y += 1;
             }
-            else {
-                for (var j = 0; j < parseInt(saveCode.substring(index, i), 10); j++) {
+            if (y == gridSize) {
+                layer += 1;
+                x = 0;
+                y = 0;
+            }
+        };
+        var index = 0;
+        var string = "";
+        var layer = 0;
+        var level = "";
+        for (var i = 0; i < saveCode.length; i++) {
+            if (saveCode[i] == ":") {
+                if (string == "") {
+                    string = saveCode.substring(index, i);
                     if (placeableGrid[y][x] && (string == "air" || pixelInventory[string] > 0)) {
                         grid[y][x][layer] = string;
                         pixelInventory[string] -= 1;
@@ -115,27 +111,47 @@ var loadLevelSaveCode = function(saveCode) {
                     if (layer == 2) {
                         break;
                     }
+                    string = "";
+                    index = i + 1;
                 }
-                string = "";
+                else {
+                    for (var j = 0; j < parseInt(saveCode.substring(index, i), 10); j++) {
+                        if (placeableGrid[y][x] && (string == "air" || pixelInventory[string] > 0)) {
+                            grid[y][x][layer] = string;
+                            pixelInventory[string] -= 1;
+                        }
+                        incrementPosition();
+                        if (layer == 2) {
+                            break;
+                        }
+                    }
+                    string = "";
+                    index = i + 1;
+                }
+            }
+            if (saveCode[i] == "-") {
+                string = saveCode.substring(index, i);
                 index = i + 1;
             }
-        }
-        if (saveCode[i] == "-") {
-            string = saveCode.substring(index, i);
-            index = i + 1;
-        }
-        if (saveCode[i] == ";") {
-            if (level == "") {
-                level = saveCode.substring(0, i);
-                if (level != currentLevel) {
-                    return;
+            if (saveCode[i] == ";") {
+                if (level == "") {
+                    level = saveCode.substring(0, i);
+                    if (level != currentLevel) {
+                        return;
+                    }
+                    loadLevel(saveCode.substring(0, i));
+                    index = i + 1;
                 }
-                loadLevel(saveCode.substring(0, i));
-                index = i + 1;
             }
         }
+        resetGrid();
     }
-    resetGrid();
+    catch (error) {
+        gridSize = 100;
+        createGrid();
+        resetGrid();
+        promptNotification(`An error has occured while loading the save code. ${error.stack}`);
+    }
 };
 var generateSaveCode = function() {
     var saveCode = "";
@@ -199,7 +215,7 @@ var generateSaveCode = function() {
     }
     string = placeableGrid[0][0];
     number = 0;
-    saveCode += placeableGrid[0][0] ? 1 : 0 + ";";
+    saveCode += (placeableGrid[0][0] ? 1 : 0) + ";";
     for (let i = 0; i < gridSize; i++) {
         for (let j = 0; j < gridSize; j++) {
             if (placeableGrid[i][j] != string) {
@@ -219,7 +235,7 @@ var generateSaveCode = function() {
 };
 var loadPixelInventory = function(newPixelInventory) {
     for (var i in pixels) {
-        pixelInventory[i] = newPixelInventory[i] ? newPixelInventory[i] : 0 + newPixelInventory.all ? newPixelInventory.all : 0;
+        pixelInventory[i] = (newPixelInventory[i] ? newPixelInventory[i] : 0) + (newPixelInventory.all ? newPixelInventory.all : 0);
         if (i == "air") {
             pixelInventory[i] = 0;
         }

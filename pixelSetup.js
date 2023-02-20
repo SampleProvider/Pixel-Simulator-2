@@ -294,7 +294,7 @@ var generateTree = function(x, y, direction, length, stemPixel, leafPixel, turnC
     var branchCooldown = branchCooldownLimit;
     for (var i = 0; i < length; i++) {
         var bestDirection = [0, 0];
-        var randomDirection = random();
+        var randomDirection = getRandom();
         var targetDirection = [direction[0], direction[1]];
         if (targetDirection[0] == 0) {
             if (randomDirection <= turnChance) {
@@ -319,7 +319,7 @@ var generateTree = function(x, y, direction, length, stemPixel, leafPixel, turnC
                 return;
             }
             branchCooldown -= 1;
-            if (branchCooldown <= 0 && abs(targetDirection[0] - x1 + woodX) + abs(targetDirection[1] - y1 + woodY) <= branchAngle && random() < branchChance) {
+            if (branchCooldown <= 0 && abs(targetDirection[0] - x1 + woodX) + abs(targetDirection[1] - y1 + woodY) <= branchAngle && getRandom() < branchChance) {
                 generateTree(woodX, woodY, [x1 - woodX, y1 - woodY], ceil(length / 4), stemPixel, leafPixel, turnChance, 0, 0, 0);
                 branchCooldown = branchCooldownLimit;
                 return;
@@ -334,7 +334,7 @@ var generateTree = function(x, y, direction, length, stemPixel, leafPixel, turnC
                 bestDirection = [x1 - woodX, y1 - woodY];
             }
             else if (abs(targetDirection[0] - x1 + woodX) + abs(targetDirection[1] - y1 + woodY) == abs(targetDirection[0] - bestDirection[0]) + abs(targetDirection[1] - bestDirection[1])) {
-                if (random() < 0.5) {
+                if (getRandom() < 0.5) {
                     bestDirection = [x1 - woodX, y1 - woodY];
                 }
             }
@@ -411,15 +411,15 @@ var move = function(x, y, positions, layer) {
         }
     }
     if (moveablePositions.length > 0) {
-        var move = moveablePositions[Math.floor(random() * moveablePositions.length)];
-        if (pixels[grid[y + move.y][x + move.x][0]].deletePushed > 0) {
+        var move = moveablePositions[Math.floor(getRandom() * moveablePositions.length)];
+        if (pixels[grid[y + move.y][x + move.x][0]].whenPushed > 0) {
             if (layer == 0) {
                 nextGrid[y][x] = ["air", "air"];
             }
             else {
                 nextGrid[y][x][1] = "air";
             }
-            if (pixels[grid[y + move.y][x + move.x][0]].deletePushed == 1) {
+            if (pixels[grid[y + move.y][x + move.x][0]].whenPushed == 1) {
                 nextGrid[y + move.y][x + move.x] = ["air", "air"];
             }
             return true;
@@ -555,41 +555,43 @@ var ascend = function(x, y, distance, layer) {
 };
 var push = function(x, y, direction, distance, updateFirstPixel) {
     if (direction == "left") {
+        var collapsableIndex = 0;
         for (var i = 1; i <= distance; i++) {
             if (x - i == -1) {
-                return false;
+                break;
             }
             if (nextGrid[y][x - i][0] != null) {
-                return false;
+                break;
             }
-            if (pixels[grid[y][x - i][0]].deletePushed > 0) {
+            if (pixels[grid[y][x - i][0]].whenPushed > 0) {
                 for (var j = 2; j < i; j++) {
                     nextGrid[y][x - j][0] = grid[y][x - j + 1][0];
-                    if (grid[y][x - j + 1][1] != "air") {
+                    if (grid[y][x - j][1] != "air" || grid[y][x - j + 1][1] != "air") {
                         nextGrid[y][x - j][1] = grid[y][x - j + 1][1];
                     }
                 }
                 if (updateFirstPixel) {
                     nextGrid[y][x - 1] = ["air", "air"];
                 }
-                if (pixels[grid[y][x - i][0]].deletePushed == 1) {
+                if (pixels[grid[y][x - i][0]].whenPushed == 1) {
                     nextGrid[y][x - i] = ["air", "air"]
                 }
                 return true;
             }
+            if (pixels[grid[y][x - i][0]].whenPushed == -1) {
+                collapsableIndex = i;
+                continue;
+            }
             if (!(updateFirstPixel && i == 1) && pixels[grid[y][x - i][0]].pushDirection == "left") {
-                return false;
+                break;
             }
-            if (grid[y][x - i][0] == "slider_vertical") {
-                return false;
-            }
-            if (!pixels[grid[y][x - i][0]].pushable) {
-                return false;
+            if (!pixels[grid[y][x - i][0]].pushable || grid[y][x - i][0] == "slider_vertical") {
+                break;
             }
             if (grid[y][x - i][0] == "air") {
                 for (var j = 2; j <= i; j++) {
                     nextGrid[y][x - j][0] = grid[y][x - j + 1][0];
-                    if (grid[y][x - j + 1][1] != "air") {
+                    if (grid[y][x - j][1] != "air" || grid[y][x - j + 1][1] != "air") {
                         nextGrid[y][x - j][1] = grid[y][x - j + 1][1];
                     }
                 }
@@ -599,44 +601,58 @@ var push = function(x, y, direction, distance, updateFirstPixel) {
                 return true;
             }
         }
+        if (collapsableIndex != 0) {
+            for (var j = 2; j <= collapsableIndex; j++) {
+                nextGrid[y][x - j][0] = grid[y][x - j + 1][0];
+                if (grid[y][x - j][1] != "air" || grid[y][x - j + 1][1] != "air") {
+                    nextGrid[y][x - j][1] = grid[y][x - j + 1][1];
+                }
+            }
+            if (updateFirstPixel) {
+                nextGrid[y][x - 1] = ["air", "air"];
+            }
+            return true;
+        }
         return false;
     }
     else if (direction == "right") {
+        var collapsableIndex = 0;
         for (var i = 1; i <= distance; i++) {
             if (x + i == gridSize) {
-                return false;
+                break;
             }
             if (nextGrid[y][x + i][0] != null) {
-                return false;
+                break;
             }
-            if (pixels[grid[y][x + i][0]].deletePushed > 0) {
+            if (pixels[grid[y][x + i][0]].whenPushed > 0) {
                 for (var j = 2; j < i; j++) {
                     nextGrid[y][x + j][0] = grid[y][x + j - 1][0];
-                    if (grid[y][x + j - 1][1] != "air") {
+                    if (grid[y][x + j][1] != "air" || grid[y][x + j - 1][1] != "air") {
                         nextGrid[y][x + j][1] = grid[y][x + j - 1][1];
                     }
                 }
                 if (updateFirstPixel) {
                     nextGrid[y][x + 1] = ["air", "air"];
                 }
-                if (pixels[grid[y][x + i][0]].deletePushed == 1) {
+                if (pixels[grid[y][x + i][0]].whenPushed == 1) {
                     nextGrid[y][x + i] = ["air", "air"]
                 }
                 return true;
             }
+            if (pixels[grid[y][x + i][0]].whenPushed == -1) {
+                collapsableIndex = i;
+                continue;
+            }
             if (!(updateFirstPixel && i == 1) && pixels[grid[y][x + i][0]].pushDirection == "right") {
-                return false;
+                break;
             }
-            if (grid[y][x + i][0] == "slider_vertical") {
-                return false;
-            }
-            if (!pixels[grid[y][x + i][0]].pushable) {
-                return false;
+            if (!pixels[grid[y][x + i][0]].pushable || grid[y][x + i][0] == "slider_vertical") {
+                break;
             }
             if (grid[y][x + i][0] == "air") {
                 for (var j = 2; j <= i; j++) {
                     nextGrid[y][x + j][0] = grid[y][x + j - 1][0];
-                    if (grid[y][x + j - 1][1] != "air") {
+                    if (grid[y][x + j][1] != "air" || grid[y][x + j - 1][1] != "air") {
                         nextGrid[y][x + j][1] = grid[y][x + j - 1][1];
                     }
                 }
@@ -646,44 +662,58 @@ var push = function(x, y, direction, distance, updateFirstPixel) {
                 return true;
             }
         }
+        if (collapsableIndex != 0) {
+            for (var j = 2; j <= collapsableIndex; j++) {
+                nextGrid[y][x + j][0] = grid[y][x + j - 1][0];
+                if (grid[y][x + j][1] != "air" || grid[y][x + j - 1][1] != "air") {
+                    nextGrid[y][x + j][1] = grid[y][x + j - 1][1];
+                }
+            }
+            if (updateFirstPixel) {
+                nextGrid[y][x + 1] = ["air", "air"];
+            }
+            return true;
+        }
         return false;
     }
     else if (direction == "up") {
+        var collapsableIndex = 0;
         for (var i = 1; i <= distance; i++) {
             if (y - i == -1) {
-                return false;
+                break;
             }
             if (nextGrid[y - i][x][0] != null) {
-                return false;
+                break;
             }
-            if (pixels[grid[y - i][x][0]].deletePushed > 0) {
+            if (pixels[grid[y - i][x][0]].whenPushed > 0) {
                 for (var j = 2; j < i; j++) {
                     nextGrid[y - j][x][0] = grid[y - j + 1][x][0];
-                    if (grid[y - j + 1][x][1] != "air") {
+                    if (grid[y - j][x][1] != "air" || grid[y - j + 1][x][1] != "air") {
                         nextGrid[y - j][x][1] = grid[y - j + 1][x][1];
                     }
                 }
                 if (updateFirstPixel) {
                     nextGrid[y - 1][x] = ["air", "air"];
                 }
-                if (pixels[grid[y - i][x][0]].deletePushed == 1) {
+                if (pixels[grid[y - i][x][0]].whenPushed == 1) {
                     nextGrid[y - i][x] = ["air", "air"]
                 }
                 return true;
             }
+            if (pixels[grid[y - i][x][0]].whenPushed == -1) {
+                collapsableIndex = i;
+                continue;
+            }
             if (!(updateFirstPixel && i == 1) && pixels[grid[y - i][x][0]].pushDirection == "up") {
-                return false;
+                break;
             }
-            if (grid[y - i][x][0] == "slider_horizontal") {
-                return false;
-            }
-            if (!pixels[grid[y - i][x][0]].pushable) {
-                return false;
+            if (!pixels[grid[y - i][x][0]].pushable || grid[y - i][x][0] == "slider_horizontal") {
+                break;
             }
             if (grid[y - i][x][0] == "air") {
                 for (var j = 2; j <= i; j++) {
                     nextGrid[y - j][x][0] = grid[y - j + 1][x][0];
-                    if (grid[y - j + 1][x][1] != "air") {
+                    if (grid[y - j][x][1] != "air" || grid[y - j + 1][x][1] != "air") {
                         nextGrid[y - j][x][1] = grid[y - j + 1][x][1];
                     }
                 }
@@ -693,44 +723,58 @@ var push = function(x, y, direction, distance, updateFirstPixel) {
                 return true;
             }
         }
+        if (collapsableIndex != 0) {
+            for (var j = 2; j <= collapsableIndex; j++) {
+                nextGrid[y - j][x][0] = grid[y - j + 1][x][0];
+                if (grid[y - j][x][1] != "air" || grid[y - j + 1][x][1] != "air") {
+                    nextGrid[y - j][x][1] = grid[y - j + 1][x][1];
+                }
+            }
+            if (updateFirstPixel) {
+                nextGrid[y - 1][x] = ["air", "air"];
+            }
+            return true;
+        }
         return false;
     }
     else if (direction == "down") {
+        var collapsableIndex = 0;
         for (var i = 1; i <= distance; i++) {
             if (y + i == gridSize) {
-                return false;
+                break;
             }
             if (nextGrid[y + i][x][0] != null) {
-                return false;
+                break;
             }
-            if (pixels[grid[y + i][x][0]].deletePushed > 0) {
+            if (pixels[grid[y + i][x][0]].whenPushed > 0) {
                 for (var j = 2; j < i; j++) {
                     nextGrid[y + j][x][0] = grid[y + j - 1][x][0];
-                    if (grid[y + j - 1][x][1] != "air") {
+                    if (grid[y + j][x][1] != "air" || grid[y + j - 1][x][1] != "air") {
                         nextGrid[y + j][x][1] = grid[y + j - 1][x][1];
                     }
                 }
                 if (updateFirstPixel) {
                     nextGrid[y + 1][x] = ["air", "air"];
                 }
-                if (pixels[grid[y + i][x][0]].deletePushed == 1) {
+                if (pixels[grid[y + i][x][0]].whenPushed == 1) {
                     nextGrid[y + i][x] = ["air", "air"]
                 }
                 return true;
             }
+            if (pixels[grid[y + i][x][0]].whenPushed == -1) {
+                collapsableIndex = i;
+                continue;
+            }
             if (!(updateFirstPixel && i == 1) && pixels[grid[y + i][x][0]].pushDirection == "down") {
-                return false;
+                break;
             }
-            if (grid[y + i][x][0] == "slider_horizontal") {
-                return false;
-            }
-            if (!pixels[grid[y + i][x][0]].pushable) {
-                return false;
+            if (!pixels[grid[y + i][x][0]].pushable || grid[y + i][x][0] == "slider_horizontal") {
+                break;
             }
             if (grid[y + i][x][0] == "air") {
                 for (var j = 2; j <= i; j++) {
                     nextGrid[y + j][x][0] = grid[y + j - 1][x][0];
-                    if (grid[y + j - 1][x][1] != "air") {
+                    if (grid[y + j][x][1] != "air" || grid[y + j - 1][x][1] != "air") {
                         nextGrid[y + j][x][1] = grid[y + j - 1][x][1];
                     }
                 }
@@ -739,6 +783,18 @@ var push = function(x, y, direction, distance, updateFirstPixel) {
                 }
                 return true;
             }
+        }
+        if (collapsableIndex != 0) {
+            for (var j = 2; j <= collapsableIndex; j++) {
+                nextGrid[y + j][x][0] = grid[y + j - 1][x][0];
+                if (grid[y + j][x][1] != "air" || grid[y + j - 1][x][1] != "air") {
+                    nextGrid[y + j][x][1] = grid[y + j - 1][x][1];
+                }
+            }
+            if (updateFirstPixel) {
+                nextGrid[y + 1][x] = ["air", "air"];
+            }
+            return true;
         }
         return false;
     }
@@ -754,7 +810,7 @@ var laser = function(x, y, direction, distance, pixel, power) {
                 if (nextGrid[y][x - i][0] != null) {
                     hitPixel = nextGrid[y][x - i][0];
                 }
-                if (random() < power / pixels[hitPixel].blastResistance / i) {
+                if (getRandom() < power / pixels[hitPixel].blastResistance / i) {
                     nextGrid[y][x - i][0] = "air";
                 }
                 nextGrid[y][x - i][1] = pixel;
@@ -839,10 +895,10 @@ var explode = function(x, y, radius, explosionPixel, destroyChance, effectChance
             }
             var distance = pow(i, 2) + pow(j, 2);
             if (distance <= pow(radius, 2) + 1) {
-                if (grid[y + j][x + i] != pixel && random() < destroyChance * radius / distance / pixels[grid[y + j][x + i][0]].blastResistance) {
+                if (grid[y + j][x + i] != pixel && getRandom() < destroyChance * radius / distance / pixels[grid[y + j][x + i][0]].blastResistance) {
                     nextGrid[y + j][x + i][0] = "air";
                 }
-                if (distance <= 2 || random() < effectChance * radius / distance) {
+                if (distance <= 2 || getRandom() < effectChance * radius / distance) {
                     if (pixels[explosionPixel].effect) {
                         nextGrid[y + j][x + i][1] = explosionPixel;
                     }

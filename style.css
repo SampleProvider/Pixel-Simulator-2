@@ -324,6 +324,9 @@ button:disabled {
     background-color: #aaaaaa !important;
     cursor: not-allowed;
 }
+button:disabled:active {
+    border-style: outset !important;
+}
 table {
     max-width: calc(var(--max-sidebar-width) - 40px);
     border: 2px solid black;

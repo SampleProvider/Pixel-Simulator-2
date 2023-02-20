@@ -139,10 +139,11 @@ var promptSaveCode = function(question) {
 var updateButtons = function() {
     document.getElementById("runButton").innerHTML = running ? "PAUSE" : "RUN";
     document.getElementById("runButton").style.background = running ? "#ff0000" : "#00ff00";
-    document.getElementById("simulateButton").disabled = running ? false : true;
+    document.getElementById("simulateButton").disabled = !running;
     document.getElementById("simulateButton").innerHTML = simulating ? "STOP SIMULATING" : "SIMULATE";
     document.getElementById("simulateButton").style.background = simulating ? "#ff0000" : "#00ff00";
-    document.getElementById("resetButton").disabled = resetable ? false : true;
+    document.getElementById("resetButton").disabled = !resetable;
+    document.getElementById("setInitialButton").disabled = !resetable;
 };
 
 document.getElementById("runButton").onclick = function() {
@@ -178,7 +179,7 @@ document.getElementById("simulateButton").onclick = async function() {
 document.getElementById("resetButton").onclick = async function() {
     if (resetable) {
         if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
-            ping();
+            ping();    
             for (var i = 0; i < gridSize; i++) {
                 for (var j = 0; j < gridSize; j++) {
                     grid[i][j] = lastGrid[i][j];
@@ -187,6 +188,14 @@ document.getElementById("resetButton").onclick = async function() {
             }
             resetGrid();
         }
+    }
+};
+document.getElementById("setInitialButton").onclick = async function() {
+    if (await promptQuestion("Are you sure? This will delete your current initial state.")) {
+        ping();
+        resetable = false;
+        lastGrid = JSON.parse(JSON.stringify(grid));
+        updateButtons();
     }
 };
 
@@ -207,7 +216,7 @@ document.getElementById("downloadSaveCodeButton").onclick = async function() {
     link.click();
     URL.revokeObjectURL(link);
 };
-document.getElementById("winScreenDownloadSaveCode").onclick = async function() {
+document.getElementById("winDownloadSaveCode").onclick = async function() {
     ping();
     var link = document.createElement("a");
     link.download = currentLevel + ".pixel";
@@ -331,4 +340,12 @@ document.getElementById("winResetGrid").onclick = async function() {
         inPrompt = false;
         resetGrid();
     }
+};
+document.getElementById("winNextLevel").onclick = async function() {
+    ping();
+    var newLevel = currentLevel.substring(0, 2) + (parseInt(currentLevel.substring(2), 10) + 1);
+    document.getElementById("winScreen").style.opacity = 0;
+    document.getElementById("winScreen").style.pointerEvents = "none";
+    inPrompt = false;
+    loadLevel(newLevel);
 };
