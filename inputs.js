@@ -1,7 +1,6 @@
 var resize = function() {
     document.getElementById("menuCanvas").width = window.innerWidth;
     document.getElementById("menuCanvas").height = window.innerHeight;
-    setMenuPositions();
     if (window.innerWidth - 600 * canvasScale < 300) {
         document.getElementById("sidebar").style.top = Math.min(window.innerWidth, window.innerHeight) + "px";
         document.body.style.setProperty("--max-sidebar-width", window.innerWidth - 20 + "px");
@@ -103,8 +102,8 @@ document.onmousedown = function(event) {
         rightClicking = true;
     }
     else if (event.button == 1 && !menuScreen) {
-        if (Math.floor((cameraX * cameraZoom + cursorX) / pixelSize) >= 0 && Math.floor((cameraX * cameraZoom + cursorX) / pixelSize) < gridSize && Math.floor((cameraY * cameraZoom + cursorY) / pixelSize) >= 0 && Math.floor((cameraY * cameraZoom + cursorY) / pixelSize) < gridSize) {
-            clickPixel = grid[Math.floor((cameraY * cameraZoom + cursorY) / pixelSize)][Math.floor((cameraX * cameraZoom + cursorX) / pixelSize)][0];
+        if (cursorX >= 0 && cursorX <= 600 && cursorY >= 0 && cursorY <= 600) {
+            clickPixel = grid[Math.floor((cameraY * cameraZoom + cursorY) / pixelSize / cameraZoom)][Math.floor((cameraX * cameraZoom + cursorX) / pixelSize / cameraZoom)][0];
             setPixel();
         }
     }
@@ -121,7 +120,7 @@ document.onmouseup = function(event) {
     }
 };
 
-document.getElementById("canvas").oncontextmenu = function(event) {
+document.oncontextmenu = function(event) {
     event.preventDefault();
 }
 document.getElementById("canvas").addEventListener("wheel", function(event) {

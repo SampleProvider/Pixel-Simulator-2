@@ -1,7 +1,4 @@
 // TODO LIST
-// sliders
-// collapsable
-// penetrator
 // missiles
 
 var canvasScale = Math.min(window.innerWidth / 600, window.innerHeight / 600);
@@ -368,6 +365,13 @@ var updateGrid = function() {
 
         if (!monsterAlive) {
             inPrompt = true;
+            var newLevel = currentLevel.substring(0, 2) + (parseInt(currentLevel.substring(2), 10) + 1);
+            if (levels[newLevel] != null) {
+                document.getElementById("winNextLevel").style.display = "inline-block";
+            }
+            else {
+                document.getElementById("winNextLevel").style.display = "none";
+            }
             document.getElementById("winScreen").style.opacity = 1;
             document.getElementById("winScreen").style.pointerEvents = "all";
             if (runSpeed > 3) {

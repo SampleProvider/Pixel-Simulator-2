@@ -13,6 +13,8 @@ for (let id in pixels) {
             div.innerHTML = pixels[id].type;
             div.style.fontWeight = "bold";
             div.style.color = "black";
+            div.style.marginTop = "4px";
+            div.style.marginBottom = "-4px";
             pixelPicker.appendChild(div);
         }
         let box = document.createElement("div");

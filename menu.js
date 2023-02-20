@@ -15,76 +15,69 @@ var menuPixelCount = 16;
 var menuPixels = [];
 var index = 0;
 for (var i in pixels) {
-    if (i == "air") {
+    if (i == "air" || pixels[i].hidden) {
         continue;
     }
     menuPixels[index] = i;
     index += 1;
 }
+var menuPixelStartX = 5 / 4;
+var menuPixelStartY = 2 / 5;
 var menuPixelX = [];
 var menuPixelY = [];
+for (var i = 0; i < menuPixelCount; i++) {
+    menuPixelX[i] = menuPixelStartX;
+    menuPixelY[i] = menuPixelStartY;
+}
 var menuPixelAngle = [];
 for (var i = 0; i < menuPixelCount; i++) {
     menuPixelAngle[i] = Math.PI / 2;
 }
-var menuPixelFinalX;
-var menuPixelFinalY;
-var setMenuPositions = function() {
-    menuPixelSize = Math.ceil(window.innerHeight / 20);
-    if (menuScreen) {
-        pixelSize = menuPixelSize;
-    }
-    if (menuAnimationTime == 0 && menuAnimationStage == 0) {
-        menuPixelX[0] = window.innerWidth + menuPixelSize;
-        menuPixelY[0] = window.innerHeight / 2 - menuPixelSize * 2;
-    }
-    for (var i = menuAnimationStage + 1; i < menuPixelCount; i++) {
-        menuPixelX[i] = window.innerWidth + menuPixelSize;
-        menuPixelY[i] = window.innerHeight / 2 - menuPixelSize * 2;
-    }
-    menuPixelFinalX = window.innerWidth / 2;
-    menuPixelFinalY = window.innerHeight / 2 + menuPixelSize * 2;
-};
+menuPixelFinalX = 1 / 2;
+menuPixelFinalY = 3 / 5;
 
 var menuPixelsLerped = 0;
 var menuPixelsInPlace = 0;
 
 var menuPixelLerp = function(pixel) {
-    if (menuPixelX[pixel] - menuPixelFinalX < 1) {
+    // if (menuPixelX[pixel] - menuPixelFinalX < 1) {
+    //     menuPixelX[pixel] = menuPixelFinalX;
+    // }
+    // if (menuPixelY[pixel] - menuPixelFinalY < 1) {
+    //     menuPixelY[pixel] = menuPixelFinalY;
+    // }
+    var lerpAmount = menuSpedUp ? 0.08 : 0.04;
+    menuPixelX[pixel] = (1 - lerpAmount) * menuPixelX[pixel] + lerpAmount * (menuPixelStartX - (menuPixelStartX - menuPixelFinalX) * 11 / 10);
+    menuPixelY[pixel] = (1 - lerpAmount) * menuPixelY[pixel] + lerpAmount * (menuPixelStartY - (menuPixelStartY - menuPixelFinalY) * 11 / 10);
+    if (menuPixelX[pixel] < menuPixelFinalX) {
         menuPixelX[pixel] = menuPixelFinalX;
     }
-    if (menuPixelY[pixel] - menuPixelFinalY < 1) {
+    if (menuPixelY[pixel] > menuPixelFinalY) {
         menuPixelY[pixel] = menuPixelFinalY;
     }
     if (menuPixelX[pixel] == menuPixelFinalX && menuPixelY[pixel] == menuPixelFinalY) {
         menuPixelsLerped += 1;
     }
-    var lerpAmount = menuSpedUp ? 0.08 : 0.04;
-    menuPixelX[pixel] = (1 - lerpAmount) * menuPixelX[pixel] + lerpAmount * (menuPixelFinalX - menuPixelSize);
-    if (menuPixelX[pixel] < menuPixelFinalX) {
-        menuPixelX[pixel] = menuPixelFinalX;
-    }
-    menuPixelY[pixel] = (1 - lerpAmount) * menuPixelY[pixel] + lerpAmount * menuPixelFinalY;
 };
 var menuPixelCircle = function(pixel) {
-    menuPixelX[pixel] = window.innerWidth / 2 + Math.cos(menuPixelAngle[pixel]) * menuPixelSize * 4 * menuAnimationScale;
-    menuPixelY[pixel] = window.innerHeight / 2 + Math.sin(menuPixelAngle[pixel]) * menuPixelSize * 2 * menuAnimationScale;
+    menuPixelX[pixel] = 1 / 2 + Math.cos(menuPixelAngle[pixel]) * menuAnimationScale / 10;
+    menuPixelY[pixel] = 1 / 2 + Math.sin(menuPixelAngle[pixel]) * menuAnimationScale / 10;
     if (pixel == 0) {
         menuPixelAngle[pixel] += menuCircleSpeed / menuPixelCount / 180 * Math.PI;
         menuPixelsInPlace += 1;
     }
     else {
-        if (Math.abs(menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount - menuPixelAngle[pixel]) < (0.5 + menuSpedUp ? 800 / menuPixelCount : 400 / menuPixelCount) / 180 * Math.PI) {
-            menuPixelAngle[pixel] = menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount;
-            menuPixelsInPlace += 1;
-        }
-        else {
-            var lerpAmount = menuSpedUp ? 0.2 : 0.1;
-            while (menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount - menuPixelAngle[pixel] > 180) {
-                menuPixelAngle[pixel] += Math.PI * 2;
-            }
-            menuPixelAngle[pixel] = Math.max(menuPixelAngle[pixel] + (menuSpedUp ? 2 / menuPixelCount : 1 / menuPixelCount) / 180 * Math.PI, (1 - lerpAmount) * menuPixelAngle[pixel] + lerpAmount * (menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount));
-        }
+        menuPixelAngle[pixel] = menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount;
+        menuPixelsInPlace += 1;
+        // if (Math.abs(menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount - menuPixelAngle[pixel]) < (0.5 + menuSpedUp ? 800 / menuPixelCount : 400 / menuPixelCount) / 180 * Math.PI) {
+        // }
+        // else {
+        //     var lerpAmount = menuSpedUp ? 0.2 : 0.1;
+        //     while (menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount - menuPixelAngle[pixel] > 180) {
+        //         menuPixelAngle[pixel] += Math.PI * 2;
+        //     }
+        //     menuPixelAngle[pixel] = Math.max(menuPixelAngle[pixel] + (menuSpedUp ? 2 / menuPixelCount : 1 / menuPixelCount) / 180 * Math.PI, (1 - lerpAmount) * menuPixelAngle[pixel] + lerpAmount * (menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount));
+        // }
     }
 };
 var menuPixelDrawAll = function() {
@@ -102,17 +95,17 @@ var menuPixelDrawAll = function() {
     menuPixelSize = Math.ceil(window.innerHeight / 20);
 };
 var menuPixelDraw = function(i) {
-    noiseGrid[(menuPixelY[i] - menuPixelSize / 2) / menuPixelSize] = [];
-    animatedNoiseGrid[(menuPixelY[i] - menuPixelSize / 2) / menuPixelSize] = [];
-    noiseGrid[(menuPixelY[i] - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] - menuPixelSize / 2) / menuPixelSize] = 0.5;
-    animatedNoiseGrid[(menuPixelY[i] - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] - menuPixelSize / 2) / menuPixelSize] = 0.5;
-    randomGrid[(menuPixelY[i] - menuPixelSize / 2) / menuPixelSize] = [];
-    randomGrid[(menuPixelY[i] - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] - menuPixelSize / 2) / menuPixelSize] = [0.4, 0.1, 0.1, 0.4, 0.7, 0.7, 0.8, 0.1];
+    noiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize] = [];
+    animatedNoiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize] = [];
+    noiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize] = 0.5;
+    animatedNoiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize] = 0.5;
+    randomGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize] = [];
+    randomGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize] = [0.4, 0.1, 0.1, 0.4, 0.7, 0.7, 0.8, 0.1];
     // menuCtx.fillStyle = "rgba(255, 255, 255, 0.5)";
     // menuCtx.fillRect(menuPixelX[i] - menuPixelSize / 2 - 1, menuPixelY[i] - menuPixelSize / 2 - 1, menuPixelSize + 2, menuPixelSize + 2);
     // menuCtx.fillRect(menuPixelX[i] - menuPixelSize / 2 - 2, menuPixelY[i] - menuPixelSize / 2 - 2, menuPixelSize + 4, menuPixelSize + 4);
-    pixels[menuPixels[i]].drawBackground((menuPixelX[i] - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] - menuPixelSize / 2) / menuPixelSize, 1, menuCtx);
-    drawPixel(menuPixels[i], (menuPixelX[i] - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] - menuPixelSize / 2) / menuPixelSize, menuCtx);
+    pixels[menuPixels[i]].drawBackground((menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize, 1, menuCtx);
+    drawPixel(menuPixels[i], (menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize, menuCtx);
 };
 
 var showGameScreen = function() {
@@ -146,7 +139,10 @@ document.getElementById("sandboxButton").onclick = function() {
     ping();
     sandbox = true;
     document.getElementById("levelDescription").style.display = "none";
+    document.getElementById("setInitialButton").style.display = "inline-block";
     document.getElementById("sandboxTools").style.display = "inline";
+    clickPixel = "air";
+    setPixel();
     createGrid();
     showGameScreen();
 };
@@ -154,6 +150,7 @@ document.getElementById("levelsButton").onclick = function() {
     if (menuAnimationStage == 2) {
         ping();
         document.getElementById("levelDescription").style.display = "block";
+        document.getElementById("setInitialButton").style.display = "none";
         document.getElementById("sandboxTools").style.display = "none";
         document.getElementById("levelSelect").style.visibility = "visible";
         document.getElementById("levelSelect").style.transform = "translateY(0px)";

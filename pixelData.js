@@ -77,7 +77,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -5,
         blastResistance: 1,
         monster: false,
@@ -114,7 +114,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 15,
         blastResistance: 1,
         monster: false,
@@ -162,7 +162,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 15,
         blastResistance: 1,
         monster: false,
@@ -201,7 +201,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -239,7 +239,7 @@ var pixels = {
         liquid: true,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 0,
         blastResistance: 3,
         monster: false,
@@ -274,7 +274,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 10,
         blastResistance: 3,
         monster: false,
@@ -313,7 +313,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 5,
         blastResistance: 1,
         monster: false,
@@ -445,7 +445,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 15,
         blastResistance: 1,
         monster: false,
@@ -485,7 +485,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 25,
         blastResistance: 3,
         monster: false,
@@ -525,7 +525,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 5,
         blastResistance: 3,
         monster: false,
@@ -598,7 +598,7 @@ var pixels = {
         liquid: true,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 3,
         monster: false,
@@ -730,7 +730,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -776,7 +776,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -805,7 +805,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 10,
         monster: false,
@@ -839,7 +839,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 50,
         blastResistance: 1,
         monster: false,
@@ -873,7 +873,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -1,
         blastResistance: 1,
         monster: false,
@@ -907,7 +907,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -938,7 +938,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 15,
         monster: false,
@@ -969,7 +969,7 @@ var pixels = {
         liquid: false,
         pushable: false,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 25,
         monster: false,
@@ -1006,7 +1006,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 10,
         blastResistance: 1,
         monster: false,
@@ -1051,7 +1051,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -1104,7 +1104,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 3,
         monster: false,
@@ -1156,7 +1156,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -1,
         blastResistance: 1,
         monster: false,
@@ -1259,7 +1259,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -1301,7 +1301,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: "left",
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -1343,7 +1343,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: "right",
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -1385,7 +1385,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: "up",
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -1427,7 +1427,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: "down",
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -1482,7 +1482,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: "left",
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -1537,7 +1537,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: "right",
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -1592,12 +1592,12 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: "up",
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
         name: "Cloner (Up)",
-        description: "Clones the pixel underneath it. The cloned pixel is pushed upwards.",
+        description: "Clones the pixel below it. The cloned pixel is pushed upwards.",
         type: "Mechanical Movement",
         hidden: false,
     },
@@ -1647,12 +1647,380 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: "down",
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
         name: "Cloner (Down)",
         description: "Clones the pixel above it. The cloned pixel is pushed downwards.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "penetrator_left": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 2, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(0, 20, 30, 20);
+            ctx.fillRect(20, 10, 20, 10);
+            ctx.fillRect(20, 40, 20, 10);
+        },
+        update: function(x, y) {
+            if (x == 0 || x == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            var leftPixel = [null, null];
+            var rightPixel = [null, null];
+            if (nextGrid[y][x - 1][0] != null && (nextGrid[y][x][0] == "penetrator_left" || nextGrid[y][x][0] == null)) {
+                leftPixel[0] = nextGrid[y][x - 1][0];
+            }
+            else if (nextGrid[y][x - 1][0] == null) {
+                leftPixel[0] = grid[y][x - 1][0];
+            }
+            if (nextGrid[y][x - 1][1] != null && (nextGrid[y][x][0] == "penetrator_left" || nextGrid[y][x][0] == null)) {
+                leftPixel[1] = nextGrid[y][x - 1][1];
+            }
+            else if (nextGrid[y][x - 1][1] == null) {
+                leftPixel[1] = grid[y][x - 1][1];
+            }
+            if (nextGrid[y][x + 1][0] != null && (nextGrid[y][x][0] == "penetrator_left" || nextGrid[y][x][0] == null)) {
+                rightPixel[0] = nextGrid[y][x + 1][0];
+            }
+            else if (nextGrid[y][x + 1][0] == null) {
+                rightPixel[0] = grid[y][x + 1][0];
+            }
+            if (nextGrid[y][x + 1][1] != null && (nextGrid[y][x][0] == "penetrator_left" || nextGrid[y][x][0] == null)) {
+                rightPixel[1] = nextGrid[y][x + 1][1];
+            }
+            else if (nextGrid[y][x + 1][1] == null) {
+                rightPixel[1] = grid[y][x + 1][1];
+            }
+            if (leftPixel[0] != null) {
+                if (pixels[leftPixel[0]].whenPushed > 0) {
+                    nextGrid[y][x] = ["air", "air"];
+                    if (pixels[leftPixel[0]].whenPushed == 1) {
+                        nextGrid[y][x - 1] = ["air", "air"];
+                    }
+                    return;
+                }
+                if (pixels[leftPixel[0]].whenPushed == -1) {
+                    nextGrid[y][x] = ["air", "air"];
+                    nextGrid[y][x - 1][0] = "penetrator_left";
+                    return;
+                }
+                if (!pixels[leftPixel[0]].pushable || leftPixel[0] == "slider_vertical") {
+                    return;
+                }
+            }
+            if (rightPixel[0] == "air" && rightPixel[1] == "air") {
+                grid[y][x - 1] = ["air", "air"];
+                nextGrid[y][x - 1] = [null, null];
+                nextGrid[y][x + 1] = leftPixel;
+            }
+            push(x + 1, y, "left", gridSize, true);
+        },
+        updateStage: 1,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: "left",
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Penetrator (Left)",
+        description: "Moves the pixel to the left of it to the right, then pushes left. Piston + Swapper.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "penetrator_right": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 3, pixelSize / 2, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(30, 20, 30, 20);
+            ctx.fillRect(20, 10, 20, 10);
+            ctx.fillRect(20, 40, 20, 10);
+        },
+        update: function(x, y) {
+            if (x == 0 || x == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            var leftPixel = [null, null];
+            var rightPixel = [null, null];
+            if (nextGrid[y][x - 1][0] != null && (nextGrid[y][x][0] == "penetrator_right" || nextGrid[y][x][0] == null)) {
+                leftPixel[0] = nextGrid[y][x - 1][0];
+            }
+            else if (nextGrid[y][x - 1][0] == null) {
+                leftPixel[0] = grid[y][x - 1][0];
+            }
+            if (nextGrid[y][x - 1][1] != null && (nextGrid[y][x][0] == "penetrator_right" || nextGrid[y][x][0] == null)) {
+                leftPixel[1] = nextGrid[y][x - 1][1];
+            }
+            else if (nextGrid[y][x - 1][1] == null) {
+                leftPixel[1] = grid[y][x - 1][1];
+            }
+            if (nextGrid[y][x + 1][0] != null && (nextGrid[y][x][0] == "penetrator_right" || nextGrid[y][x][0] == null)) {
+                rightPixel[0] = nextGrid[y][x + 1][0];
+            }
+            else if (nextGrid[y][x + 1][0] == null) {
+                rightPixel[0] = grid[y][x + 1][0];
+            }
+            if (nextGrid[y][x + 1][1] != null && (nextGrid[y][x][0] == "penetrator_right" || nextGrid[y][x][0] == null)) {
+                rightPixel[1] = nextGrid[y][x + 1][1];
+            }
+            else if (nextGrid[y][x + 1][1] == null) {
+                rightPixel[1] = grid[y][x + 1][1];
+            }
+            if (rightPixel[0] != null) {
+                if (pixels[rightPixel[0]].whenPushed > 0) {
+                    nextGrid[y][x] = ["air", "air"];
+                    if (pixels[rightPixel[0]].whenPushed == 1) {
+                        nextGrid[y][x + 1] = ["air", "air"];
+                    }
+                    return;
+                }
+                if (pixels[rightPixel[0]].whenPushed == -1) {
+                    nextGrid[y][x] = ["air", "air"];
+                    nextGrid[y][x + 1][0] = "penetrator_right";
+                    return;
+                }
+                if (!pixels[rightPixel[0]].pushable || rightPixel[0] == "slider_vertical") {
+                    return;
+                }
+            }
+            if (leftPixel[0] == "air" && leftPixel[1] == "air") {
+                grid[y][x + 1] = ["air", "air"];
+                nextGrid[y][x + 1] = [null, null];
+                nextGrid[y][x - 1] = rightPixel;
+            }
+            push(x - 1, y, "right", gridSize, true);
+        },
+        updateStage: 1,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: "right",
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Penetrator (Right)",
+        description: "Moves the pixel to the right of it to the left, then pushes right. Piston + Swapper.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "penetrator_up": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 2);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(20, 0, 20, 30);
+            ctx.fillRect(10, 20, 10, 20);
+            ctx.fillRect(40, 20, 10, 20);
+        },
+        update: function(x, y) {
+            if (y == 0 || y == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            var abovePixel = [null, null];
+            var belowPixel = [null, null];
+            if (nextGrid[y - 1][x][0] != null && (nextGrid[y][x][0] == "penetrator_up" || nextGrid[y][x][0] == null)) {
+                abovePixel[0] = nextGrid[y - 1][x][0];
+            }
+            else if (nextGrid[y - 1][x][0] == null) {
+                abovePixel[0] = grid[y - 1][x][0];
+            }
+            if (nextGrid[y - 1][x][1] != null && (nextGrid[y][x][0] == "penetrator_up" || nextGrid[y][x][0] == null)) {
+                abovePixel[1] = nextGrid[y - 1][x][1];
+            }
+            else if (nextGrid[y - 1][x][1] == null) {
+                abovePixel[1] = grid[y - 1][x][1];
+            }
+            if (nextGrid[y + 1][x][0] != null && (nextGrid[y][x][0] == "penetrator_up" || nextGrid[y][x][0] == null)) {
+                belowPixel[0] = nextGrid[y + 1][x][0];
+            }
+            else if (nextGrid[y + 1][x][0] == null) {
+                belowPixel[0] = grid[y + 1][x][0];
+            }
+            if (nextGrid[y + 1][x][1] != null && (nextGrid[y][x][0] == "penetrator_up" || nextGrid[y][x][0] == null)) {
+                belowPixel[1] = nextGrid[y + 1][x][1];
+            }
+            else if (nextGrid[y + 1][x][1] == null) {
+                belowPixel[1] = grid[y + 1][x][1];
+            }
+            if (abovePixel[0] != null) {
+                if (pixels[abovePixel[0]].whenPushed > 0) {
+                    nextGrid[y][x] = ["air", "air"];
+                    if (pixels[abovePixel[0]].whenPushed == 1) {
+                        nextGrid[y - 1][x] = ["air", "air"];
+                    }
+                    return;
+                }
+                if (pixels[abovePixel[0]].whenPushed == -1) {
+                    nextGrid[y][x] = ["air", "air"];
+                    nextGrid[y - 1][x][0] = "penetrator_up";
+                    return;
+                }
+                if (!pixels[abovePixel[0]].pushable || abovePixel[0] == "slider_horizontal") {
+                    return;
+                }
+            }
+            if (belowPixel[0] == "air" && belowPixel[1] == "air") {
+                grid[y - 1][x] = ["air", "air"];
+                nextGrid[y - 1][x] = [null, null];
+                nextGrid[y + 1][x] = abovePixel;
+            }
+            push(x, y + 1, "up", gridSize, true);
+        },
+        updateStage: 1,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: "up",
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Penetrator (Up)",
+        description: "Moves the pixel above it below it, then pushes upwards. Piston + Swapper.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "penetrator_down": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 2, pixelSize / 3, pixelSize / 2);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(20, 30, 20, 30);
+            ctx.fillRect(10, 20, 10, 20);
+            ctx.fillRect(40, 20, 10, 20);
+        },
+        update: function(x, y) {
+            if (y == 0 || y == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            var abovePixel = [null, null];
+            var belowPixel = [null, null];
+            if (nextGrid[y - 1][x][0] != null && (nextGrid[y][x][0] == "penetrator_down" || nextGrid[y][x][0] == null)) {
+                abovePixel[0] = nextGrid[y - 1][x][0];
+            }
+            else if (nextGrid[y - 1][x][0] == null) {
+                abovePixel[0] = grid[y - 1][x][0];
+            }
+            if (nextGrid[y - 1][x][1] != null && (nextGrid[y][x][0] == "penetrator_down" || nextGrid[y][x][0] == null)) {
+                abovePixel[1] = nextGrid[y - 1][x][1];
+            }
+            else if (nextGrid[y - 1][x][1] == null) {
+                abovePixel[1] = grid[y - 1][x][1];
+            }
+            if (nextGrid[y + 1][x][0] != null && (nextGrid[y][x][0] == "penetrator_down" || nextGrid[y][x][0] == null)) {
+                belowPixel[0] = nextGrid[y + 1][x][0];
+            }
+            else if (nextGrid[y + 1][x][0] == null) {
+                belowPixel[0] = grid[y + 1][x][0];
+            }
+            if (nextGrid[y + 1][x][1] != null && (nextGrid[y][x][0] == "penetrator_down" || nextGrid[y][x][0] == null)) {
+                belowPixel[1] = nextGrid[y + 1][x][1];
+            }
+            else if (nextGrid[y + 1][x][1] == null) {
+                belowPixel[1] = grid[y + 1][x][1];
+            }
+            if (belowPixel[0] != null) {
+                if (pixels[belowPixel[0]].whenPushed > 0) {
+                    nextGrid[y][x] = ["air", "air"];
+                    if (pixels[belowPixel[0]].whenPushed == 1) {
+                        nextGrid[y + 1][x] = ["air", "air"];
+                    }
+                    return;
+                }
+                if (pixels[belowPixel[0]].whenPushed == -1) {
+                    nextGrid[y][x] = ["air", "air"];
+                    nextGrid[y + 1][x][0] = "penetrator_down";
+                    return;
+                }
+                if (!pixels[belowPixel[0]].pushable || belowPixel[0] == "slider_horizontal") {
+                    return;
+                }
+            }
+            if (abovePixel[0] == "air" && abovePixel[1] == "air") {
+                grid[y + 1][x] = ["air", "air"];
+                nextGrid[y + 1][x] = [null, null];
+                nextGrid[y - 1][x] = belowPixel;
+            }
+            push(x, y - 1, "down", gridSize, true);
+        },
+        updateStage: 1,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        liquid: false,
+        pushable: true,
+        pushDirection: "down",
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Penetrator (Down)",
+        description: "Moves the pixel below it to above it, then pushes downwards. Piston + Swapper.",
         type: "Mechanical Movement",
         hidden: false,
     },
@@ -1737,7 +2105,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -1827,7 +2195,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -1905,7 +2273,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -1955,7 +2323,7 @@ var pixels = {
         liquid: false,
         pushable: false,
         pushDirection: null,
-        deletePushed: 2,
+        whenPushed: 2,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2036,7 +2404,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2118,7 +2486,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2146,13 +2514,13 @@ var pixels = {
 
         },
         updateStage: 0,
-        animated: false,
+        animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2180,18 +2548,54 @@ var pixels = {
 
         },
         updateStage: 0,
-        animated: false,
+        animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
         name: "Slider (Vertical)",
         description: "Can only be pushed vertically.",
+        type: "Mechanical Movement",
+        hidden: false,
+    },
+    "collapsable": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.push_lerp;
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colorToRGB(colors.stone);
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.push;
+            ctx.fillRect(0, 20, 60, 20);
+            ctx.fillRect(20, 0, 20, 60);
+        },
+        update: function(x, y) {
+
+        },
+        updateStage: 0,
+        animated: true,
+        drawNoise: false,
+        density: 2,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: -1,
+        flammable: 10,
+        blastResistance: 1,
+        monster: false,
+        name: "Collapsable",
+        description: "Collapses when pushed.",
         type: "Mechanical Movement",
         hidden: false,
     },
@@ -2228,7 +2632,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2270,7 +2674,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2321,7 +2725,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 10,
         blastResistance: 3,
         monster: false,
@@ -2358,7 +2762,9 @@ var pixels = {
             if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
                 return;
             }
-            changePixel(x - 1, y, null, "fire");
+            if (pixels[grid[y][x - 1][0]].flammable != 0) {
+                changePixel(x - 1, y, null, "fire");
+            }
         },
         updateStage: 0,
         animated: true,
@@ -2368,7 +2774,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2405,7 +2811,9 @@ var pixels = {
             if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
                 return;
             }
-            changePixel(x + 1, y, null, "fire");
+            if (pixels[grid[y][x + 1][0]].flammable != 0) {
+                changePixel(x + 1, y, null, "fire");
+            }
         },
         updateStage: 0,
         animated: false,
@@ -2415,7 +2823,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2452,7 +2860,9 @@ var pixels = {
             if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
                 return;
             }
-            changePixel(x, y - 1, null, "fire");
+            if (pixels[grid[y - 1][x][0]].flammable != 0) {
+                changePixel(x, y - 1, null, "fire");
+            }
         },
         updateStage: 0,
         animated: false,
@@ -2462,7 +2872,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2499,7 +2909,9 @@ var pixels = {
             if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
                 return;
             }
-            changePixel(x, y + 1, null, "fire");
+            if (pixels[grid[y + 1][x][0]].flammable != 0) {
+                changePixel(x, y + 1, null, "fire");
+            }
         },
         updateStage: 0,
         animated: false,
@@ -2509,12 +2921,12 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
         name: "Ignitor (Down)",
-        description: "Lights the pixel underneath it on fire.",
+        description: "Lights the pixel below it on fire.",
         type: "Fiery Destruction",
         hidden: false,
     },
@@ -2558,7 +2970,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2607,7 +3019,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2656,7 +3068,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -2705,12 +3117,216 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
         name: "Ignitor Laser (Down)",
-        description: "Shoots a fire laser underneath it.",
+        description: "Shoots a fire laser below it.",
+        type: "Fiery Destruction",
+        hidden: false,
+    },
+    "ignitor_launcher_left": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(0, 20, 40, 20);
+            ctx.fillRect(30, 10, 20, 10);
+            ctx.fillRect(30, 40, 20, 10);
+        },
+        update: function(x, y) {
+            if (x == 0) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 360 != 0) {
+                return;
+            }
+            if (gameTick % 36 == 0) {
+                changePixel(x - 1, y, "ignitor_missile_left", null);
+            }
+        },
+        updateStage: 0,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Ignitor Launcher (Left)",
+        description: "Shoots a fire missile to the left of it.",
+        type: "Fiery Destruction",
+        hidden: false,
+    },
+    "ignitor_launcher_right": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(20, 20, 40, 20);
+            ctx.fillRect(10, 10, 20, 10);
+            ctx.fillRect(10, 40, 20, 10);
+        },
+        update: function(x, y) {
+            if (x == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 360 != 0) {
+                return;
+            }
+            if (gameTick % 36 == 0) {
+                changePixel(x + 1, y, "ignitor_missile_right", null);
+            }
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Ignitor Launcher (Right)",
+        description: "Shoots a fire missile to the right of it.",
+        type: "Fiery Destruction",
+        hidden: false,
+    },
+    "ignitor_launcher_up": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize * 2 / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(20, 0, 20, 40);
+            ctx.fillRect(10, 30, 10, 20);
+            ctx.fillRect(40, 30, 10, 20);
+        },
+        update: function(x, y) {
+            if (y == 0) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 360 != 0) {
+                return;
+            }
+            if (gameTick % 36 == 0) {
+                changePixel(x, y - 1, "ignitor_missile_up", null);
+            }
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Ignitor Launcher (Up)",
+        description: "Shoots a fire missile above it.",
+        type: "Fiery Destruction",
+        hidden: false,
+    },
+    "ignitor_launcher_down": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize * 2 / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(20, 20, 20, 40);
+            ctx.fillRect(10, 10, 10, 20);
+            ctx.fillRect(40, 10, 10, 20);
+        },
+        update: function(x, y) {
+            if (y == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 360 != 0) {
+                return;
+            }
+            if (gameTick % 36 == 0) {
+                changePixel(x, y + 1, "ignitor_missile_down", null);
+            }
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Ignitor Launcher (Down)",
+        description: "Shoots a fire missile below it.",
         type: "Fiery Destruction",
         hidden: false,
     },
@@ -2757,7 +3373,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -2808,7 +3424,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -2859,7 +3475,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -2910,11 +3526,275 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Ignitor Laser Beam (Down)",
+        description: "Explodes on impact.",
+        hidden: true,
+    },
+    "ignitor_missile_left": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(0, 20, 20, 20);
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(20, 20, 20, 20);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(40, 20, 10, 20);
+            ctx.fillRect(50, 10, 10, 40);
+        },
+        update: function(x, y) {
+            if (x == 0) {
+                explode(x, y, 10, "fire", 5, 0.5);
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            if (y != 0 && grid[y][x - 1][0] == "reflector_horizontal") {
+                nextGrid[y - 1][x - 1][1] = "ignitor_missile_up";
+                changePixel(x, y, "air", null);
+                return;
+            }
+            if (y != gridSize - 1 && grid[y][x - 1][0] == "reflector_vertical") {
+                nextGrid[y + 1][x - 1][1] = "ignitor_missile_down";
+                changePixel(x, y, "air", null);
+                return;
+            }
+            if (grid[y][x - 1][0] != "air" || (grid[y][x - 1][1] != "air" && grid[y][x - 1][1] != "fire")) {
+                explode(x, y, 10, "fire", 5, 0.5);
+                return;
+            }
+            move(x, y, [{ x: -1, y: 0 }], 0);
+            changePixel(x, y, null, "fire");
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 1,
+        monster: false,
+        name: "Ignitor Missile (Left)",
+        description: "Explodes on impact.",
+        hidden: true,
+    },
+    "ignitor_missile_right": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(40, 20, 20, 20);
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(20, 20, 20, 20);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(10, 20, 10, 20);
+            ctx.fillRect(0, 10, 10, 40);
+        },
+        update: function(x, y) {
+            if (x == gridSize - 1) {
+                explode(x, y, 10, "fire", 5, 0.5);
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            if (y != gridSize - 1 && grid[y][x + 1][0] == "reflector_horizontal") {
+                nextGrid[y + 1][x + 1][1] = "ignitor_missile_down";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (y != 0 && grid[y][x + 1][0] == "reflector_vertical") {
+                nextGrid[y - 1][x + 1][1] = "ignitor_missile_up";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (grid[y][x + 1][0] != "air" || (grid[y][x + 1][1] != "air" && grid[y][x + 1][1] != "fire")) {
+                explode(x, y, 10, "fire", 5, 0.5);
+                return;
+            }
+            move(x, y, [{ x: 1, y: 0 }], 0);
+            changePixel(x, y, null, "fire");
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 1,
+        monster: false,
+        name: "Ignitor Missile (Right)",
+        description: "Explodes on impact.",
+        hidden: true,
+    },
+    "ignitor_missile_up": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 5 / 6, pixelSize * 2 / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(20, 0, 20, 20);
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(20, 20, 20, 20);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(20, 40, 20, 10);
+            ctx.fillRect(10, 50, 40, 10);
+        },
+        update: function(x, y) {
+            if (y == 0) {
+                explode(x, y, 10, "fire", 5, 0.5);
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            if (x != 0 && grid[y - 1][x][0] == "reflector_horizontal") {
+                nextGrid[y - 1][x - 1][1] = "ignitor_missile_left";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (x != gridSize - 1 && grid[y - 1][x][0] == "reflector_vertical") {
+                nextGrid[y - 1][x + 1][1] = "ignitor_missile_right";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (grid[y - 1][x][0] != "air" || (grid[y - 1][x][1] != "air" && grid[y - 1][x][1] != "fire")) {
+                explode(x, y, 10, "fire", 5, 0.5);
+                return;
+            }
+            move(x, y, [{ x: 0, y: -1 }], 0);
+            changePixel(x, y, null, "fire");
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 1,
+        monster: false,
+        name: "Ignitor Missile (Up)",
+        description: "Explodes on impact.",
+        hidden: true,
+    },
+    "ignitor_missile_down": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize, pixelSize * 2 / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.explosive_light;
+            ctx.fillRect(20, 40, 20, 20);
+            ctx.fillStyle = colors.explosive_medium;
+            ctx.fillRect(20, 20, 20, 20);
+            ctx.fillStyle = colors.explosive_dark;
+            ctx.fillRect(20, 10, 20, 10);
+            ctx.fillRect(10, 0, 40, 10);
+        },
+        update: function(x, y) {
+            if (y == gridSize - 1) {
+                explode(x, y, 10, "fire", 5, 0.5);
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            if (x != gridSize - 1 && grid[y + 1][x][0] == "reflector_horizontal") {
+                nextGrid[y + 1][x + 1][1] = "ignitor_missile_right";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (x != 0 && grid[y + 1][x][0] == "reflector_vertical") {
+                nextGrid[y + 1][x - 1][1] = "ignitor_missile_left";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (grid[y + 1][x][0] != "air" || (grid[y + 1][x][1] != "air" && grid[y + 1][x][1] != "fire")) {
+                explode(x, y, 10, "fire", 5, 0.5);
+                return;
+            }
+            move(x, y, [{ x: 0, y: 1 }], 0);
+            changePixel(x, y, null, "fire");
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 1,
+        monster: false,
+        name: "Ignitor Missile (Down)",
         description: "Explodes on impact.",
         hidden: true,
     },
@@ -2960,7 +3840,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: 10,
         blastResistance: 3,
         monster: false,
@@ -3007,7 +3887,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -3054,7 +3934,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -3101,7 +3981,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -3148,12 +4028,12 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
         name: "Frost Ignitor (Down)",
-        description: "Lights the pixel underneath it on frost fire.",
+        description: "Lights the pixel below it on frost fire.",
         type: "Frozen Destruction",
         hidden: false,
     },
@@ -3197,7 +4077,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -3246,7 +4126,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -3295,7 +4175,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
@@ -3344,12 +4224,216 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
         monster: false,
         name: "Frost Ignitor Laser (Down)",
-        description: "Shoots a frost fire laser underneath it.",
+        description: "Shoots a frost fire laser below it.",
+        type: "Frozen Destruction",
+        hidden: false,
+    },
+    "frost_ignitor_launcher_left": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(0, 20, 40, 20);
+            ctx.fillRect(30, 10, 20, 10);
+            ctx.fillRect(30, 40, 20, 10);
+        },
+        update: function(x, y) {
+            if (x == 0) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 360 != 0) {
+                return;
+            }
+            if (gameTick % 36 == 0) {
+                changePixel(x - 1, y, "frost_ignitor_missile_left", null);
+            }
+        },
+        updateStage: 0,
+        animated: true,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Frost Ignitor Launcher (Left)",
+        description: "Shoots a frost fire missile to the left of it.",
+        type: "Frozen Destruction",
+        hidden: false,
+    },
+    "frost_ignitor_launcher_right": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(20, 20, 40, 20);
+            ctx.fillRect(10, 10, 20, 10);
+            ctx.fillRect(10, 40, 20, 10);
+        },
+        update: function(x, y) {
+            if (x == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 360 != 0) {
+                return;
+            }
+            if (gameTick % 36 == 0) {
+                changePixel(x + 1, y, "frost_ignitor_missile_right", null);
+            }
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Frost Ignitor Launcher (Right)",
+        description: "Shoots a frost fire missile to the right of it.",
+        type: "Frozen Destruction",
+        hidden: false,
+    },
+    "frost_ignitor_launcher_up": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize * 2 / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(20, 0, 20, 40);
+            ctx.fillRect(10, 30, 10, 20);
+            ctx.fillRect(40, 30, 10, 20);
+        },
+        update: function(x, y) {
+            if (y == 0) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 360 != 0) {
+                return;
+            }
+            if (gameTick % 36 == 0) {
+                changePixel(x, y - 1, "frost_ignitor_missile_up", null);
+            }
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Frost Ignitor Launcher (Up)",
+        description: "Shoots a frost fire missile above it.",
+        type: "Frozen Destruction",
+        hidden: false,
+    },
+    "frost_ignitor_launcher_down": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize * 2 / 3);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(20, 20, 20, 40);
+            ctx.fillRect(10, 10, 10, 20);
+            ctx.fillRect(40, 10, 10, 20);
+        },
+        update: function(x, y) {
+            if (y == gridSize - 1) {
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 360 != 0) {
+                return;
+            }
+            if (gameTick % 36 == 0) {
+                changePixel(x, y + 1, "frost_ignitor_missile_down", null);
+            }
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 5,
+        monster: false,
+        name: "Frost Ignitor Launcher (Down)",
+        description: "Shoots a frost fire missile below it.",
         type: "Frozen Destruction",
         hidden: false,
     },
@@ -3396,7 +4480,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -3447,7 +4531,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -3498,7 +4582,7 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
@@ -3549,11 +4633,275 @@ var pixels = {
         liquid: false,
         pushable: true,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Frost Ignitor Laser Beam (Down)",
+        description: "Explodes on impact.",
+        hidden: true,
+    },
+    "frost_ignitor_missile_left": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(0, 20, 20, 20);
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(20, 20, 20, 20);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(40, 20, 10, 20);
+            ctx.fillRect(50, 10, 10, 40);
+        },
+        update: function(x, y) {
+            if (x == 0) {
+                explode(x, y, 10, "frost_fire", 5, 0.5);
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            if (y != 0 && grid[y][x - 1][0] == "reflector_horizontal") {
+                nextGrid[y - 1][x - 1][1] = "frost_ignitor_missile_up";
+                changePixel(x, y, "air", null);
+                return;
+            }
+            if (y != gridSize - 1 && grid[y][x - 1][0] == "reflector_vertical") {
+                nextGrid[y + 1][x - 1][1] = "frost_ignitor_missile_down";
+                changePixel(x, y, "air", null);
+                return;
+            }
+            if (grid[y][x - 1][0] != "air" || (grid[y][x - 1][1] != "air" && grid[y][x - 1][1] != "frost_fire")) {
+                explode(x, y, 10, "frost_fire", 5, 0.5);
+                return;
+            }
+            move(x, y, [{ x: -1, y: 0 }], 0);
+            changePixel(x, y, null, "frost_fire");
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 1,
+        monster: false,
+        name: "Frost Ignitor Missile (Left)",
+        description: "Explodes on impact.",
+        hidden: true,
+    },
+    "frost_ignitor_missile_right": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
+            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(40, 20, 20, 20);
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(20, 20, 20, 20);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(10, 20, 10, 20);
+            ctx.fillRect(0, 10, 10, 40);
+        },
+        update: function(x, y) {
+            if (x == gridSize - 1) {
+                explode(x, y, 10, "frost_fire", 5, 0.5);
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            if (y != gridSize - 1 && grid[y][x + 1][0] == "reflector_horizontal") {
+                nextGrid[y + 1][x + 1][1] = "frost_ignitor_missile_down";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (y != 0 && grid[y][x + 1][0] == "reflector_vertical") {
+                nextGrid[y - 1][x + 1][1] = "frost_ignitor_missile_up";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (grid[y][x + 1][0] != "air" || (grid[y][x + 1][1] != "air" && grid[y][x + 1][1] != "frost_fire")) {
+                explode(x, y, 10, "frost_fire", 5, 0.5);
+                return;
+            }
+            move(x, y, [{ x: 1, y: 0 }], 0);
+            changePixel(x, y, null, "frost_fire");
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 1,
+        monster: false,
+        name: "Frost Ignitor Missile (Right)",
+        description: "Explodes on impact.",
+        hidden: true,
+    },
+    "frost_ignitor_missile_up": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 5 / 6, pixelSize * 2 / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(20, 0, 20, 20);
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(20, 20, 20, 20);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(20, 40, 20, 10);
+            ctx.fillRect(10, 50, 40, 10);
+        },
+        update: function(x, y) {
+            if (y == 0) {
+                explode(x, y, 10, "frost_fire", 5, 0.5);
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            if (x != 0 && grid[y - 1][x][0] == "reflector_horizontal") {
+                nextGrid[y - 1][x - 1][1] = "frost_ignitor_missile_left";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (x != gridSize - 1 && grid[y - 1][x][0] == "reflector_vertical") {
+                nextGrid[y - 1][x + 1][1] = "frost_ignitor_missile_right";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (grid[y - 1][x][0] != "air" || (grid[y - 1][x][1] != "air" && grid[y - 1][x][1] != "frost_fire")) {
+                explode(x, y, 10, "frost_fire", 5, 0.5);
+                return;
+            }
+            move(x, y, [{ x: 0, y: -1 }], 0);
+            changePixel(x, y, null, "frost_fire");
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 1,
+        monster: false,
+        name: "Frost Ignitor Missile (Up)",
+        description: "Explodes on impact.",
+        hidden: true,
+    },
+    "frost_ignitor_missile_down": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize, pixelSize * 2 / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.air;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.frost_explosive_light;
+            ctx.fillRect(20, 40, 20, 20);
+            ctx.fillStyle = colors.frost_explosive_medium;
+            ctx.fillRect(20, 20, 20, 20);
+            ctx.fillStyle = colors.frost_explosive_dark;
+            ctx.fillRect(20, 10, 20, 10);
+            ctx.fillRect(10, 0, 40, 10);
+        },
+        update: function(x, y) {
+            if (y == gridSize - 1) {
+                explode(x, y, 10, "frost_fire", 5, 0.5);
+                return;
+            }
+            if (grid[y][x][1] == "frost_fire" && gameTick % 9 != 0) {
+                return;
+            }
+            if (x != gridSize - 1 && grid[y + 1][x][0] == "reflector_horizontal") {
+                nextGrid[y + 1][x + 1][1] = "frost_ignitor_missile_right";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (x != 0 && grid[y + 1][x][0] == "reflector_vertical") {
+                nextGrid[y + 1][x - 1][1] = "frost_ignitor_missile_left";
+                changePixel(x, y, null, "air");
+                return;
+            }
+            if (grid[y + 1][x][0] != "air" || (grid[y + 1][x][1] != "air" && grid[y + 1][x][1] != "frost_fire")) {
+                explode(x, y, 10, "frost_fire", 5, 0.5);
+                return;
+            }
+            move(x, y, [{ x: 0, y: 1 }], 0);
+            changePixel(x, y, null, "frost_fire");
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 4,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        pushDirection: null,
+        whenPushed: 0,
+        flammable: -10,
+        blastResistance: 1,
+        monster: false,
+        name: "Frost Ignitor Missile (Down)",
         description: "Explodes on impact.",
         hidden: true,
     },
@@ -3596,12 +4944,104 @@ var pixels = {
         liquid: false,
         pushable: false,
         pushDirection: null,
-        deletePushed: 1,
+        whenPushed: 1,
         flammable: 10,
         blastResistance: 1,
         monster: true,
         name: "Monster",
         description: "Can be killed with any pixel. All monsters need to be killed to finish the level.",
+        type: "Level Construction",
+        hidden: false,
+    },
+    "happy_monster": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.monster_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.monster_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize * 2 / 3, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.monster_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.monster_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.monster_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.monster_dark;
+            ctx.fillRect(10, 10, 10, 10);
+            ctx.fillRect(40, 10, 10, 10);
+            ctx.fillRect(10, 30, 10, 10);
+            ctx.fillRect(40, 30, 10, 10);
+            ctx.fillRect(10, 40, 40, 10);
+            // ctx.fillRect(20, 30, 20, 20);
+        },
+        update: function(x, y) {
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 0,
+        liquid: false,
+        pushable: false,
+        pushDirection: null,
+        whenPushed: 1,
+        flammable: 10,
+        blastResistance: 1,
+        monster: true,
+        name: "Happy Monster",
+        description: "It's happy! Can be killed with any pixel. But why would you? All monsters need to be killed to finish the level.",
+        type: "Level Construction",
+        hidden: false,
+    },
+    "sad_monster": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.monster_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.monster_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize * 2 / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 6, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.monster_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.monster_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.monster_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.monster_dark;
+            ctx.fillRect(10, 10, 10, 10);
+            ctx.fillRect(40, 10, 10, 10);
+            ctx.fillRect(10, 30, 40, 10);
+            ctx.fillRect(10, 40, 10, 10);
+            ctx.fillRect(40, 40, 10, 10);
+            // ctx.fillRect(20, 30, 20, 20);
+        },
+        update: function(x, y) {
+        },
+        updateStage: 0,
+        animated: false,
+        drawNoise: false,
+        density: 0,
+        liquid: false,
+        pushable: false,
+        pushDirection: null,
+        whenPushed: 1,
+        flammable: 10,
+        blastResistance: 1,
+        monster: true,
+        name: "Sad Monster",
+        description: "You killed it's friends. Now it's sad. Can be killed with any pixel. All monsters need to be killed to finish the level.",
         type: "Level Construction",
         hidden: false,
     },
@@ -3638,7 +5078,7 @@ var pixels = {
         liquid: false,
         pushable: false,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: Infinity,
         monster: false,
@@ -3677,7 +5117,7 @@ var pixels = {
         liquid: false,
         pushable: false,
         pushDirection: null,
-        deletePushed: 0,
+        whenPushed: 0,
         flammable: -10,
         blastResistance: Infinity,
         monster: false,
