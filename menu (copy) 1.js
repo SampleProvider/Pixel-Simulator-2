@@ -6,7 +6,8 @@ menuCtx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 var menuAnimationStage = 0;
 var menuAnimationTime = 0;
 
-var menuPixelSize = Math.ceil(window.innerHeight / 20);
+var menuPixelSize;
+var menuAnimationScale = 1;
 
 var menuCircleSpeed = 40;
 
@@ -14,7 +15,7 @@ var menuPixelCount = 16;
 var menuPixels = [];
 var index = 0;
 for (var i in pixels) {
-    if (i == 0 || pixels[i].hidden) {
+    if (i == "air" || pixels[i].hidden) {
         continue;
     }
     menuPixels[index] = i;
@@ -36,6 +37,7 @@ menuPixelFinalX = 1 / 2;
 menuPixelFinalY = 3 / 5;
 
 var menuPixelsLerped = 0;
+var menuPixelsInPlace = 0;
 
 var menuPixelLerp = function(pixel) {
     var lerpAmount = menuSpedUp ? 0.08 : 0.04;
@@ -52,17 +54,28 @@ var menuPixelLerp = function(pixel) {
     }
 };
 var menuPixelCircle = function(pixel) {
-    menuPixelX[pixel] = 1 / 2 + Math.cos(menuPixelAngle[pixel]) / 10;
-    menuPixelY[pixel] = 1 / 2 + Math.sin(menuPixelAngle[pixel]) / 10;
+    menuPixelX[pixel] = 1 / 2 + Math.cos(menuPixelAngle[pixel]) * menuAnimationScale / 10;
+    menuPixelY[pixel] = 1 / 2 + Math.sin(menuPixelAngle[pixel]) * menuAnimationScale / 10;
     if (pixel == 0) {
         menuPixelAngle[pixel] += menuCircleSpeed / menuPixelCount / 180 * Math.PI;
+        menuPixelsInPlace += 1;
     }
     else {
         menuPixelAngle[pixel] = menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount;
+        menuPixelsInPlace += 1;
+        // if (Math.abs(menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount - menuPixelAngle[pixel]) < (0.5 + menuSpedUp ? 800 / menuPixelCount : 400 / menuPixelCount) / 180 * Math.PI) {
+        // }
+        // else {
+        //     var lerpAmount = menuSpedUp ? 0.2 : 0.1;
+        //     while (menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount - menuPixelAngle[pixel] > 180) {
+        //         menuPixelAngle[pixel] += Math.PI * 2;
+        //     }
+        //     menuPixelAngle[pixel] = Math.max(menuPixelAngle[pixel] + (menuSpedUp ? 2 / menuPixelCount : 1 / menuPixelCount) / 180 * Math.PI, (1 - lerpAmount) * menuPixelAngle[pixel] + lerpAmount * (menuPixelAngle[0] - pixel * Math.PI * 2 / menuPixelCount));
+        // }
     }
 };
 var menuPixelDrawAll = function() {
-    menuPixelSize = Math.ceil(window.innerHeight / 20);
+    menuPixelSize = Math.ceil(window.innerHeight / 20) * menuAnimationScale;
     pixelSize = menuPixelSize;
     var startIndex = Math.round(((menuPixelAngle[0] * 180 / Math.PI + 90) % 360) / 360 * menuPixelCount);
     for (var i = 0; i <= Math.floor(menuPixelCount / 2); i++) {
@@ -73,6 +86,7 @@ var menuPixelDrawAll = function() {
             menuPixelDraw((startIndex - i + menuPixelCount) % menuPixelCount);
         }
     }
+    menuPixelSize = Math.ceil(window.innerHeight / 20);
 };
 var menuPixelDraw = function(i) {
     noiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize] = [];
@@ -85,51 +99,62 @@ var menuPixelDraw = function(i) {
     drawPixel(menuPixels[i], (menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize, menuCtx);
 };
 
+var menuTransition = true;
 var inLevelSelect = false;
 
-var showGameScreen = async function() {
-    await transition();
-    document.getElementById("menuScreen").style.display = "none";
-    document.getElementById("gameScreen").style.display = "inline";
-    menuScreen = false;
+var showGameScreen = function() {
+    menuTransition = true;
+    document.getElementById("menuTitle").style.transform = "translateY(-75px)";
+    document.getElementById("levelsButton").style.transform = "translateX(-53vw)";
+    document.getElementById("sandboxButton").style.transform = "translateX(53vw)";
+    setTimeout(function() {
+        document.getElementById("menuTitle").style.visibility = "hidden";
+        document.getElementById("levelsButton").style.visibility = "hidden";
+        document.getElementById("sandboxButton").style.visibility = "hidden";
+    }, 500);
+    menuAnimationStage = 3;
+    menuAnimationTime = 0;
 };
-var showMenuScreen = async function() {
-    await transition();
-    document.getElementById("menuScreen").style.display = "inline";
-    document.getElementById("gameScreen").style.display = "none";
-    hideWinScreen();
+var showMenuScreen = function() {
+    menuTransition = true;
     menuScreen = true;
+    document.getElementById("menuScreen").style.visibility = "visible";
+    document.getElementById("menuScreen").style.opacity = 1;
+    document.getElementById("winScreen").style.opacity = 0;
+    document.getElementById("winScreen").style.pointerEvents = "none";
+    menuAnimationStage = -1;
+    setTimeout(function() {
+        menuAnimationStage = 5;
+        menuAnimationTime = 0;
+        inPrompt = false;
+        window.requestAnimationFrame(updateMenu);
+    }, 500);
 };
 
-document.getElementById("sandboxButton").onclick = async function() {
-    if (inLevelSelect || menuAnimationStage == 0) {
+document.getElementById("sandboxButton").onclick = function() {
+    if (inLevelSelect || menuTransition) {
         return;
     }
     ping();
-    await showGameScreen();
     sandbox = true;
-    var levelTools = document.getElementsByClassName("levelTool");
-    for (var i = 0; i < levelTools.length; i++) {
-        levelTools[i].style.display = "none";
-    }
-    var sandboxTools = document.getElementsByClassName("sandboxTool");
-    for (var i = 0; i < sandboxTools.length; i++) {
-        sandboxTools[i].style.display = "inline-block";
-    }
-    clickPixel = 0;
-    setClickPixel();
-    gridSize = 100;
+    document.getElementById("levelDescription").style.display = "none";
+    document.getElementById("setInitialButton").style.display = "inline-block";
+    document.getElementById("sandboxTools").style.display = "inline";
+    clickPixel = "air";
+    setPixel();
     createGrid();
-    resetGrid();
+    showGameScreen();
 };
 document.getElementById("levelsButton").onclick = function() {
-    if (menuAnimationStage == 0) {
-        return;
+    if (!menuTransition) {
+        ping();
+        document.getElementById("levelDescription").style.display = "block";
+        document.getElementById("setInitialButton").style.display = "none";
+        document.getElementById("sandboxTools").style.display = "none";
+        document.getElementById("levelSelect").style.visibility = "visible";
+        document.getElementById("levelSelect").style.transform = "translateY(0px)";
+        inLevelSelect = true;
     }
-    ping();
-    document.getElementById("levelSelect").style.visibility = "visible";
-    document.getElementById("levelSelect").style.transform = "translateY(0px)";
-    inLevelSelect = true;
 };
 document.getElementById("levelSelectCancelButton").onclick = function() {
     document.getElementById("levelSelect").style.transform = "translateY(-85vh)";
@@ -142,29 +167,23 @@ document.getElementById("levelSelectCancelButton").onclick = function() {
 };
 
 var loadLevel = async function(level) {
+    sandbox = false;
     if (inLevelSelect) {
-        var levelTools = document.getElementsByClassName("levelTool");
-        for (var i = 0; i < levelTools.length; i++) {
-            levelTools[i].style.display = "inline-block";
-        }
-        var sandboxTools = document.getElementsByClassName("sandboxTool");
-        for (var i = 0; i < sandboxTools.length; i++) {
-            sandboxTools[i].style.display = "none";
-        }
+        menuAnimationStage = 6;
         document.getElementById("levelSelect").style.transform = "translateY(-85vh)";
-        await showGameScreen();
-        document.getElementById("levelSelect").style.visibility = "hidden";
-        inLevelSelect = false;
+        setTimeout(function() {
+            document.getElementById("levelSelect").style.visibility = "hidden";
+            showGameScreen();
+            inLevelSelect = false;
+        }, 500);
     }
     else {
-        await transition();
+        
     }
     currentLevel = level;
-    clickPixel = 0;
-    setClickPixel();
-    sandbox = true;
+    clickPixel = "air";
+    setPixel();
     loadSaveCode(levels[level].saveCode);
-    sandbox = false;
     loadPixelInventory(levels[level].pixelInventory);
     document.getElementById("levelDescriptionName").innerHTML = level + ": " + levels[level].name;
     document.getElementById("levelDescriptionText").innerHTML = levels[level].description;
@@ -188,6 +207,18 @@ var updateMenu = function() {
             }
         }
         if (menuPixelsLerped == menuPixelCount) {
+            menuAnimationStage += 1;
+            menuAnimationTime = 0;
+        }
+        menuTransition = true;
+    }
+    else if (menuAnimationStage == 1) {
+        menuPixelsInPlace = 0;
+        for (var i = 0; i < menuPixelCount; i++) {
+            menuPixelCircle(i);
+        }
+        menuPixelDrawAll();
+        if (menuPixelsInPlace == menuPixelCount) {
             document.getElementById("menuTitle").style.visibility = "visible";
             document.getElementById("levelsButton").style.visibility = "visible";
             document.getElementById("sandboxButton").style.visibility = "visible";
@@ -198,13 +229,73 @@ var updateMenu = function() {
             menuAnimationTime = 0;
             menuCircleSpeed /= 4;
         }
+        menuTransition = true;
     }
-    else if (menuAnimationStage == 1) {
+    else if (menuAnimationStage == 2) {
         for (var i = 0; i < menuPixelCount; i++) {
             menuPixelCircle(i);
         }
         menuPixelDrawAll();
+        menuTransition = false;
+    }
+    else if (menuAnimationStage == 3) {
+        menuAnimationScale = 1 - menuAnimationTime / 30;
+        for (var i = 0; i < menuPixelCount; i++) {
+            menuPixelCircle(i);
+        }
+        menuPixelDrawAll();
+        if (menuAnimationTime == 30) {
+            menuAnimationStage += 1;
+            menuAnimationTime = 0;
+            menuAnimationScale = 1;
+        }
+        menuTransition = true;
+    }
+    else if (menuAnimationStage == 4) {
+        document.getElementById("menuScreen").style.opacity = 0;
+        setTimeout(function() {
+            document.getElementById("menuScreen").style.visibility = "hidden";
+        }, 500);
+        document.getElementById("gameScreen").style.display = "inline";
+        if (menuScreen) {
+            menuScreen = false;
+            resetGrid();
+            window.requestAnimationFrame(update);
+            menuTransition = false;
+        }
+        else {
+            menuTransition = true;
+        }
+    }
+    else if (menuAnimationStage == 5) {
+        menuAnimationScale = menuAnimationTime / 30;
+        for (var i = 0; i < menuPixelCount; i++) {
+            menuPixelCircle(i);
+        }
+        menuPixelDrawAll();
+        if (menuAnimationTime == 30) {
+            document.getElementById("menuTitle").style.visibility = "visible";
+            document.getElementById("levelsButton").style.visibility = "visible";
+            document.getElementById("sandboxButton").style.visibility = "visible";
+            document.getElementById("menuTitle").style.transform = "translateY(20vh)";
+            document.getElementById("levelsButton").style.transform = "translateX(-10px)";
+            document.getElementById("sandboxButton").style.transform = "translateX(10px)";
+            menuAnimationStage = 2;
+            menuAnimationTime = 0;
+            menuAnimationScale = 1;
+        }
+        menuTransition = true;
+    }
+    else if (menuAnimationStage == 6) {
+        for (var i = 0; i < menuPixelCount; i++) {
+            menuPixelCircle(i);
+        }
+        menuPixelDrawAll();
+        menuTransition = true;
     }
     menuAnimationTime += 1;
+    if (menuScreen) {
+        window.requestAnimationFrame(updateMenu);
+    }
 };
-window.requestAnimationFrame(update);
+window.requestAnimationFrame(updateMenu);

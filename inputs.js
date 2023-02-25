@@ -1,23 +1,33 @@
+
+var canvasScale = Math.min(window.innerWidth / 600, window.innerHeight / 600);
+
 var resize = function() {
+    canvasScale = Math.min(window.innerWidth / 600, window.innerHeight / 600);
     document.getElementById("menuCanvas").width = window.innerWidth;
     document.getElementById("menuCanvas").height = window.innerHeight;
+    document.getElementById("canvas").style.width = 600 * canvasScale - 20 + "px";
+    document.getElementById("canvas").style.height = 600 * canvasScale - 20 + "px";
+    document.getElementById("overlayCanvas").style.width = 600 * canvasScale - 20 + "px";
+    document.getElementById("overlayCanvas").style.height = 600 * canvasScale - 20 + "px";
     if (window.innerWidth - 600 * canvasScale < 300) {
         document.getElementById("sidebar").style.top = Math.min(window.innerWidth, window.innerHeight) + "px";
         document.body.style.setProperty("--max-sidebar-width", window.innerWidth - 20 + "px");
         var pickerWidth = (Math.round((window.innerWidth - 20) / 62) - 1) * 62;
+        pickerWidth = Math.round(window.innerWidth - 20);
         document.getElementById("pixelPicker").style.width = pickerWidth + "px";
-        document.getElementById("pixelDescription").style.width = pickerWidth - 14 + "px";
-        document.getElementById("levelDescription").style.width = pickerWidth - 14 + "px";
-        document.getElementById("pixelTable").style.width = pickerWidth - 14 + "px";
+        document.getElementById("pixelDescription").style.width = pickerWidth + "px";
+        document.getElementById("levelDescription").style.width = pickerWidth + "px";
+        document.getElementById("pixelTable").style.width = (pickerWidth + 10) + "px";
     }
     else {
         document.getElementById("sidebar").style.top = "0px";
         document.body.style.setProperty("--max-sidebar-width", window.innerWidth - 600 * canvasScale - 20 + "px");
         var pickerWidth = (Math.round((window.innerWidth - 600 * canvasScale - 20) / 62) - 1) * 62;
+        pickerWidth = Math.round(window.innerWidth - 600 * canvasScale - 20);
         document.getElementById("pixelPicker").style.width = pickerWidth + "px";
-        document.getElementById("pixelDescription").style.width = pickerWidth - 14 + "px";
-        document.getElementById("levelDescription").style.width = pickerWidth - 14 + "px";
-        document.getElementById("pixelTable").style.width = pickerWidth - 14 + "px";
+        document.getElementById("pixelDescription").style.width = pickerWidth + "px";
+        document.getElementById("levelDescription").style.width = pickerWidth + "px";
+        document.getElementById("pixelTable").style.width = (pickerWidth + 10) + "px";
     }
 }
 window.onresize = function() {
@@ -26,7 +36,10 @@ window.onresize = function() {
 resize();
 
 document.onkeydown = function(event) {
-    if (inPrompt) {
+    if (audioContext.state == "suspended") {
+        audioContext.resume();
+    }
+    if (inTransition) {
         return;
     }
     if (event.key == "ArrowUp") {
@@ -52,13 +65,13 @@ document.onkeydown = function(event) {
     if (event.key == " ") {
         if (menuSpedUp == false) {
             menuAnimationTime = Math.floor(menuAnimationTime / 2);
-            menuCircleSpeed *= 2;
+            menuCircleSpeed *= 4;
         }
         menuSpedUp = true;
     }
 };
 document.onkeyup = function(event) {
-    if (inPrompt) {
+    if (inTransition) {
         return;
     }
     if (event.key == "a") {
@@ -82,17 +95,20 @@ document.onkeyup = function(event) {
 };
 
 document.onmousemove = function(event) {
-    if (inPrompt) {
+    if (inTransition) {
         return;
     }
     cursorX = (event.clientX - 10) / (600 * canvasScale - 20) * 600;
     cursorY = (event.clientY - 10) / (600 * canvasScale - 20) * 600;
 };
 document.onmousedown = function(event) {
+    if (audioContext.state == "suspended") {
+        audioContext.resume();
+    }
     if (event.button == 1) {
         event.preventDefault();
     }
-    if (inPrompt) {
+    if (inTransition) {
         return;
     }
     if (event.button == 0) {
@@ -103,13 +119,20 @@ document.onmousedown = function(event) {
     }
     else if (event.button == 1 && !menuScreen) {
         if (cursorX >= 0 && cursorX <= 600 && cursorY >= 0 && cursorY <= 600) {
-            clickPixel = grid[Math.floor((cameraY * cameraZoom + cursorY) / pixelSize / cameraZoom)][Math.floor((cameraX * cameraZoom + cursorX) / pixelSize / cameraZoom)][0];
-            setPixel();
+            var pixel = grid[Math.floor((cameraY * cameraZoom + cursorY) / pixelSize / cameraZoom)][Math.floor((cameraX * cameraZoom + cursorX) / pixelSize / cameraZoom)][0];
+            if (!sandbox && pixelInventory[pixel] <= 0) {
+                return;
+            }
+            if (pixels[pixel].hidden) {
+                return;
+            }
+            clickPixel = pixel;
+            setClickPixel();
         }
     }
 };
 document.onmouseup = function(event) {
-    if (inPrompt) {
+    if (inTransition) {
         return;
     }
     if (event.button == 0) {

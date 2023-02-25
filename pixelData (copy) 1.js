@@ -5,8 +5,8 @@ var colors = {
     grass: "rgb(25, 175, 75)",
     sand: "rgb(255, 225, 125)",
     water: [125, 225, 255, 25, 75, 175],
-    wood_light: "rgb(150, 100, 75)",
-    wood_dark: "rgb(175, 125, 75)",
+    oak_wood_light: "rgb(175, 125, 75)",
+    oak_wood_dark: "rgb(150, 100, 75)",
     leaf: "rgb(125, 225, 75)",
     sapling: "rgb(75, 255, 150)",
     mud: [125, 75, 25, 50, 25, 0],
@@ -30,6 +30,8 @@ var colors = {
     frost_fire_light: "rgb(200, 200, 255)",
     frost_fire_dark: "rgb(125, 125, 255)",
     frost_fire_transparent: [125, 125, 255, 100, 100, 255],
+    spruce_wood_light: "rgb(125, 75, 50)",
+    spruce_wood_dark: "rgb(100, 50, 25)",
     push: "rgb(255, 0, 150)",
     push_lerp: "rgb(255, 0, 150)",
     update_push_color: function() {
@@ -70,19 +72,20 @@ var pixels = {
 
         },
         updateStage: -1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 0,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -5,
         blastResistance: 1,
         monster: false,
         name: "Air",
         description: "It's air. What did you expect?",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "dirt": {
@@ -107,13 +110,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 15,
         blastResistance: 1,
@@ -121,6 +124,7 @@ var pixels = {
         name: "Dirt",
         description: "Pretty dirty.",
         type: "A Pixel World",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "grass": {
@@ -155,13 +159,13 @@ var pixels = {
             });
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 15,
         blastResistance: 1,
@@ -169,6 +173,7 @@ var pixels = {
         name: "Grass",
         description: "This grass is pretty OP. It can grow on cliffs and on the bottom of floating islands.",
         type: "A Pixel World",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "sand": {
@@ -194,13 +199,13 @@ var pixels = {
             flow(x, y, 1, 0);
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
@@ -208,6 +213,7 @@ var pixels = {
         name: "Sand",
         description: "A fine, light-yellow powder. It likes to make pyramids.",
         type: "A Pixel World",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "water": {
@@ -232,13 +238,13 @@ var pixels = {
             flow(x, y, gridSize, 0);
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: true,
         drawNoise: true,
         density: 1,
         effect: false,
         liquid: true,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 0,
         blastResistance: 3,
@@ -246,41 +252,43 @@ var pixels = {
         name: "Water",
         description: "Flows everywhere. Not very realistic.",
         type: "A Pixel World",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
-    "wood": {
+    "oak_wood": {
         draw: function(x, y, ctx) {
-            ctx.fillStyle = colors.wood_dark;
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize, pixelSize / 2, pixelSize);
+            ctx.fillStyle = colors.oak_wood_dark;
+            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize / 2, pixelSize);
         },
         drawBackground: function(x, y, width, ctx) {
-            ctx.fillStyle = colors.wood_light;
+            ctx.fillStyle = colors.oak_wood_light;
             ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
         },
         drawPreview: function(ctx) {
-            ctx.fillStyle = colors.wood_light;
-            ctx.fillRect(0, 0, 30, 60);
-            ctx.fillStyle = colors.wood_dark;
+            ctx.fillStyle = colors.oak_wood_light;
             ctx.fillRect(30, 0, 30, 60);
+            ctx.fillStyle = colors.oak_wood_dark;
+            ctx.fillRect(0, 0, 30, 60);
         },
         update: function(x, y) {
 
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 10,
         blastResistance: 3,
         monster: false,
-        name: "Wood",
+        name: "Oak Wood",
         description: "A thick, rough, oak log.",
         type: "A Pixel World",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "leaf": {
@@ -296,7 +304,7 @@ var pixels = {
             ctx.fillRect(0, 0, 60, 60);
         },
         update: function(x, y) {
-            if (!isTouchingDiagonal(x, y, "wood", null) && getTouchingDiagonal(x, y, "leaf", null) < 2) {
+            if (!isTouchingDiagonal(x, y, "oak_wood", null) && !isTouchingDiagonal(x, y, "spruce_wood", null) && getTouchingDiagonal(x, y, "leaf", null) < 2) {
                 if (getRandom() < 0.1) {
                     changePixel(x, y, "sapling", null);
                 }
@@ -306,13 +314,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 5,
         blastResistance: 1,
@@ -320,18 +328,19 @@ var pixels = {
         name: "Leaf",
         description: "A nice, springy leaf. Drops saplings when it decays.",
         type: "A Pixel World",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "sapling": {
         draw: function(x, y, ctx) {
-            ctx.fillStyle = colors.sapling;
-            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize * 2 / 3);
-            ctx.fillStyle = colors.wood_light;
+            ctx.fillStyle = colors.oak_wood_dark;
             ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 3);
         },
         drawBackground: function(x, y, width, ctx) {
             ctx.fillStyle = colors.air;
             ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillStyle = colors.sapling;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize * 2 / 3);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors.air;
@@ -339,7 +348,7 @@ var pixels = {
             ctx.fillRect(40, 40, 20, 20);
             ctx.fillStyle = colors.sapling;
             ctx.fillRect(0, 0, 60, 40);
-            ctx.fillStyle = colors.wood_light;
+            ctx.fillStyle = colors.oak_wood_dark;
             ctx.fillRect(20, 40, 20, 20);
         },
         update: function(x, y) {
@@ -350,74 +359,74 @@ var pixels = {
                 if (grid[y + 1][x][0] == "dirt") {
                     var direction = [0, -1];
                     var length = random(8, 14);
-                    var stemPixel = "wood";
+                    var stemPixel = "oak_wood";
                     var leafPixel = "leaf";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.15, 0.05, 1, 21);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.15, 0.05, 1, 21, length, function(distance) { return true; });
                 }
                 else if (grid[y + 1][x][0] == "grass") {
                     var direction = [0, -1];
                     var length = random(12, 18);
-                    var stemPixel = "wood";
+                    var stemPixel = "oak_wood";
                     var leafPixel = "leaf";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.15, 0.05, 1, 14);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.15, 0.05, 1, 14, length * 2, function(distance) { return true; });
                 }
                 else if (grid[y + 1][x][0] == "sand") {
                     var direction = [0, -1];
                     var length = random(16, 24);
-                    var stemPixel = "wood";
+                    var stemPixel = "oak_wood";
                     var leafPixel = "leaf";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.15, 0, 0, 0);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.15, 0, 0, 0, 2, length, function(distance) { return getRandom() < 0.5; });
                 }
                 else if (grid[y + 1][x][0] == "mud") {
                     var direction = [0, -1];
                     var length = random(6, 10);
-                    var stemPixel = "wood";
+                    var stemPixel = "oak_wood";
                     var leafPixel = "leaf";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.25, 0.15, 1, 7);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.25, 0.15, 1, 7, length * 4, function(distance) { return true; });
                 }
                 else if (grid[y + 1][x][0] == "dried_mud") {
                     var direction = [0, -1];
                     var length = random(4, 8);
-                    var stemPixel = "wood";
+                    var stemPixel = "oak_wood";
                     var leafPixel = "leaf";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.35, 0.2, 2, 7);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.35, 0.2, 2, 7, length, function(distance) { return getRandom() < 1 / distance; });
                 }
                 else if (grid[y + 1][x][0] == "snow") {
                     var direction = [0, -1];
                     var length = random(8, 14);
-                    var stemPixel = "wood";
+                    var stemPixel = "spruce_wood";
                     var leafPixel = "snow";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.25, 0.05, 2, 21);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.25, 0.05, 2, 21, length, function(distance) { return true; });
                 }
                 else if (grid[y + 1][x][0] == "ice") {
                     var direction = [0, -1];
                     var length = random(8, 10);
-                    var stemPixel = "wood";
+                    var stemPixel = "spruce_wood";
                     var leafPixel = "ice";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.25, 0.2, 3, 7);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.25, 0.2, 3, 7, length, function(distance) { return getRandom() < 0.25; });
                 }
                 else if (grid[y + 1][x][0] == "slush") {
                     var direction = [0, -1];
                     var length = random(6, 10);
-                    var stemPixel = "wood";
+                    var stemPixel = "spruce_wood";
                     var leafPixel = "slush";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.35, 0.05, 2, 14);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.35, 0.05, 2, 14, length * 2, function(distance) { return getRandom() < 0.75; });
                 }
                 else if (grid[y + 1][x][0] == "silt") {
                     var direction = [0, -1];
                     var length = random(8, 16);
-                    var stemPixel = "wood";
+                    var stemPixel = "oak_wood";
                     var leafPixel = "ash";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.35, 0.05, 2, 14);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.35, 0.05, 2, 14, length, function(distance) { return true; });
                 }
                 else if (grid[y + 1][x][0] == "obsidian") {
                     var direction = [0, -1];
@@ -425,26 +434,40 @@ var pixels = {
                     var stemPixel = "basalt";
                     var leafPixel = "stone";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.35, 0.05, 2, 14);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.35, 0.05, 2, 14, length / 2, function(distance) { return getRandom() < 5 / distance; });
                 }
                 else if (grid[y + 1][x][0] == "quartz") {
                     var direction = [0, -1];
                     var length = random(12, 22);
-                    var stemPixel = "wood";
+                    var stemPixel = "spruce_wood";
                     var leafPixel = "quartz";
                     changePixel(x, y, stemPixel, null);
-                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.15, 0.05, 1, 14);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.15, 0.05, 1, 14, length * 9, function(distance) { return getRandom() < 0.5; });
                 }
+                else if (grid[y + 1][x][0] == "steam") {
+                    var direction = [0, -1];
+                    var length = random(36, 60);
+                    var stemPixel = "spruce_wood";
+                    var leafPixel = "steam";
+                    changePixel(x, y, stemPixel, null);
+                    generateTree(x, y, direction, length, stemPixel, leafPixel, 0.5, 1, 3, 1, length * 16, function(distance) { return getRandom() < 0.5; });
+                }
+                // else if (grid[y + 1][x][0] == "explosives") {
+                //     explode(x, y, 50, "fire", 25, 25);
+                // }
+                // else if (grid[y + 1][x][0] == "frost_explosives") {
+                //     explode(x, y, 50, "frost_fire", 25, 25);
+                // }
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 15,
         blastResistance: 1,
@@ -452,6 +475,7 @@ var pixels = {
         name: "Sapling",
         description: "Plant it and see what grows!",
         type: "A Pixel World",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "mud": {
@@ -478,13 +502,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 25,
         blastResistance: 3,
@@ -492,6 +516,7 @@ var pixels = {
         name: "Mud",
         description: "It's like dirt, but wet and slightly liquid.",
         type: "A Pixel World",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "dried_mud": {
@@ -518,13 +543,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 5,
         blastResistance: 3,
@@ -532,6 +557,7 @@ var pixels = {
         name: "Dried Mud",
         description: "Extremely flammable.",
         type: "A Pixel World",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "lava": {
@@ -591,13 +617,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: true,
         drawNoise: true,
         density: 1,
         effect: false,
         liquid: true,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 3,
@@ -605,6 +631,7 @@ var pixels = {
         name: "Lava",
         description: "Extremely hot and melts rocks. Burns flammable pixels. Flows everywhere but slowly. Water can cool it into rocks.",
         type: "Pixel Volcano",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "fire": {
@@ -723,13 +750,13 @@ var pixels = {
             // }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 1,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
@@ -737,6 +764,7 @@ var pixels = {
         name: "Fire",
         description: "Super hot! Burns flammable pixels.",
         type: "Pixel Volcano",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "steam": {
@@ -769,13 +797,13 @@ var pixels = {
             ascend(x, y, gridSize, 0);
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 0,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
@@ -783,6 +811,7 @@ var pixels = {
         name: "Steam",
         description: "Hot water steam.",
         type: "Pixel Volcano",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "quartz": {
@@ -798,13 +827,13 @@ var pixels = {
 
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 3,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 10,
@@ -812,6 +841,7 @@ var pixels = {
         name: "Quartz",
         description: "A perfectly smooth quartz crystal.",
         type: "Pixel Volcano",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "ash": {
@@ -832,13 +862,13 @@ var pixels = {
             flow(x, y, 2, 0);
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 50,
         blastResistance: 1,
@@ -846,6 +876,7 @@ var pixels = {
         name: "Ash",
         description: "A semi-liquid black dust. Can sustain fires.",
         type: "Pixel Volcano",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "silt": {
@@ -866,13 +897,13 @@ var pixels = {
             flow(x, y, 2, 0);
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 3,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -1,
         blastResistance: 1,
@@ -880,6 +911,7 @@ var pixels = {
         name: "Silt",
         description: "A compact mixture of water and ash. It's has a rough gravel texture.",
         type: "Pixel Volcano",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "stone": {
@@ -900,13 +932,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 3,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -914,6 +946,7 @@ var pixels = {
         name: "Stone",
         description: "Very sturdy and dense. Lava can melt it easily.",
         type: "Pixel Volcano",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "basalt": {
@@ -931,13 +964,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 3,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 15,
@@ -945,6 +978,7 @@ var pixels = {
         name: "Basalt",
         description: "A hard, volcanic, rock. Very blast resistant. BUH-salt.",
         type: "Pixel Volcano",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "obsidian": {
@@ -962,13 +996,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 4,
         effect: false,
         liquid: false,
         pushable: false,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 25,
@@ -976,6 +1010,7 @@ var pixels = {
         name: "Obsidian",
         description: "A smooth, very blast resistant rock. Hard to move.",
         type: "Pixel Volcano",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "gunpowder": {
@@ -999,13 +1034,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 10,
         blastResistance: 1,
@@ -1013,6 +1048,7 @@ var pixels = {
         name: "Gunpowder",
         description: "Explodes when lit on fire. Not very powerful, but spreads lots of fire.",
         type: "Pixel Volcano",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "snow": {
@@ -1044,13 +1080,13 @@ var pixels = {
             fall(x, y, 0);
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
@@ -1058,6 +1094,7 @@ var pixels = {
         name: "Snow",
         description: "Cold! Will freeze water.",
         type: "Frozen Tundra",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "ice": {
@@ -1097,13 +1134,13 @@ var pixels = {
             });
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 3,
@@ -1111,6 +1148,7 @@ var pixels = {
         name: "Ice",
         description: "Freezing! Can melt.",
         type: "Frozen Tundra",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "slush": {
@@ -1149,13 +1187,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: true,
         density: 3,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -1,
         blastResistance: 1,
@@ -1163,6 +1201,7 @@ var pixels = {
         name: "Slush",
         description: "Frozen silt. ",
         type: "Frozen Tundra",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "frost_fire": {
@@ -1252,13 +1291,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 1,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
@@ -1266,6 +1305,43 @@ var pixels = {
         name: "Frost Fire",
         description: "Super cold! Freezes pixels and makes them function 9 times slower!",
         type: "Frozen Tundra",
+        amountColor: "rgb(0, 0, 0)",
+        hidden: false,
+    },
+    "spruce_wood": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.spruce_wood_dark;
+            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize / 2, pixelSize);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.spruce_wood_light;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.spruce_wood_light;
+            ctx.fillRect(30, 0, 30, 60);
+            ctx.fillStyle = colors.spruce_wood_dark;
+            ctx.fillRect(0, 0, 30, 60);
+        },
+        update: function(x, y) {
+
+        },
+        updateStage: 0,
+        updateDirection: "up",
+        animated: false,
+        drawNoise: false,
+        density: 2,
+        effect: false,
+        liquid: false,
+        pushable: true,
+        whenPushed: 0,
+        flammable: 10,
+        blastResistance: 5,
+        monster: false,
+        name: "Spruce Wood",
+        description: "A hard piece of spruce wood.",
+        type: "Frozen Tundra",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "piston_left": {
@@ -1294,13 +1370,13 @@ var pixels = {
             }
             push(x + 1, y, "left", gridSize, true);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "left",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1308,6 +1384,7 @@ var pixels = {
         name: "Piston (Left)",
         description: "Pushes pixels to the left.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "piston_right": {
@@ -1336,13 +1413,13 @@ var pixels = {
             }
             push(x - 1, y, "right", gridSize, true);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "right",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1350,6 +1427,7 @@ var pixels = {
         name: "Piston (Right)",
         description: "Pushes pixels to the right.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "piston_up": {
@@ -1378,13 +1456,13 @@ var pixels = {
             }
             push(x, y + 1, "up", gridSize, true);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "up",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1392,6 +1470,7 @@ var pixels = {
         name: "Piston (Up)",
         description: "Pushes pixels upwards.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "piston_down": {
@@ -1420,13 +1499,13 @@ var pixels = {
             }
             push(x, y - 1, "down", gridSize, true);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "down",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1434,6 +1513,7 @@ var pixels = {
         name: "Piston (Down)",
         description: "Pushes pixels downwards.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "cloner_left": {
@@ -1474,14 +1554,22 @@ var pixels = {
                     changePixel(x - 1, y, grid[y][x + 1][0], null);
                 }
             }
+            else if (pixels[grid[y][x - 1][0]].whenPushed == 1) {
+                if (grid[y][x - 1][1] != "air") {
+                    changePixel(x - 1, y, "air", "air");
+                }
+                else {
+                    changePixel(x - 1, y, "air", null);
+                }
+            }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "left",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1489,6 +1577,7 @@ var pixels = {
         name: "Cloner (Left)",
         description: "Clones the pixel on the right. The cloned pixel is pushed on the left.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "cloner_right": {
@@ -1529,14 +1618,22 @@ var pixels = {
                     changePixel(x + 1, y, grid[y][x - 1][0], null);
                 }
             }
+            else if (pixels[grid[y][x + 1][0]].whenPushed == 1) {
+                if (grid[y][x + 1][1] != "air") {
+                    changePixel(x + 1, y, "air", "air");
+                }
+                else {
+                    changePixel(x + 1, y, "air", null);
+                }
+            }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "right",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1544,6 +1641,7 @@ var pixels = {
         name: "Cloner (Right)",
         description: "Clones the pixel on the left. The cloned pixel is pushed on the right.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "cloner_up": {
@@ -1584,14 +1682,22 @@ var pixels = {
                     changePixel(x, y - 1, grid[y + 1][x][0], null);
                 }
             }
+            else if (pixels[grid[y - 1][x][0]].whenPushed == 1) {
+                if (grid[y - 1][x][1] != "air") {
+                    changePixel(x, y - 1, "air", "air");
+                }
+                else {
+                    changePixel(x, y - 1, "air", null);
+                }
+            }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "up",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1599,6 +1705,7 @@ var pixels = {
         name: "Cloner (Up)",
         description: "Clones the pixel below it. The cloned pixel is pushed upwards.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "cloner_down": {
@@ -1639,14 +1746,22 @@ var pixels = {
                     changePixel(x, y + 1, grid[y - 1][x][0], null);
                 }
             }
+            else if (pixels[grid[y + 1][x][0]].whenPushed == 1) {
+                if (grid[y + 1][x][1] != "air") {
+                    changePixel(x, y + 1, "air", "air");
+                }
+                else {
+                    changePixel(x, y + 1, "air", null);
+                }
+            }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "down",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1654,6 +1769,7 @@ var pixels = {
         name: "Cloner (Down)",
         description: "Clones the pixel above it. The cloned pixel is pushed downwards.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "penetrator_left": {
@@ -1684,28 +1800,16 @@ var pixels = {
             }
             var leftPixel = [null, null];
             var rightPixel = [null, null];
-            if (nextGrid[y][x - 1][0] != null && (nextGrid[y][x][0] == "penetrator_left" || nextGrid[y][x][0] == null)) {
-                leftPixel[0] = nextGrid[y][x - 1][0];
-            }
-            else if (nextGrid[y][x - 1][0] == null) {
+            if (nextGrid[y][x - 1][0] == null) {
                 leftPixel[0] = grid[y][x - 1][0];
             }
-            if (nextGrid[y][x - 1][1] != null && (nextGrid[y][x][0] == "penetrator_left" || nextGrid[y][x][0] == null)) {
-                leftPixel[1] = nextGrid[y][x - 1][1];
-            }
-            else if (nextGrid[y][x - 1][1] == null) {
+            if (nextGrid[y][x - 1][1] == null) {
                 leftPixel[1] = grid[y][x - 1][1];
             }
-            if (nextGrid[y][x + 1][0] != null && (nextGrid[y][x][0] == "penetrator_left" || nextGrid[y][x][0] == null)) {
-                rightPixel[0] = nextGrid[y][x + 1][0];
-            }
-            else if (nextGrid[y][x + 1][0] == null) {
+            if (nextGrid[y][x + 1][0] == null) {
                 rightPixel[0] = grid[y][x + 1][0];
             }
-            if (nextGrid[y][x + 1][1] != null && (nextGrid[y][x][0] == "penetrator_left" || nextGrid[y][x][0] == null)) {
-                rightPixel[1] = nextGrid[y][x + 1][1];
-            }
-            else if (nextGrid[y][x + 1][1] == null) {
+            if (nextGrid[y][x + 1][1] == null) {
                 rightPixel[1] = grid[y][x + 1][1];
             }
             if (leftPixel[0] != null) {
@@ -1733,12 +1837,12 @@ var pixels = {
             push(x + 1, y, "left", gridSize, true);
         },
         updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "left",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1746,6 +1850,7 @@ var pixels = {
         name: "Penetrator (Left)",
         description: "Moves the pixel to the left of it to the right, then pushes left. Piston + Swapper.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "penetrator_right": {
@@ -1776,28 +1881,16 @@ var pixels = {
             }
             var leftPixel = [null, null];
             var rightPixel = [null, null];
-            if (nextGrid[y][x - 1][0] != null && (nextGrid[y][x][0] == "penetrator_right" || nextGrid[y][x][0] == null)) {
-                leftPixel[0] = nextGrid[y][x - 1][0];
-            }
-            else if (nextGrid[y][x - 1][0] == null) {
+            if (nextGrid[y][x - 1][0] == null) {
                 leftPixel[0] = grid[y][x - 1][0];
             }
-            if (nextGrid[y][x - 1][1] != null && (nextGrid[y][x][0] == "penetrator_right" || nextGrid[y][x][0] == null)) {
-                leftPixel[1] = nextGrid[y][x - 1][1];
-            }
-            else if (nextGrid[y][x - 1][1] == null) {
+            if (nextGrid[y][x - 1][1] == null) {
                 leftPixel[1] = grid[y][x - 1][1];
             }
-            if (nextGrid[y][x + 1][0] != null && (nextGrid[y][x][0] == "penetrator_right" || nextGrid[y][x][0] == null)) {
-                rightPixel[0] = nextGrid[y][x + 1][0];
-            }
-            else if (nextGrid[y][x + 1][0] == null) {
+            if (nextGrid[y][x + 1][0] == null) {
                 rightPixel[0] = grid[y][x + 1][0];
             }
-            if (nextGrid[y][x + 1][1] != null && (nextGrid[y][x][0] == "penetrator_right" || nextGrid[y][x][0] == null)) {
-                rightPixel[1] = nextGrid[y][x + 1][1];
-            }
-            else if (nextGrid[y][x + 1][1] == null) {
+            if (nextGrid[y][x + 1][1] == null) {
                 rightPixel[1] = grid[y][x + 1][1];
             }
             if (rightPixel[0] != null) {
@@ -1825,12 +1918,12 @@ var pixels = {
             push(x - 1, y, "right", gridSize, true);
         },
         updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "right",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1838,6 +1931,7 @@ var pixels = {
         name: "Penetrator (Right)",
         description: "Moves the pixel to the right of it to the left, then pushes right. Piston + Swapper.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "penetrator_up": {
@@ -1868,28 +1962,16 @@ var pixels = {
             }
             var abovePixel = [null, null];
             var belowPixel = [null, null];
-            if (nextGrid[y - 1][x][0] != null && (nextGrid[y][x][0] == "penetrator_up" || nextGrid[y][x][0] == null)) {
-                abovePixel[0] = nextGrid[y - 1][x][0];
-            }
-            else if (nextGrid[y - 1][x][0] == null) {
+            if (nextGrid[y - 1][x][0] == null) {
                 abovePixel[0] = grid[y - 1][x][0];
             }
-            if (nextGrid[y - 1][x][1] != null && (nextGrid[y][x][0] == "penetrator_up" || nextGrid[y][x][0] == null)) {
-                abovePixel[1] = nextGrid[y - 1][x][1];
-            }
-            else if (nextGrid[y - 1][x][1] == null) {
+            if (nextGrid[y - 1][x][1] == null) {
                 abovePixel[1] = grid[y - 1][x][1];
             }
-            if (nextGrid[y + 1][x][0] != null && (nextGrid[y][x][0] == "penetrator_up" || nextGrid[y][x][0] == null)) {
-                belowPixel[0] = nextGrid[y + 1][x][0];
-            }
-            else if (nextGrid[y + 1][x][0] == null) {
+            if (nextGrid[y + 1][x][0] == null) {
                 belowPixel[0] = grid[y + 1][x][0];
             }
-            if (nextGrid[y + 1][x][1] != null && (nextGrid[y][x][0] == "penetrator_up" || nextGrid[y][x][0] == null)) {
-                belowPixel[1] = nextGrid[y + 1][x][1];
-            }
-            else if (nextGrid[y + 1][x][1] == null) {
+            if (nextGrid[y + 1][x][1] == null) {
                 belowPixel[1] = grid[y + 1][x][1];
             }
             if (abovePixel[0] != null) {
@@ -1917,12 +1999,12 @@ var pixels = {
             push(x, y + 1, "up", gridSize, true);
         },
         updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "up",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -1930,6 +2012,7 @@ var pixels = {
         name: "Penetrator (Up)",
         description: "Moves the pixel above it below it, then pushes upwards. Piston + Swapper.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "penetrator_down": {
@@ -1960,28 +2043,16 @@ var pixels = {
             }
             var abovePixel = [null, null];
             var belowPixel = [null, null];
-            if (nextGrid[y - 1][x][0] != null && (nextGrid[y][x][0] == "penetrator_down" || nextGrid[y][x][0] == null)) {
-                abovePixel[0] = nextGrid[y - 1][x][0];
-            }
-            else if (nextGrid[y - 1][x][0] == null) {
+            if (nextGrid[y - 1][x][0] == null) {
                 abovePixel[0] = grid[y - 1][x][0];
             }
-            if (nextGrid[y - 1][x][1] != null && (nextGrid[y][x][0] == "penetrator_down" || nextGrid[y][x][0] == null)) {
-                abovePixel[1] = nextGrid[y - 1][x][1];
-            }
-            else if (nextGrid[y - 1][x][1] == null) {
+            if (nextGrid[y - 1][x][1] == null) {
                 abovePixel[1] = grid[y - 1][x][1];
             }
-            if (nextGrid[y + 1][x][0] != null && (nextGrid[y][x][0] == "penetrator_down" || nextGrid[y][x][0] == null)) {
-                belowPixel[0] = nextGrid[y + 1][x][0];
-            }
-            else if (nextGrid[y + 1][x][0] == null) {
+            if (nextGrid[y + 1][x][0] == null) {
                 belowPixel[0] = grid[y + 1][x][0];
             }
-            if (nextGrid[y + 1][x][1] != null && (nextGrid[y][x][0] == "penetrator_down" || nextGrid[y][x][0] == null)) {
-                belowPixel[1] = nextGrid[y + 1][x][1];
-            }
-            else if (nextGrid[y + 1][x][1] == null) {
+            if (nextGrid[y + 1][x][1] == null) {
                 belowPixel[1] = grid[y + 1][x][1];
             }
             if (belowPixel[0] != null) {
@@ -2009,12 +2080,12 @@ var pixels = {
             push(x, y - 1, "down", gridSize, true);
         },
         updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: "down",
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2022,6 +2093,7 @@ var pixels = {
         name: "Penetrator (Down)",
         description: "Moves the pixel below it to above it, then pushes downwards. Piston + Swapper.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "rotator_clockwise": {
@@ -2056,7 +2128,7 @@ var pixels = {
                 return;
             }
             forAllTouching(x, y, function(x1, y1) {
-                if (nextGrid[y1][x1][0] != null && (nextGrid[y][x][0] == "rotator_clockwise" || nextGrid[y][x][0] == null)) {
+                if (nextGrid[y1][x1][0] != null) {
                     if (nextGrid[y1][x1][0].includes("_left")) {
                         nextGrid[y1][x1][0] = nextGrid[y1][x1][0].replace("_left", "_up");
                     }
@@ -2076,7 +2148,7 @@ var pixels = {
                         nextGrid[y1][x1][0] = nextGrid[y1][x1][0].replace("_vertical", "_horizontal");
                     }
                 }
-                else if (nextGrid[y1][x1][0] == null) {
+                else {
                     if (grid[y1][x1][0].includes("_left")) {
                         nextGrid[y1][x1][0] = grid[y1][x1][0].replace("_left", "_up");
                     }
@@ -2099,12 +2171,12 @@ var pixels = {
             });
         },
         updateStage: 1,
+        updateDirection: "up",
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2112,6 +2184,7 @@ var pixels = {
         name: "Rotator (Clockwise)",
         description: "Rotates pixels 90 degrees clockwise.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "rotator_counter_clockwise": {
@@ -2146,7 +2219,7 @@ var pixels = {
                 return;
             }
             forAllTouching(x, y, function(x1, y1) {
-                if (nextGrid[y1][x1][0] != null && (nextGrid[y][x][0] == "rotator_counter_clockwise" || nextGrid[y][x][0] == null)) {
+                if (nextGrid[y1][x1][0] != null) {
                     if (nextGrid[y1][x1][0].includes("_left")) {
                         nextGrid[y1][x1][0] = nextGrid[y1][x1][0].replace("_left", "_down");
                     }
@@ -2166,7 +2239,7 @@ var pixels = {
                         nextGrid[y1][x1][0] = nextGrid[y1][x1][0].replace("_vertical", "_horizontal");
                     }
                 }
-                else if (nextGrid[y1][x1][0] == null) {
+                else {
                     if (grid[y1][x1][0].includes("_left")) {
                         nextGrid[y1][x1][0] = grid[y1][x1][0].replace("_left", "_down");
                     }
@@ -2189,12 +2262,12 @@ var pixels = {
             });
         },
         updateStage: 1,
+        updateDirection: "up",
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2202,6 +2275,7 @@ var pixels = {
         name: "Rotator (Counter Clockwise)",
         description: "Rotates pixels 90 degrees counter clockwise.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "alternator": {
@@ -2236,7 +2310,7 @@ var pixels = {
                 return;
             }
             forAllTouching(x, y, function(x1, y1) {
-                if (nextGrid[y1][x1][0] != null && (nextGrid[y][x][0] == "alternator" || nextGrid[y][x][0] == null)) {
+                if (nextGrid[y1][x1][0] != null) {
                     if (nextGrid[y1][x1][0].includes("_left")) {
                         nextGrid[y1][x1][0] = nextGrid[y1][x1][0].replace("_left", "_right");
                     }
@@ -2250,7 +2324,7 @@ var pixels = {
                         nextGrid[y1][x1][0] = nextGrid[y1][x1][0].replace("_down", "_up");
                     }
                 }
-                else if (nextGrid[y1][x1][0] == null) {
+                else {
                     if (grid[y1][x1][0].includes("_left")) {
                         nextGrid[y1][x1][0] = grid[y1][x1][0].replace("_left", "_right");
                     }
@@ -2267,12 +2341,12 @@ var pixels = {
             });
         },
         updateStage: 1,
+        updateDirection: "up",
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2280,6 +2354,7 @@ var pixels = {
         name: "Alternator",
         description: "Rotates pixels 180 degrees.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "deleter": {
@@ -2317,12 +2392,12 @@ var pixels = {
         update: function(x, y) {
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: true,
         drawNoise: false,
         density: 0,
         liquid: false,
         pushable: false,
-        pushDirection: null,
         whenPushed: 2,
         flammable: -10,
         blastResistance: 5,
@@ -2330,6 +2405,7 @@ var pixels = {
         name: "Deleter",
         description: "Deletes pixels.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "swapper_horizontal": {
@@ -2368,28 +2444,16 @@ var pixels = {
             }
             var leftPixel = [null, null];
             var rightPixel = [null, null];
-            if (nextGrid[y][x - 1][0] != null && (nextGrid[y][x][0] == "swapper_horizontal" || nextGrid[y][x][0] == null)) {
-                leftPixel[0] = nextGrid[y][x - 1][0];
-            }
-            else if (nextGrid[y][x - 1][0] == null) {
+            if (nextGrid[y][x - 1][0] == null) {
                 leftPixel[0] = grid[y][x - 1][0];
             }
-            if (nextGrid[y][x - 1][1] != null && (nextGrid[y][x][0] == "swapper_horizontal" || nextGrid[y][x][0] == null)) {
-                leftPixel[1] = nextGrid[y][x - 1][1];
-            }
-            else if (nextGrid[y][x - 1][1] == null) {
+            if (nextGrid[y][x - 1][1] == null) {
                 leftPixel[1] = grid[y][x - 1][1];
             }
-            if (nextGrid[y][x + 1][0] != null && (nextGrid[y][x][0] == "swapper_horizontal" || nextGrid[y][x][0] == null)) {
-                rightPixel[0] = nextGrid[y][x + 1][0];
-            }
-            else if (nextGrid[y][x + 1][0] == null) {
+            if (nextGrid[y][x + 1][0] == null) {
                 rightPixel[0] = grid[y][x + 1][0];
             }
-            if (nextGrid[y][x + 1][1] != null && (nextGrid[y][x][0] == "swapper_horizontal" || nextGrid[y][x][0] == null)) {
-                rightPixel[1] = nextGrid[y][x + 1][1];
-            }
-            else if (nextGrid[y][x + 1][1] == null) {
+            if (nextGrid[y][x + 1][1] == null) {
                 rightPixel[1] = grid[y][x + 1][1];
             }
             if ((leftPixel[0] != null || leftPixel[1] != null) && (rightPixel[0] != null || rightPixel[1] != null)) {
@@ -2397,13 +2461,13 @@ var pixels = {
                 nextGrid[y][x + 1] = leftPixel;
             }
         },
-        updateStage: 1,
+        updateStage: 2,
+        updateDirection: "up",
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2411,6 +2475,7 @@ var pixels = {
         name: "Swapper (Horizontal)",
         description: "Swaps the pixels on its left and right.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "swapper_vertical": {
@@ -2450,28 +2515,16 @@ var pixels = {
             }
             var abovePixel = [null, null];
             var belowPixel = [null, null];
-            if (nextGrid[y - 1][x][0] != null && (nextGrid[y][x][0] == "swapper_vertical" || nextGrid[y][x][0] == null)) {
-                abovePixel[0] = nextGrid[y - 1][x][0];
-            }
-            else if (nextGrid[y - 1][x][0] == null) {
+            if (nextGrid[y - 1][x][0] == null) {
                 abovePixel[0] = grid[y - 1][x][0];
             }
-            if (nextGrid[y - 1][x][1] != null && (nextGrid[y][x][0] == "swapper_vertical" || nextGrid[y][x][0] == null)) {
-                abovePixel[1] = nextGrid[y - 1][x][1];
-            }
-            else if (nextGrid[y - 1][x][1] == null) {
+            if (nextGrid[y - 1][x][1] == null) {
                 abovePixel[1] = grid[y - 1][x][1];
             }
-            if (nextGrid[y + 1][x][0] != null && (nextGrid[y][x][0] == "swapper_vertical" || nextGrid[y][x][0] == null)) {
-                belowPixel[0] = nextGrid[y + 1][x][0];
-            }
-            else if (nextGrid[y + 1][x][0] == null) {
+            if (nextGrid[y + 1][x][0] == null) {
                 belowPixel[0] = grid[y + 1][x][0];
             }
-            if (nextGrid[y + 1][x][1] != null && (nextGrid[y][x][0] == "swapper_vertical" || nextGrid[y][x][0] == null)) {
-                belowPixel[1] = nextGrid[y + 1][x][1];
-            }
-            else if (nextGrid[y + 1][x][1] == null) {
+            if (nextGrid[y + 1][x][1] == null) {
                 belowPixel[1] = grid[y + 1][x][1];
             }
             if ((abovePixel[0] != null || abovePixel[1] != null) && (belowPixel[0] != null || belowPixel[1] != null)) {
@@ -2480,12 +2533,12 @@ var pixels = {
             }
         },
         updateStage: 1,
+        updateDirection: "left",
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2493,6 +2546,7 @@ var pixels = {
         name: "Swapper (Vertical)",
         description: "Swaps the pixels above it and below it.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "slider_horizontal": {
@@ -2514,19 +2568,20 @@ var pixels = {
 
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
-        flammable: -10,
+        flammable: 10,
         blastResistance: 5,
         monster: false,
         name: "Slider (Horizontal)",
         description: "Can only be pushed horizontally.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "slider_vertical": {
@@ -2548,19 +2603,20 @@ var pixels = {
 
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: true,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
-        flammable: -10,
+        flammable: 10,
         blastResistance: 5,
         monster: false,
         name: "Slider (Vertical)",
         description: "Can only be pushed vertically.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "collapsable": {
@@ -2584,12 +2640,12 @@ var pixels = {
 
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: true,
         drawNoise: false,
         density: 2,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: -1,
         flammable: 10,
         blastResistance: 1,
@@ -2597,6 +2653,7 @@ var pixels = {
         name: "Collapsable",
         description: "Collapses when pushed.",
         type: "Mechanical Movement",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "reflector_horizontal": {
@@ -2626,12 +2683,12 @@ var pixels = {
 
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2639,6 +2696,7 @@ var pixels = {
         name: "Reflector (Horizontal)",
         description: "Can reflect lasers.",
         type: "Mechanical Movement",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "reflector_vertical": {
@@ -2668,12 +2726,12 @@ var pixels = {
 
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 4,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2681,6 +2739,7 @@ var pixels = {
         name: "Reflector (Vertical)",
         description: "Can reflect lasers.",
         type: "Mechanical Movement",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "explosives": {
@@ -2718,13 +2777,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 10,
         blastResistance: 3,
@@ -2732,6 +2791,7 @@ var pixels = {
         name: "Explosives",
         description: "Explodes when lit on fire.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_left": {
@@ -2766,14 +2826,14 @@ var pixels = {
                 changePixel(x - 1, y, null, "fire");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2781,6 +2841,7 @@ var pixels = {
         name: "Ignitor (Left)",
         description: "Lights the pixel to the left of it on fire.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_right": {
@@ -2815,14 +2876,14 @@ var pixels = {
                 changePixel(x + 1, y, null, "fire");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2830,6 +2891,7 @@ var pixels = {
         name: "Ignitor (Right)",
         description: "Lights the pixel to the right of it on fire.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_up": {
@@ -2864,14 +2926,14 @@ var pixels = {
                 changePixel(x, y - 1, null, "fire");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2879,6 +2941,7 @@ var pixels = {
         name: "Ignitor (Up)",
         description: "Lights the pixel above it on fire.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_down": {
@@ -2913,14 +2976,14 @@ var pixels = {
                 changePixel(x, y + 1, null, "fire");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2928,6 +2991,7 @@ var pixels = {
         name: "Ignitor (Down)",
         description: "Lights the pixel below it on fire.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_laser_left": {
@@ -2962,14 +3026,14 @@ var pixels = {
                 changePixel(x - 1, y, null, "ignitor_laser_beam_left");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -2977,6 +3041,7 @@ var pixels = {
         name: "Ignitor Laser (Left)",
         description: "Shoots a fire laser to the left of it.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_laser_right": {
@@ -3011,14 +3076,14 @@ var pixels = {
                 changePixel(x + 1, y, null, "ignitor_laser_beam_right");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3026,6 +3091,7 @@ var pixels = {
         name: "Ignitor Laser (Right)",
         description: "Shoots a fire laser to the right of it.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_laser_up": {
@@ -3060,14 +3126,14 @@ var pixels = {
                 changePixel(x, y - 1, null, "ignitor_laser_beam_up");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3075,6 +3141,7 @@ var pixels = {
         name: "Ignitor Laser (Up)",
         description: "Shoots a fire laser above it.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_laser_down": {
@@ -3109,14 +3176,14 @@ var pixels = {
                 changePixel(x, y + 1, null, "ignitor_laser_beam_down");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3124,6 +3191,7 @@ var pixels = {
         name: "Ignitor Laser (Down)",
         description: "Shoots a fire laser below it.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_launcher_left": {
@@ -3160,14 +3228,14 @@ var pixels = {
                 changePixel(x - 1, y, "ignitor_missile_left", null);
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3175,6 +3243,7 @@ var pixels = {
         name: "Ignitor Launcher (Left)",
         description: "Shoots a fire missile to the left of it.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_launcher_right": {
@@ -3211,14 +3280,14 @@ var pixels = {
                 changePixel(x + 1, y, "ignitor_missile_right", null);
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3226,6 +3295,7 @@ var pixels = {
         name: "Ignitor Launcher (Right)",
         description: "Shoots a fire missile to the right of it.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_launcher_up": {
@@ -3262,14 +3332,14 @@ var pixels = {
                 changePixel(x, y - 1, "ignitor_missile_up", null);
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3277,6 +3347,7 @@ var pixels = {
         name: "Ignitor Launcher (Up)",
         description: "Shoots a fire missile above it.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_launcher_down": {
@@ -3313,14 +3384,14 @@ var pixels = {
                 changePixel(x, y + 1, "ignitor_missile_down", null);
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3328,6 +3399,7 @@ var pixels = {
         name: "Ignitor Launcher (Down)",
         description: "Shoots a fire missile below it.",
         type: "Fiery Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "ignitor_laser_beam_left": {
@@ -3365,20 +3437,21 @@ var pixels = {
             }
             move(x, y, [{ x: -1, y: 0 }], 1);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 0,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Ignitor Laser Beam (Left)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "ignitor_laser_beam_right": {
@@ -3416,20 +3489,21 @@ var pixels = {
             }
             move(x, y, [{ x: 1, y: 0 }], 1);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 0,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Ignitor Laser Beam (Right)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "ignitor_laser_beam_up": {
@@ -3467,20 +3541,21 @@ var pixels = {
             }
             move(x, y, [{ x: 0, y: -1 }], 1);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 0,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Ignitor Laser Beam (Up)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "ignitor_laser_beam_down": {
@@ -3518,20 +3593,21 @@ var pixels = {
             }
             move(x, y, [{ x: 0, y: 1 }], 1);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 0,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Ignitor Laser Beam (Down)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "ignitor_missile_left": {
@@ -3568,12 +3644,12 @@ var pixels = {
                 return;
             }
             if (y != 0 && grid[y][x - 1][0] == "reflector_horizontal") {
-                nextGrid[y - 1][x - 1][1] = "ignitor_missile_up";
+                changePixel(x - 1, y - 1, "ignitor_missile_up", null);
                 changePixel(x, y, "air", null);
                 return;
             }
             if (y != gridSize - 1 && grid[y][x - 1][0] == "reflector_vertical") {
-                nextGrid[y + 1][x - 1][1] = "ignitor_missile_down";
+                changePixel(x - 1, y + 1, "ignitor_missile_down", null);
                 changePixel(x, y, "air", null);
                 return;
             }
@@ -3584,20 +3660,21 @@ var pixels = {
             move(x, y, [{ x: -1, y: 0 }], 0);
             changePixel(x, y, null, "fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Ignitor Missile (Left)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "ignitor_missile_right": {
@@ -3634,13 +3711,13 @@ var pixels = {
                 return;
             }
             if (y != gridSize - 1 && grid[y][x + 1][0] == "reflector_horizontal") {
-                nextGrid[y + 1][x + 1][1] = "ignitor_missile_down";
-                changePixel(x, y, null, "air");
+                changePixel(x + 1, y + 1, "ignitor_missile_down", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (y != 0 && grid[y][x + 1][0] == "reflector_vertical") {
-                nextGrid[y - 1][x + 1][1] = "ignitor_missile_up";
-                changePixel(x, y, null, "air");
+                changePixel(x + 1, y - 1, "ignitor_missile_up", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (grid[y][x + 1][0] != "air" || (grid[y][x + 1][1] != "air" && grid[y][x + 1][1] != "fire")) {
@@ -3650,20 +3727,21 @@ var pixels = {
             move(x, y, [{ x: 1, y: 0 }], 0);
             changePixel(x, y, null, "fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Ignitor Missile (Right)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "ignitor_missile_up": {
@@ -3700,13 +3778,13 @@ var pixels = {
                 return;
             }
             if (x != 0 && grid[y - 1][x][0] == "reflector_horizontal") {
-                nextGrid[y - 1][x - 1][1] = "ignitor_missile_left";
-                changePixel(x, y, null, "air");
+                changePixel(x - 1, y - 1, "ignitor_missile_left", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (x != gridSize - 1 && grid[y - 1][x][0] == "reflector_vertical") {
-                nextGrid[y - 1][x + 1][1] = "ignitor_missile_right";
-                changePixel(x, y, null, "air");
+                changePixel(x + 1, y - 1, "ignitor_missile_right", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (grid[y - 1][x][0] != "air" || (grid[y - 1][x][1] != "air" && grid[y - 1][x][1] != "fire")) {
@@ -3716,20 +3794,21 @@ var pixels = {
             move(x, y, [{ x: 0, y: -1 }], 0);
             changePixel(x, y, null, "fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Ignitor Missile (Up)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "ignitor_missile_down": {
@@ -3766,13 +3845,13 @@ var pixels = {
                 return;
             }
             if (x != gridSize - 1 && grid[y + 1][x][0] == "reflector_horizontal") {
-                nextGrid[y + 1][x + 1][1] = "ignitor_missile_right";
-                changePixel(x, y, null, "air");
+                changePixel(x + 1, y + 1, "ignitor_missile_right", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (x != 0 && grid[y + 1][x][0] == "reflector_vertical") {
-                nextGrid[y + 1][x - 1][1] = "ignitor_missile_left";
-                changePixel(x, y, null, "air");
+                changePixel(x - 1, y + 1, "ignitor_missile_left", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (grid[y + 1][x][0] != "air" || (grid[y + 1][x][1] != "air" && grid[y + 1][x][1] != "fire")) {
@@ -3782,20 +3861,21 @@ var pixels = {
             move(x, y, [{ x: 0, y: 1 }], 0);
             changePixel(x, y, null, "fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Ignitor Missile (Down)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "frost_explosives": {
@@ -3833,13 +3913,13 @@ var pixels = {
             }
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 2,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: 10,
         blastResistance: 3,
@@ -3847,6 +3927,7 @@ var pixels = {
         name: "Frost Explosives",
         description: "Explodes when lit on frost fire.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_left": {
@@ -3879,14 +3960,14 @@ var pixels = {
             }
             changePixel(x - 1, y, null, "frost_fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3894,6 +3975,7 @@ var pixels = {
         name: "Frost Ignitor (Left)",
         description: "Lights the pixel to the left of it on frost fire.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_right": {
@@ -3926,14 +4008,14 @@ var pixels = {
             }
             changePixel(x + 1, y, null, "frost_fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3941,6 +4023,7 @@ var pixels = {
         name: "Frost Ignitor (Right)",
         description: "Lights the pixel to the right of it on frost fire.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_up": {
@@ -3973,14 +4056,14 @@ var pixels = {
             }
             changePixel(x, y - 1, null, "frost_fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -3988,6 +4071,7 @@ var pixels = {
         name: "Frost Ignitor (Up)",
         description: "Lights the pixel above it on frost fire.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_down": {
@@ -4020,14 +4104,14 @@ var pixels = {
             }
             changePixel(x, y + 1, null, "frost_fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -4035,6 +4119,7 @@ var pixels = {
         name: "Frost Ignitor (Down)",
         description: "Lights the pixel below it on frost fire.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_laser_left": {
@@ -4069,14 +4154,14 @@ var pixels = {
                 changePixel(x - 1, y, null, "frost_ignitor_laser_beam_left");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -4084,6 +4169,7 @@ var pixels = {
         name: "Frost Ignitor Laser (Left)",
         description: "Shoots a frost fire laser to the left of it.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_laser_right": {
@@ -4118,14 +4204,14 @@ var pixels = {
                 changePixel(x + 1, y, null, "frost_ignitor_laser_beam_right");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -4133,6 +4219,7 @@ var pixels = {
         name: "Frost Ignitor Laser (Right)",
         description: "Shoots a frost fire laser to the right of it.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_laser_up": {
@@ -4167,14 +4254,14 @@ var pixels = {
                 changePixel(x, y - 1, null, "frost_ignitor_laser_beam_up");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -4182,6 +4269,7 @@ var pixels = {
         name: "Frost Ignitor Laser (Up)",
         description: "Shoots a frost fire laser above it.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_laser_down": {
@@ -4216,14 +4304,14 @@ var pixels = {
                 changePixel(x, y + 1, null, "frost_ignitor_laser_beam_down");
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -4231,6 +4319,7 @@ var pixels = {
         name: "Frost Ignitor Laser (Down)",
         description: "Shoots a frost fire laser below it.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_launcher_left": {
@@ -4267,14 +4356,14 @@ var pixels = {
                 changePixel(x - 1, y, "frost_ignitor_missile_left", null);
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: true,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -4282,6 +4371,7 @@ var pixels = {
         name: "Frost Ignitor Launcher (Left)",
         description: "Shoots a frost fire missile to the left of it.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_launcher_right": {
@@ -4318,14 +4408,14 @@ var pixels = {
                 changePixel(x + 1, y, "frost_ignitor_missile_right", null);
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -4333,6 +4423,7 @@ var pixels = {
         name: "Frost Ignitor Launcher (Right)",
         description: "Shoots a frost fire missile to the right of it.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_launcher_up": {
@@ -4369,14 +4460,14 @@ var pixels = {
                 changePixel(x, y - 1, "frost_ignitor_missile_up", null);
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -4384,6 +4475,7 @@ var pixels = {
         name: "Frost Ignitor Launcher (Up)",
         description: "Shoots a frost fire missile above it.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_launcher_down": {
@@ -4420,14 +4512,14 @@ var pixels = {
                 changePixel(x, y + 1, "frost_ignitor_missile_down", null);
             }
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 5,
@@ -4435,6 +4527,7 @@ var pixels = {
         name: "Frost Ignitor Launcher (Down)",
         description: "Shoots a frost fire missile below it.",
         type: "Frozen Destruction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "frost_ignitor_laser_beam_left": {
@@ -4472,20 +4565,21 @@ var pixels = {
             }
             move(x, y, [{ x: -1, y: 0 }], 1);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 0,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Frost Ignitor Laser Beam (Left)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "frost_ignitor_laser_beam_right": {
@@ -4523,20 +4617,21 @@ var pixels = {
             }
             move(x, y, [{ x: 1, y: 0 }], 1);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 0,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Frost Ignitor Laser Beam (Right)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "frost_ignitor_laser_beam_up": {
@@ -4574,20 +4669,21 @@ var pixels = {
             }
             move(x, y, [{ x: 0, y: -1 }], 1);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 0,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Frost Ignitor Laser Beam (Up)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "frost_ignitor_laser_beam_down": {
@@ -4625,20 +4721,21 @@ var pixels = {
             }
             move(x, y, [{ x: 0, y: 1 }], 1);
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 0,
         effect: true,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Frost Ignitor Laser Beam (Down)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "frost_ignitor_missile_left": {
@@ -4675,12 +4772,12 @@ var pixels = {
                 return;
             }
             if (y != 0 && grid[y][x - 1][0] == "reflector_horizontal") {
-                nextGrid[y - 1][x - 1][1] = "frost_ignitor_missile_up";
+                changePixel(x - 1, y - 1, "frost_ignitor_missile_up", null);
                 changePixel(x, y, "air", null);
                 return;
             }
             if (y != gridSize - 1 && grid[y][x - 1][0] == "reflector_vertical") {
-                nextGrid[y + 1][x - 1][1] = "frost_ignitor_missile_down";
+                changePixel(x - 1, y + 1, "frost_ignitor_missile_down", null);
                 changePixel(x, y, "air", null);
                 return;
             }
@@ -4691,20 +4788,21 @@ var pixels = {
             move(x, y, [{ x: -1, y: 0 }], 0);
             changePixel(x, y, null, "frost_fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Frost Ignitor Missile (Left)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "frost_ignitor_missile_right": {
@@ -4741,13 +4839,13 @@ var pixels = {
                 return;
             }
             if (y != gridSize - 1 && grid[y][x + 1][0] == "reflector_horizontal") {
-                nextGrid[y + 1][x + 1][1] = "frost_ignitor_missile_down";
-                changePixel(x, y, null, "air");
+                changePixel(x + 1, y + 1, "frost_ignitor_missile_down", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (y != 0 && grid[y][x + 1][0] == "reflector_vertical") {
-                nextGrid[y - 1][x + 1][1] = "frost_ignitor_missile_up";
-                changePixel(x, y, null, "air");
+                changePixel(x + 1, y - 1, "frost_ignitor_missile_up", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (grid[y][x + 1][0] != "air" || (grid[y][x + 1][1] != "air" && grid[y][x + 1][1] != "frost_fire")) {
@@ -4757,20 +4855,21 @@ var pixels = {
             move(x, y, [{ x: 1, y: 0 }], 0);
             changePixel(x, y, null, "frost_fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Frost Ignitor Missile (Right)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "frost_ignitor_missile_up": {
@@ -4807,13 +4906,13 @@ var pixels = {
                 return;
             }
             if (x != 0 && grid[y - 1][x][0] == "reflector_horizontal") {
-                nextGrid[y - 1][x - 1][1] = "frost_ignitor_missile_left";
-                changePixel(x, y, null, "air");
+                changePixel(x - 1, y - 1, "frost_ignitor_missile_left", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (x != gridSize - 1 && grid[y - 1][x][0] == "reflector_vertical") {
-                nextGrid[y - 1][x + 1][1] = "frost_ignitor_missile_right";
-                changePixel(x, y, null, "air");
+                changePixel(x + 1, y - 1, "frost_ignitor_missile_right", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (grid[y - 1][x][0] != "air" || (grid[y - 1][x][1] != "air" && grid[y - 1][x][1] != "frost_fire")) {
@@ -4823,20 +4922,21 @@ var pixels = {
             move(x, y, [{ x: 0, y: -1 }], 0);
             changePixel(x, y, null, "frost_fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Frost Ignitor Missile (Up)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "frost_ignitor_missile_down": {
@@ -4873,13 +4973,13 @@ var pixels = {
                 return;
             }
             if (x != gridSize - 1 && grid[y + 1][x][0] == "reflector_horizontal") {
-                nextGrid[y + 1][x + 1][1] = "frost_ignitor_missile_right";
-                changePixel(x, y, null, "air");
+                changePixel(x + 1, y + 1, "frost_ignitor_missile_right", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (x != 0 && grid[y + 1][x][0] == "reflector_vertical") {
-                nextGrid[y + 1][x - 1][1] = "frost_ignitor_missile_left";
-                changePixel(x, y, null, "air");
+                changePixel(x - 1, y + 1, "frost_ignitor_missile_left", null);
+                changePixel(x, y, "air", null);
                 return;
             }
             if (grid[y + 1][x][0] != "air" || (grid[y + 1][x][1] != "air" && grid[y + 1][x][1] != "frost_fire")) {
@@ -4889,20 +4989,21 @@ var pixels = {
             move(x, y, [{ x: 0, y: 1 }], 0);
             changePixel(x, y, null, "frost_fire");
         },
-        updateStage: 0,
+        updateStage: 1,
+        updateDirection: null,
         animated: false,
         drawNoise: false,
         density: 4,
         effect: false,
         liquid: false,
         pushable: true,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: 1,
         monster: false,
         name: "Frost Ignitor Missile (Down)",
         description: "Explodes on impact.",
+        amountColor: "rgb(0, 0, 0)",
         hidden: true,
     },
     "monster": {
@@ -4938,12 +5039,12 @@ var pixels = {
         update: function(x, y) {
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 0,
         liquid: false,
         pushable: false,
-        pushDirection: null,
         whenPushed: 1,
         flammable: 10,
         blastResistance: 1,
@@ -4951,6 +5052,7 @@ var pixels = {
         name: "Monster",
         description: "Can be killed with any pixel. All monsters need to be killed to finish the level.",
         type: "Level Construction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "happy_monster": {
@@ -4984,12 +5086,12 @@ var pixels = {
         update: function(x, y) {
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 0,
         liquid: false,
         pushable: false,
-        pushDirection: null,
         whenPushed: 1,
         flammable: 10,
         blastResistance: 1,
@@ -4997,6 +5099,7 @@ var pixels = {
         name: "Happy Monster",
         description: "It's happy! Can be killed with any pixel. But why would you? All monsters need to be killed to finish the level.",
         type: "Level Construction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
     "sad_monster": {
@@ -5030,12 +5133,12 @@ var pixels = {
         update: function(x, y) {
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: 0,
         liquid: false,
         pushable: false,
-        pushDirection: null,
         whenPushed: 1,
         flammable: 10,
         blastResistance: 1,
@@ -5043,7 +5146,55 @@ var pixels = {
         name: "Sad Monster",
         description: "You killed it's friends. Now it's sad. Can be killed with any pixel. All monsters need to be killed to finish the level.",
         type: "Level Construction",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
+    },
+    "tough_monster": {
+        draw: function(x, y, ctx) {
+            ctx.fillStyle = colors.monster_light;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
+            ctx.fillStyle = colors.monster_dark;
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize * 2 / 3, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize / 6, pixelSize / 6);
+            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 6, pixelSize / 6);
+        },
+        drawBackground: function(x, y, width, ctx) {
+            ctx.fillStyle = colors.monster_medium;
+            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors.monster_medium;
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors.monster_light;
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors.monster_dark;
+            ctx.fillRect(10, 10, 10, 10);
+            ctx.fillRect(40, 10, 10, 10);
+            ctx.fillRect(10, 30, 40, 10);
+            ctx.fillRect(10, 40, 10, 10);
+            ctx.fillRect(40, 40, 10, 10);
+            // ctx.fillRect(20, 30, 20, 20);
+        },
+        update: function(x, y) {
+        },
+        updateStage: 0,
+        updateDirection: "up",
+        animated: false,
+        drawNoise: false,
+        density: 0,
+        liquid: false,
+        pushable: false,
+        whenPushed: 1,
+        flammable: 10,
+        blastResistance: 1,
+        monster: true,
+        name: "Tough Monster",
+        description: "You killed it's friends. Now it's sad. Can be killed with any pixel. All monsters need to be killed to finish the level.",
+        type: "Level Construction",
+        amountColor: "rgb(255, 255, 255)",
+        hidden: true,
     },
     "placeable": {
         draw: function(x, y, ctx) {
@@ -5071,13 +5222,13 @@ var pixels = {
         update: function(x, y) {
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: Infinity,
         effect: false,
         liquid: false,
         pushable: false,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: Infinity,
@@ -5085,6 +5236,7 @@ var pixels = {
         name: "Placeable",
         description: "Allows placing on these tiles in levels.",
         type: "Level Construction",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
     "not_placeable": {
@@ -5110,13 +5262,13 @@ var pixels = {
         update: function(x, y) {
         },
         updateStage: 0,
+        updateDirection: "up",
         animated: false,
         drawNoise: false,
         density: Infinity,
         effect: false,
         liquid: false,
         pushable: false,
-        pushDirection: null,
         whenPushed: 0,
         flammable: -10,
         blastResistance: Infinity,
@@ -5124,6 +5276,7 @@ var pixels = {
         name: "Not Placeable",
         description: "Prevents placing on these tiles in levels.",
         type: "Level Construction",
+        amountColor: "rgb(0, 0, 0)",
         hidden: false,
     },
 };

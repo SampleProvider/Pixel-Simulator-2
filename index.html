@@ -22,9 +22,10 @@
     <div id="menuScreen">
         <canvas id="menuCanvas"></canvas>
         <div id="menuTitle">
-            <img src="./img/Monster.png" style="box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
-            <span style="text-shadow: 0px 0px 3vh rgba(255, 255, 255, 0.7); ">Pixel Simulator 2</span>
-            <img src="./img/Monster.png" style="box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
+            <img src="./img/Monster.png" style="vertical-align: top; box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
+            <span style="vertical-align: top; text-shadow: 0px 0px 3vh rgba(255, 255, 255, 0.7); ">Pixel Simulator
+                2</span>
+            <img src="./img/Monster.png" style="vertical-align: top; box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
         </div>
         <button id="levelsButton">LEVELS</button>
         <button id="sandboxButton">SANDBOX</button>
@@ -35,22 +36,35 @@
                     <h2>1. A Pixel World:</h2>
                     <button onclick="ping(); loadLevel('1-1')">1</button>
                     <button onclick="ping(); loadLevel('1-2')">2</button>
+                    <button onclick="ping(); loadLevel('1-A')">A</button>
                     <button onclick="ping(); loadLevel('1-3')">3</button>
                     <button onclick="ping(); loadLevel('1-4')">4</button>
                     <button onclick="ping(); loadLevel('1-5')">5</button>
-                    <button onclick="ping(); loadLevel('1-6')">6</button>
                 </div>
                 <div style="display: inline-block; border: none; width: 50%; padding: 10px; ">
                     <h2>2. Pixel Volcano:</h2>
                     <button onclick="ping(); loadLevel('2-1')">1</button>
                     <button onclick="ping(); loadLevel('2-2')">2</button>
                     <button onclick="ping(); loadLevel('2-3')">3</button>
+                    <button onclick="ping(); loadLevel('2-4')">4</button>
+                    <button onclick="ping(); loadLevel('2-5')">5</button>
+                    <button onclick="ping(); loadLevel('2-6')">6</button>
                 </div>
                 <div style="display: inline-block; border: none; left: 0px; width: 50%; padding: 10px; ">
                     <h2>3. Frozen Tundra:</h2>
+                    <button onclick="ping(); loadLevel('3-1')">1</button>
+                    <button onclick="ping(); loadLevel('3-2')">2</button>
+                    <button onclick="ping(); loadLevel('3-3')">3</button>
                 </div>
                 <div style="display: inline-block; border: none; left: 0px; width: 50%; padding: 10px; ">
                     <h2>4. Mechanical Movement:</h2>
+                    <button onclick="ping(); loadLevel('4-1')">1</button>
+                    <button onclick="ping(); loadLevel('4-2')">2</button>
+                    <button onclick="ping(); loadLevel('4-3')">3</button>
+                    <button onclick="ping(); loadLevel('4-A')">A</button>
+                    <button onclick="ping(); loadLevel('4-4')">4</button>
+                    <button onclick="ping(); loadLevel('4-5')">5</button>
+                    <button onclick="ping(); loadLevel('4-B')">B</button>
                 </div>
                 <div style="display: inline; border: none; left: 0px; width: 50%; padding: 10px; ">
                     <h2>5. Vaults???:</h2>
@@ -60,6 +74,9 @@
                     <button onclick="ping(); loadLevel('reflector_vault')">noLASERSplz</button>
                     <button onclick="ping(); loadLevel('nuked')">nuked</button>
                     <button onclick="ping(); loadLevel('box')">Boxed In</button>
+                    <button onclick="ping(); loadLevel('4rings')">4 Rings</button>
+                    <button onclick="ping(); loadLevel('impossible')">impossible</button>
+                    <button onclick="ping(); loadLevel('actually_impossilbe')">actually_impossilbe</button>
                 </div>
             </div>
             <button id="levelSelectCancelButton" style="background-color: #ff0000;">X</button>
@@ -71,62 +88,79 @@
         <canvas id="placeableCanvas"></canvas>
         <canvas id="overlayCanvas"></canvas>
         <div id="sidebar">
-            <div id="gameControls">
-                <div id="levelDescription">
-                    <div id="levelDescriptionName" style="font-weight: bold;"></div>
-                    <div id="levelDescriptionText"></div>
-                </div>
-                <div id="pixelPicker"></div>
-                <div id="pixelDescription">
-                    <div id="pixelDescriptionName" style="font-weight: bold;"></div>
-                    <div id="pixelDescriptionText"></div>
-                    <br>
-                    <div id="pixelDescriptionStatistics" style="font-weight: bold;"></div>
-                </div>
-                <table id="pixelTable">
-                    <tbody>
-                        <tr>
-                            <td style="border: none;">
-                                <button id="runButton" style="background-color: #00ff00;">RUN</button>
-                                <button id="stepButton" style="background-color: #00ff00;">STEP</button>
-                                <button id="simulateButton" style="background-color: #00ff00;">SIMULATE</button>
-                                <button id="resetButton" style="background-color: #ff0000;">RESET</button>
-                                <button id="setInitialButton" style="background-color: #aaaaaa;">SET INITIAL</button>
-                                <div id="fpsDisplay">FPS: 0</div>
-                                <button id="downloadSaveCodeButton" style="background-color: #aaaaaa;">DOWNLOAD SAVE
-                                    CODE</button>
-                                <button id="uploadSaveCodeButton" style="background-color: #aaaaaa;">UPLOAD SAVE
-                                    CODE</button>
-                                <button id="copySaveCodeButton" style="background-color: #aaaaaa;">COPY SAVE
-                                    CODE</button>
-                                <button id="loadCopiedSaveCodeButton" style="background-color: #aaaaaa;">LOAD COPIED
-                                    SAVE
-                                    CODE</button>
-                                <div id="sandboxTools" style="border: none;">
-                                    <button id="loadStoredSaveCodeButton" style="background-color: #aaaaaa;">LOAD STORED
-                                        SAVE CODE</button>
-                                    <button id="changeGridSizeButton" style="background-color: #aaaaaa;">CHANGE GRID
-                                        SIZE</button>
-                                </div>
-                                <br>
-                                <button id="resetGridButton" style="background-color: #ff0000;">RESET GRID</button>
-                                <button id="backToMenuButton" style="background-color: #ff0000;">BACK TO MENU</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="levelDescription" class="levelTool">
+                <div id="levelDescriptionName" style="font-weight: bold; font-size: 20px;"></div>
+                <br>
+                <div id="levelDescriptionText"></div>
             </div>
+            <div id="pixelPicker"></div>
+            <div id="pixelDescription">
+                <div id="pixelDescriptionName" style="font-weight: bold;"></div>
+                <div id="pixelDescriptionText"></div>
+                <br>
+                <div id="pixelDescriptionStatistics" style="font-weight: bold;"></div>
+            </div>
+            <table id="pixelTable">
+                <tbody>
+                    <tr>
+                        <td style="border: none;">
+                            <button id="runButton" style="background-color: #00ff00;">RUN</button>
+                            <button id="stepButton" style="background-color: #00ff00;">STEP</button>
+                            <button id="simulateButton" style="background-color: #00ff00;">SIMULATE</button>
+                            <button id="resetButton" style="background-color: #ff0000;">RESET</button>
+                            <button id="setInitialButton" class="sandboxTool" style="background-color: #aaaaaa;">SET
+                                INITIAL</button>
+                            <div id="fpsDisplay">FPS: 0</div>
+                            <div id="tickDisplay">Tick: 0</div>
+                            <button id="downloadSaveCodeButton" style="background-color: #aaaaaa;">DOWNLOAD SAVE
+                                CODE</button>
+                            <button id="uploadSaveCodeButton" style="background-color: #aaaaaa;">UPLOAD SAVE
+                                CODE</button>
+                            <button id="parseSaveCodeButton" class="sandboxTool"
+                                style="background-color: #aaaaaa;">PARSE SAVE CODE</button>
+                            <button id="copySaveCodeButton" style="background-color: #aaaaaa;">COPY SAVE
+                                CODE</button>
+                            <button id="loadCopiedSaveCodeButton" style="background-color: #aaaaaa;">LOAD COPIED
+                                SAVE
+                                CODE</button>
+                            <button id="parseCopiedSaveCodeButton" class="sandboxTool"
+                                style="background-color: #aaaaaa;">PARSE COPIED SAVE CODE</button>
+                            <button id="loadStoredSaveCodeButton" class="sandboxTool"
+                                style="background-color: #aaaaaa;">LOAD STORED
+                                SAVE CODE</button>
+                            <button id="changeGridSizeButton" class="sandboxTool"
+                                style="background-color: #aaaaaa;">CHANGE GRID
+                                SIZE</button>
+                            <button id="screenshotGridButton" style="background-color: #aaaaaa;">SCREENSHOT
+                                GRID</button>
+                            <button id="muteButton" style="background-color: #00ff00;">MUTE</button>
+                            <br>
+                            <button id="restartButton" class="levelTool"
+                                style="background-color: #ff0000;">RESTART</button>
+                            <button id="resetGridButton" class="sandboxTool" style="background-color: #ff0000;">RESET
+                                GRID</button>
+                            <button id="menuButton" style="background-color: #ff0000;">MENU</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div id="winScreen">
+            <!--             <canvas id="winCanvas"></canvas> -->
             <h1 style="font-size: 100px; color: #000000; ">
-                <img src="./img/Monster.png">
+                <!--                 <img src="./img/Monster.png">
                 You Win!
-                <img src="./img/Monster.png">
+                <img src="./img/Monster.png"> -->
+                <img src="./img/Monster.png"
+                    style="vertical-align: middle; margin: auto; box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
+                <span style="vertical-align: middle; text-shadow: 0px 0px 3vh rgba(255, 255, 255, 0.7); ">You
+                    Win!</span>
+                <img src="./img/Monster.png"
+                    style="vertical-align: middle; margin: auto; box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
             </h1>
-            <button id="winResetGrid" style="background-color: #aaaaaa;">BACK TO LEVEL</button>
-            <button id="winDownloadSaveCode" style="background-color: #aaaaaa;">DOWNLOAD SAVE CODE</button>
-            <button id="winNextLevel" style="background-color: #aaaaaa;">NEXT LEVEL</button>
-            <button style="background-color: #aaaaaa;" onclick="showMenuScreen()">BACK TO MENU</button>
+            <button id="winResetGrid" style="background-color: #aaaaaa; width: 100px;">RESET</button>
+            <button id="winNextLevel" style="background-color: #aaaaaa; width: 100px;">NEXT</button>
+            <button style="background-color: #aaaaaa; width: 100px;" onclick="showMenuScreen()">MENU</button>
         </div>
     </div>
     <div id="promptContainer">
@@ -141,17 +175,34 @@
             <button id="promptNo" class="promptButton" style="display: none; background-color: #ff0000;">NO</button>
         </div>
     </div>
+    <div id="transitionContainer" style="visibility: hidden;">
+        <div id="transitionBottom"></div>
+        <div id="transitionTop">
+            <div id="transitionTitle">
+                <img src="./img/Monster.png"
+                    style="vertical-align: middle; margin: auto; box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
+                <span
+                    style="vertical-align: middle; text-shadow: 0px 0px 3vh rgba(255, 255, 255, 0.7); ">Loading...</span>
+                <img src="./img/Monster.png"
+                    style="vertical-align: middle; margin: auto; box-shadow: 0px 0px 3vh rgba(255, 0, 0, 0.7); ">
+            </div>
+        </div>
+    </div>
 </body>
-<script src="functions.js" defer></script>
-<script src="music.js" defer></script>
-<script src="pixelSetup.js" defer></script>
-<script src="pixelData.js" defer></script>
-<script src="levels.js" defer></script>
-<script src="saveCodes.js" defer></script>
-<script src="pixel.js" defer></script>
-<script src="pixelPicker.js" defer></script>
-<script src="ui.js" defer></script>
-<script src="menu.js" defer></script>
-<script src="inputs.js" defer></script>
+<script src="functions.js"></script>
+<script src="music.js"></script>
+<script src="transition.js"></script>
+<script src="pixelSetup.js"></script>
+<script src="colors.js"></script>
+<script src="pixelData1.js"></script>
+<script src="levels.js"></script>
+<script src="saveCodes.js"></script>
+<script src="pixel.js"></script>
+<script src="pixelPicker.js"></script>
+<script src="ui.js"></script>
+<script src="menu.js"></script>
+<script src="cookies.js"></script>
+<script src="win.js"></script>
+<script src="inputs.js"></script>
 
 </html>

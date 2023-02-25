@@ -1,5 +1,5 @@
 var showPrompt = function() {
-    inPrompt = true;
+    inTransition = true;
     document.getElementById("promptContainer").style.opacity = "1";
     document.getElementById("promptContainer").style.pointerEvents = "all";
     document.getElementById("prompt").style.transform = "translateY(-50%)";
@@ -17,7 +17,7 @@ var hidePrompt = function() {
     document.getElementById("promptContainer").style.opacity = "";
     document.getElementById("promptContainer").style.pointerEvents = "";
     document.getElementById("prompt").style.transform = "";
-    inPrompt = false;
+    inTransition = false;
 };
 hidePrompt();
 
@@ -179,7 +179,7 @@ document.getElementById("simulateButton").onclick = async function() {
 document.getElementById("resetButton").onclick = async function() {
     if (resetable) {
         if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
-            ping();    
+            ping();
             for (var i = 0; i < gridSize; i++) {
                 for (var j = 0; j < gridSize; j++) {
                     grid[i][j] = lastGrid[i][j];
@@ -216,25 +216,6 @@ document.getElementById("downloadSaveCodeButton").onclick = async function() {
     link.click();
     URL.revokeObjectURL(link);
 };
-document.getElementById("winDownloadSaveCode").onclick = async function() {
-    ping();
-    var link = document.createElement("a");
-    link.download = currentLevel + ".pixel";
-    for (var i = 0; i < gridSize; i++) {
-        for (var j = 0; j < gridSize; j++) {
-            grid[i][j] = lastGrid[i][j];
-            nextGrid[i][j] = [null, null];
-        }
-    }
-    var saveCode = generateSaveCode();
-    saveCodes[name] = saveCode;
-    var file = new Blob([btoa(saveCode)], { type: "text/plain" });
-    var href = URL.createObjectURL(file);
-    link.href = href;
-    link.target = "_blank";
-    link.click();
-    URL.revokeObjectURL(link);
-};
 document.getElementById("uploadSaveCodeButton").onclick = function() {
     var input = document.createElement("input");
     input.type = "file";
@@ -261,6 +242,27 @@ document.getElementById("uploadSaveCodeButton").onclick = function() {
         reader.readAsText(input.files[0]);
     };
 };
+document.getElementById("parseSaveCodeButton").onclick = function() {
+    var input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".pixel";
+    input.click();
+    input.oninput = function() {
+        if (input.files.length == 0) {
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = async function(event) {
+            if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+                ping();
+                var saveCode = atob(event.target.result);
+                parseSaveCode(saveCode);
+                saveCodes[input.files[0].name.substring(0, input.files[0].name.length - 6)] = saveCode;
+            }
+        };
+        reader.readAsText(input.files[0]);
+    };
+};
 document.getElementById("copySaveCodeButton").onclick = function() {
     navigator.clipboard.writeText(generateSaveCode());
     promptNotification("Copied save code!");
@@ -278,6 +280,13 @@ document.getElementById("loadCopiedSaveCodeButton").onclick = async function() {
         }
     }
 };
+document.getElementById("parseCopiedSaveCodeButton").onclick = async function() {
+    var saveCode = await navigator.clipboard.readText();
+    if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+        ping();
+        parseSaveCode(saveCode);
+    }
+};
 document.getElementById("loadStoredSaveCodeButton").onclick = async function() {
     if (Object.keys(saveCodes).length == 0) {
         promptNotification("You don't have any loaded save codes.");
@@ -287,7 +296,7 @@ document.getElementById("loadStoredSaveCodeButton").onclick = async function() {
     if (saveCodeName == false) {
         return;
     }
-    inPrompt = true;
+    inTransition = true;
     await new Promise(p => setTimeout(p, 500));
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
         loadSaveCode(saveCodes[saveCodeName]);
@@ -299,7 +308,7 @@ document.getElementById("changeGridSizeButton").onclick = async function() {
     if (newGridSize == false) {
         return;
     }
-    inPrompt = true;
+    inTransition = true;
     await new Promise(p => setTimeout(p, 500));
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
         ping();
@@ -308,21 +317,48 @@ document.getElementById("changeGridSizeButton").onclick = async function() {
         resetGrid();
     }
 };
+document.getElementById("screenshotGridButton").onclick = async function() {
+    var name = await promptText("Pick a file name:");
+    if (name == false) {
+        return;
+    }
+    ping();
+    var link = document.createElement("a");
+    link.download = name + ".png";
+    ctx.drawImage(offscreenCanvas, cameraX, cameraY, 600 / cameraZoom, 600 / cameraZoom, 0, 0, 600 / cameraZoom, 600 / cameraZoom);
+    ctx.drawImage(offscreenEffectCanvas, cameraX, cameraY, 600 / cameraZoom, 600 / cameraZoom, 0, 0, 600 / cameraZoom, 600 / cameraZoom);
+    ctx.drawImage(offscreenPlaceableCanvas, cameraX, cameraY, 600 / cameraZoom, 600 / cameraZoom, 0, 0, 600 / cameraZoom, 600 / cameraZoom);
+    document.getElementById("canvas").toBlob(function(file) {
+        var href = URL.createObjectURL(file);
+        link.href = href;
+        link.target = "_blank";
+        link.click();
+        URL.revokeObjectURL(link);
+    });
+    // var file = await ctx.toBlob();
+    // var file = new Blob([btoa(saveCode)], { type: "text/plain" });
+    // var href = URL.createObjectURL(file);
+};
+document.getElementById("muteButton").onclick = function() {
+    toggleMuted();
+};
+document.getElementById("restartButton").onclick = async function() {
+    if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
+        ping();
+        loadLevel(currentLevel);
+    }
+};
 document.getElementById("resetGridButton").onclick = async function() {
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
         ping();
-        if (sandbox) {
-            createGrid();
-            resetGrid();
-        }
-        else {
-            loadLevel(currentLevel);
-        }
+        createGrid();
+        resetGrid();
     }
 };
-document.getElementById("backToMenuButton").onclick = async function() {
+document.getElementById("menuButton").onclick = async function() {
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
         ping();
+        hideWinScreen();
         showMenuScreen();
     }
 };
@@ -335,17 +371,13 @@ document.getElementById("winResetGrid").onclick = async function() {
                 nextGrid[i][j] = [null, null];
             }
         }
-        document.getElementById("winScreen").style.opacity = 0;
-        document.getElementById("winScreen").style.pointerEvents = "none";
-        inPrompt = false;
+        hideWinScreen();
         resetGrid();
     }
 };
 document.getElementById("winNextLevel").onclick = async function() {
     ping();
     var newLevel = currentLevel.substring(0, 2) + (parseInt(currentLevel.substring(2), 10) + 1);
-    document.getElementById("winScreen").style.opacity = 0;
-    document.getElementById("winScreen").style.pointerEvents = "none";
-    inPrompt = false;
+    hideWinScreen();
     loadLevel(newLevel);
 };

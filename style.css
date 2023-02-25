@@ -15,7 +15,7 @@ body {
     user-select: none;
     word-wrap: break-word;
     scroll-snap-type: y mandatory;
-    overflow-x: hidden
+    overflow: hidden;
 }
 body::-webkit-scrollbar {
     width: 0px;
@@ -84,6 +84,16 @@ main {
     width: 100vw;
     height: 100vh;
 }
+/* #winCanvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: -1;
+} */
 
 #menuTitle {
     visibility: hidden;
@@ -164,11 +174,54 @@ main {
     z-index: 2;
 }
 
+#transitionContainer {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+/*     width: 100vw;
+    height: 100vh; */
+    z-index: 5;
+}
+#transitionTop {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100vw;
+    height: 50vh;
+    background-color: #333333;
+    border-bottom: 4px solid #111111;
+    text-align: center;
+    transition: 150ms linear transform;
+    transform: translateY(-50vh);
+}
+#transitionBottom {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100vw;
+    height: 50vh;
+    background-color: #333333;
+    border-top: 4px solid #111111;
+    transition: 150ms linear transform;
+    transform: translateY(50vh);
+}
+#transitionTitle {
+    color: #ffffff;
+    font-size: 60px;
+    font-weight: bold;
+    vertical-align: top;
+    transform: translateY(calc(50vh - 50%));
+}
+
 #sidebar {
     position: absolute;
     top: 0px;
     right: 0px;
-    max-width: var(--max-sidebar-width);
+/*     max-width: var(--max-sidebar-width); */
     height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -180,12 +233,8 @@ main {
     width: 0px;
 }
 
-#gameControls {
-    width: 100%;
-}
-
 #pixelPicker {
-    max-width: calc(var(--max-sidebar-width) - 40px);
+/*     width: calc(var(--max-sidebar-width) - 40px); */
     border: 2px solid black;
     padding: 4px;
     margin-top: 8px;
@@ -194,6 +243,7 @@ main {
 }
 .pickerPixel {
     display: inline-block;
+    position: relative;
     width: 60px;
     height: 60px;
     margin: 2px;
@@ -206,12 +256,6 @@ main {
     transform: translateY(-5px);
 }
 .pickerPixelDisabled {
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    margin: 2px;
-    border: 2px solid transparent;
-    transition: 50ms linear transform;
     cursor: not-allowed !important;
     opacity: 0.2;
 }
@@ -225,8 +269,14 @@ main {
 .pickerPixelSelected:hover {
     border-color: gold;
 }
+.pickerAmount {
+    position: absolute;
+    right: 2px;
+    bottom: 0px;
+}
 #pixelDescription {
-    max-width: calc(var(--max-sidebar-width) - 40px);
+/*     width: calc(var(--max-sidebar-width) - 40px); */
+/*     max-width: calc(var(--max-sidebar-width) - 40px); */
     border: 2px solid black;
     padding: 4px;
     margin-top: 8px;
@@ -234,7 +284,8 @@ main {
     height: min-content;
 }
 #levelDescription {
-    max-width: calc(var(--max-sidebar-width) - 40px);
+/*     width: calc(var(--max-sidebar-width) - 40px); */
+/*     max-width: calc(var(--max-sidebar-width) - 40px); */
     border: 2px solid black;
     padding: 4px;
     margin-top: 8px;
@@ -245,9 +296,11 @@ main {
 #promptContainer {
     position: absolute;
     top: 0px;
+    bottom: 0px;
     left: 0px;
-    width: 100vw;
-    height: 100vh;
+    right: 0px;
+/*     width: 100vw;
+    height: 100vh; */
     background-color: #0005;
     opacity: 0;
     transition: 500ms linear opacity;
@@ -295,13 +348,13 @@ main {
     margin-bottom: 20px;
 }
 
-b {
+/* b {
     /* background-color: beige; */
-    border: 1px solid black;
+    /*border: 1px solid black;
     border-radius: 4px;
     padding-left: 2px;
     padding-right: 2px;
-}
+} */
 div {
     font-family: 'Courier New', Courier, monospace;
     font-size: 14px;
@@ -328,7 +381,7 @@ button:disabled:active {
     border-style: outset !important;
 }
 table {
-    max-width: calc(var(--max-sidebar-width) - 40px);
+/*     max-width: calc(var(--max-sidebar-width) - 40px); */
     border: 2px solid black;
     padding: 4px;
     margin-top: 8px;
@@ -340,7 +393,7 @@ td {
     padding: 2px 4px;
     padding-bottom: -8px;
     overflow-wrap: break-word;
-    max-width: calc(var(--max-sidebar-width) - 48px);
+/*     max-width: calc(var(--max-sidebar-width) - 48px); */
     vertical-align: top;
 }
 

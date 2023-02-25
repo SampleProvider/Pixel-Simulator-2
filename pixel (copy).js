@@ -1,21 +1,18 @@
 // TODO LIST
-// lore
-// more free levels
-// speed up by only drawing necessary
+// missiles
 
+var canvasScale = Math.min(window.innerWidth / 600, window.innerHeight / 600);
+document.getElementById("canvas").style.width = 600 * canvasScale - 20 + "px";
+document.getElementById("canvas").style.height = 600 * canvasScale - 20 + "px";
 document.getElementById("canvas").width = 600;
 document.getElementById("canvas").height = 600;
-document.getElementById("effectCanvas").width = 600;
-document.getElementById("effectCanvas").height = 600;
-document.getElementById("placeableCanvas").width = 600;
-document.getElementById("placeableCanvas").height = 600;
+document.getElementById("overlayCanvas").style.width = 600 * canvasScale - 20 + "px";
+document.getElementById("overlayCanvas").style.height = 600 * canvasScale - 20 + "px";
 document.getElementById("overlayCanvas").width = 600;
 document.getElementById("overlayCanvas").height = 600;
 var ctx = document.getElementById("canvas").getContext("2d");
-var placeableCtx = document.getElementById("placeableCanvas").getContext("2d");
 var overlayCtx = document.getElementById("overlayCanvas").getContext("2d");
 
-// var offscreenCanvas = document.getElementById("canvas").transferControlToOffscreen;
 var offscreenCanvas = new OffscreenCanvas(600, 600);
 var offscreenCtx = offscreenCanvas.getContext("2d");
 var offscreenEffectCanvas = new OffscreenCanvas(600, 600);
@@ -49,7 +46,7 @@ var gridSize = 100;
 var pixelSize = 600 / gridSize;
 
 var clickSize = 1;
-var clickPixel = AIR;
+var clickPixel = "air";
 
 var running = false;
 var simulating = false;
@@ -156,7 +153,7 @@ var drawGrid = function(criteria) {
                     pixelX = j;
                 }
                 if (pixel != grid[i][j][1]) {
-                    if (pixel != AIR) {
+                    if (pixel != "air") {
                         pixels[pixel].drawBackground(pixelX, i, j - pixelX, offscreenEffectCtx);
                         for (var k = pixelX; k < j; k++) {
                             drawPixel(pixel, k, i, offscreenEffectCtx);
@@ -170,7 +167,7 @@ var drawGrid = function(criteria) {
                 }
             }
             else if (pixel != null) {
-                if (pixel != AIR) {
+                if (pixel != "air") {
                     pixels[pixel].drawBackground(pixelX, i, j - pixelX, offscreenEffectCtx);
                     for (var k = pixelX; k < j; k++) {
                         drawPixel(pixel, k, i, offscreenEffectCtx);
@@ -183,7 +180,7 @@ var drawGrid = function(criteria) {
             }
         }
         if (pixel != null) {
-            if (pixel != AIR) {
+            if (pixel != "air") {
                 pixels[pixel].drawBackground(pixelX, i, gridSize - pixelX, offscreenEffectCtx);
                 for (var k = pixelX; k < j; k++) {
                     drawPixel(pixel, k, i, offscreenEffectCtx);
@@ -208,26 +205,25 @@ var drawPlaceableGrid = function() {
                 pixelX = j;
             }
             if (pixel != placeableGrid[i][j]) {
-                if (!pixel) {
-                    pixels[NOT_PLACEABLE].drawBackground(pixelX, i, j - pixelX, offscreenPlaceableCtx);
+                if (pixel) {
+                    pixels["placeable"].drawBackground(pixelX, i, j - pixelX, offscreenPlaceableCtx);
                     for (var k = pixelX; k < j; k++) {
-                        drawPixel(NOT_PLACEABLE, k, i, offscreenPlaceableCtx);
+                        drawPixel("placeable", k, i, offscreenPlaceableCtx);
                     }
                 }
                 pixel = placeableGrid[i][j];
                 pixelX = j;
             }
         }
-        if (!pixel) {
-            pixels[NOT_PLACEABLE].drawBackground(pixelX, i, gridSize - pixelX, offscreenPlaceableCtx);
+        if (pixel) {
+            pixels["placeable"].drawBackground(pixelX, i, gridSize - pixelX, offscreenPlaceableCtx);
             for (var k = pixelX; k < gridSize; k++) {
-                drawPixel(NOT_PLACEABLE, k, i, offscreenPlaceableCtx);
+                drawPixel("placeable", k, i, offscreenPlaceableCtx);
             }
         }
         pixel = null;
         pixelX = 0;
     }
-    // placeableCtx.drawImage(offscreenPlaceableCanvas, )
 }
 var createGrid = function() {
     grid = [];
@@ -240,10 +236,10 @@ var createGrid = function() {
         redrawGrid[i] = [];
         placeableGrid[i] = [];
         for (var j = 0; j < gridSize; j++) {
-            grid[i][j] = [AIR, AIR];
+            grid[i][j] = ["air", "air"];
             nextGrid[i][j] = [null, null];
             redrawGrid[i][j] = [false, false];
-            placeableGrid[i][j] = true;
+            placeableGrid[i][j] = false;
         }
     }
 };
@@ -265,26 +261,6 @@ var resetGrid = function() {
     updateButtons();
     updateDisabled();
 };
-var setRedrawGrid = function() {
-    for (var i = 0; i < gridSize; i++) {
-        for (var j = 0; j < gridSize; j++) {
-            if (nextGrid[i][j][0] != null) {
-                if (grid[i][j][0] != nextGrid[i][j][0]) {
-                    grid[i][j][0] = nextGrid[i][j][0];
-                    redrawGrid[i][j][0] = true;
-                }
-                nextGrid[i][j][0] = null;
-            }
-            if (nextGrid[i][j][1] != null) {
-                if (grid[i][j][1] != nextGrid[i][j][1]) {
-                    grid[i][j][1] = nextGrid[i][j][1];
-                    redrawGrid[i][j][1] = true;
-                }
-                nextGrid[i][j][1] = null;
-            }
-        }
-    }
-};
 var updateGrid = function() {
     if (resetable == false) {
         resetable = true;
@@ -293,44 +269,8 @@ var updateGrid = function() {
     }
 
     setLerpColor();
-
-    // update stage
-    // 0: gravity pixels
-    // 1: mechanical movement
-    // 2: rotators, swappers
     if (gameTick % 2 == 0) {
-        for (var i = gridSize - 1; i >= 0; i--) {
-            var tiles = [];
-            for (var j = 0; j < gridSize; j++) {
-                tiles[j] = [null, null];
-                if (pixels[grid[i][j][0]].updateStage == 0 && pixels[grid[i][j][0]].updateDirection == "up") {
-                    tiles[j][0] = grid[i][j][0];
-                }
-                if (pixels[grid[i][j][1]].updateStage == 0 && pixels[grid[i][j][1]].updateDirection == "up") {
-                    tiles[j][1] = grid[i][j][1];
-                }
-            }
-            for (var j = 0; j < gridSize; j++) {
-                if (tiles[j][1] == grid[i][j][1]) {
-                    pixels[tiles[j][1]].update(j, i);
-                }
-                if (tiles[j][0] == grid[i][j][0]) {
-                    pixels[tiles[j][0]].update(j, i);
-                }
-            }
-        }
-        setRedrawGrid();
-        for (var updateStage = 1; updateStage <= 2; updateStage++) {
-            for (var i = gridSize - 1; i >= 0; i--) {
-                for (var j = 0; j < gridSize; j++) {
-                    if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "left") {
-                        pixels[grid[j][i][1]].update(i, j);
-                    }
-                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "left") {
-                        pixels[grid[j][i][0]].update(i, j);
-                    }
-                }
-            }
+        for (var updateStage = 0; updateStage <= 2; updateStage++) {
             for (var i = 0; i < gridSize; i++) {
                 for (var j = 0; j < gridSize; j++) {
                     if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "right") {
@@ -339,104 +279,159 @@ var updateGrid = function() {
                     if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "right") {
                         pixels[grid[j][i][0]].update(i, j);
                     }
+                    if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "down") {
+                        pixels[grid[j][i][1]].update(i, j);
+                    }
+                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "down") {
+                        pixels[grid[j][i][0]].update(i, j);
+                    }
                 }
             }
             for (var i = gridSize - 1; i >= 0; i--) {
-                for (var j = 0; j < gridSize; j++) {
-                    if (pixels[grid[i][j][1]].updateStage == updateStage && pixels[grid[i][j][1]].updateDirection == "up") {
-                        pixels[grid[i][j][1]].update(j, i);
+                for (var j = gridSize - 1; j >= 0; j--) {
+                    if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "left") {
+                        pixels[grid[j][i][1]].update(i, j);
                     }
-                    if (pixels[grid[i][j][0]].updateStage == updateStage && pixels[grid[i][j][0]].updateDirection == "up") {
-                        pixels[grid[i][j][0]].update(j, i);
+                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "left") {
+                        pixels[grid[j][i][0]].update(i, j);
                     }
-                }
-            }
-            for (var i = 0; i < gridSize; i++) {
-                for (var j = 0; j < gridSize; j++) {
-                    if (pixels[grid[i][j][1]].updateStage == updateStage && pixels[grid[i][j][1]].updateDirection == "down") {
-                        pixels[grid[i][j][1]].update(j, i);
+                    if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "up") {
+                        pixels[grid[j][i][1]].update(i, j);
                     }
-                    if (pixels[grid[i][j][0]].updateStage == updateStage && pixels[grid[i][j][0]].updateDirection == "down") {
-                        pixels[grid[i][j][0]].update(j, i);
+                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "up") {
+                        pixels[grid[j][i][0]].update(i, j);
                     }
                 }
             }
         }
     }
     else {
-        for (var i = gridSize - 1; i >= 0; i--) {
-            var tiles = [];
-            for (var j = gridSize - 1; j >= 0; j--) {
-                tiles[j] = [null, null];
-                if (pixels[grid[i][j][0]].updateStage == 0 && pixels[grid[i][j][0]].updateDirection == "up") {
-                    tiles[j][0] = grid[i][j][0];
-                }
-                if (pixels[grid[i][j][1]].updateStage == 0 && pixels[grid[i][j][1]].updateDirection == "up") {
-                    tiles[j][1] = grid[i][j][1];
-                }
-            }
-            for (var j = gridSize - 1; j >= 0; j--) {
-                if (tiles[j][1] == grid[i][j][1]) {
-                    pixels[tiles[j][1]].update(j, i);
-                }
-                if (tiles[j][0] == grid[i][j][0]) {
-                    pixels[tiles[j][0]].update(j, i);
-                }
-            }
-        }
-        setRedrawGrid();
-        for (var updateStage = 1; updateStage <= 2; updateStage++) {
-            for (var i = gridSize - 1; i >= 0; i--) {
-                for (var j = gridSize - 1; j >= 0; j--) {
-                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "left") {
-                        pixels[grid[j][i][0]].update(i, j);
-                    }
-                    if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "left") {
-                        pixels[grid[j][i][1]].update(i, j);
-                    }
-                }
-            }
+        for (var updateStage = 0; updateStage <= 2; updateStage++) {
             for (var i = 0; i < gridSize; i++) {
                 for (var j = gridSize - 1; j >= 0; j--) {
-                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "right") {
-                        pixels[grid[j][i][0]].update(i, j);
-                    }
                     if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "right") {
                         pixels[grid[j][i][1]].update(i, j);
                     }
+                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "right") {
+                        pixels[grid[j][i][0]].update(i, j);
+                    }
+                    if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "up") {
+                        pixels[grid[j][i][1]].update(i, j);
+                    }
+                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "up") {
+                        pixels[grid[j][i][0]].update(i, j);
+                    }
                 }
             }
             for (var i = gridSize - 1; i >= 0; i--) {
-                for (var j = gridSize - 1; j >= 0; j--) {
-                    if (pixels[grid[i][j][0]].updateStage == updateStage && pixels[grid[i][j][0]].updateDirection == "up") {
-                        pixels[grid[i][j][0]].update(j, i);
+                for (var j = 0; j < gridSize; j++) {
+                    if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "left") {
+                        pixels[grid[j][i][1]].update(i, j);
                     }
-                    if (pixels[grid[i][j][1]].updateStage == updateStage && pixels[grid[i][j][1]].updateDirection == "up") {
-                        pixels[grid[i][j][1]].update(j, i);
+                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "left") {
+                        pixels[grid[j][i][0]].update(i, j);
                     }
-                }
-            }
-            for (var i = 0; i < gridSize; i++) {
-                for (var j = gridSize - 1; j >= 0; j--) {
-                    if (pixels[grid[i][j][0]].updateStage == updateStage && pixels[grid[i][j][0]].updateDirection == "down") {
-                        pixels[grid[i][j][0]].update(j, i);
+                    if (pixels[grid[j][i][1]].updateStage == updateStage && pixels[grid[j][i][1]].updateDirection == "down") {
+                        pixels[grid[j][i][1]].update(i, j);
                     }
-                    if (pixels[grid[i][j][1]].updateStage == updateStage && pixels[grid[i][j][1]].updateDirection == "down") {
-                        pixels[grid[i][j][1]].update(j, i);
+                    if (pixels[grid[j][i][0]].updateStage == updateStage && pixels[grid[j][i][0]].updateDirection == "down") {
+                        pixels[grid[j][i][0]].update(i, j);
                     }
                 }
             }
         }
     }
+    // if (gameTick % 2 == 0) {
+    //     for (var i = 0; i < gridSize; i++) {
+    //         for (var j = 0; j < gridSize; j++) {
+    //             if (nextGrid[i][j][0] != null) {
+    //                 if (grid[i][j][0] != nextGrid[i][j][0]) {
+    //                     grid[i][j][0] = nextGrid[i][j][0];
+    //                     redrawGrid[i][j][0] = true;
+    //                 }
+    //                 nextGrid[i][j][0] = null;
+    //             }
+    //             if (nextGrid[i][j][1] != null) {
+    //                 if (grid[i][j][1] != nextGrid[i][j][1]) {
+    //                     grid[i][j][1] = nextGrid[i][j][1];
+    //                     redrawGrid[i][j][1] = true;
+    //                 }
+    //                 nextGrid[i][j][1] = null;
+    //             }
+    //         }
+    //     }
+    //     for (var i = 0; i < gridSize; i++) {
+    //         for (var j = 0; j < gridSize; j++) {
+    //             if (pixels[grid[j][i][0]].updateStage == 1) {
+    //                 pixels[grid[j][i][0]].update(i, j);
+    //             }
+    //         }
+    //     }
+    // }
+    // else {
+    //     for (var i = gridSize - 1; i >= 0; i--) {
+    //         for (var j = gridSize - 1; j >= 0; j--) {
+    //             if (pixels[grid[j][i][1]].updateStage == 0) {
+    //                 pixels[grid[j][i][1]].update(i, j);
+    //             }
+    //             if (pixels[grid[j][i][0]].updateStage == 0) {
+    //                 pixels[grid[j][i][0]].update(i, j);
+    //             }
+    //         }
+    //     }
+    //     for (var i = 0; i < gridSize; i++) {
+    //         for (var j = 0; j < gridSize; j++) {
+    //             if (nextGrid[i][j][0] != null) {
+    //                 if (grid[i][j][0] != nextGrid[i][j][0]) {
+    //                     grid[i][j][0] = nextGrid[i][j][0];
+    //                     redrawGrid[i][j][0] = true;
+    //                 }
+    //                 nextGrid[i][j][0] = null;
+    //             }
+    //             if (nextGrid[i][j][1] != null) {
+    //                 if (grid[i][j][1] != nextGrid[i][j][1]) {
+    //                     grid[i][j][1] = nextGrid[i][j][1];
+    //                     redrawGrid[i][j][1] = true;
+    //                 }
+    //                 nextGrid[i][j][1] = null;
+    //             }
+    //         }
+    //     }
+    //     for (var i = gridSize - 1; i >= 0; i--) {
+    //         for (var j = gridSize - 1; j >= 0; j--) {
+    //             if (pixels[grid[j][i][0]].updateStage == 1) {
+    //                 pixels[grid[j][i][0]].update(i, j);
+    //             }
+    //         }
+    //     }
+    // }
+
+    // for (var i = 0; i < gridSize; i++) {
+    //     for (var j = 0; j < gridSize; j++) {
+    //         if (nextGrid[i][j][0] != null) {
+    //             if (grid[i][j][0] != nextGrid[i][j][0]) {
+    //                 grid[i][j][0] = nextGrid[i][j][0];
+    //                 redrawGrid[i][j][0] = true;
+    //             }
+    //             nextGrid[i][j][0] = null;
+    //         }
+    //         if (nextGrid[i][j][1] != null) {
+    //             if (grid[i][j][1] != nextGrid[i][j][1]) {
+    //                 grid[i][j][1] = nextGrid[i][j][1];
+    //                 redrawGrid[i][j][1] = true;
+    //             }
+    //             nextGrid[i][j][1] = null;
+    //         }
+    //     }
+    // }
 
     if (!simulating) {
         updateNoiseGrid();
         // drawGrid(function(x, y, layer) { return (nextGrid[y][x][layer] != null && nextGrid[y][x][layer] != grid[y][x][layer]) || pixels[grid[y][x][layer]].animated; });
         // drawGrid(function() { return true });
         // drawGrid(function(x, y, layer) { return (nextGrid[y][x][layer] != null) || pixels[grid[y][x][layer]].animated; });
-        drawGrid(function(x, y, layer) { return (redrawGrid[y][x][layer]) || pixels[grid[y][x][layer]].animated; });
-        // drawGrid(function(x, y, layer) { return (startGrid[y][x][layer] != grid[y][x][layer])});
-        // drawGrid(function() { return true });
+        // drawGrid(function(x, y, layer) { return (redrawGrid[y][x][layer]) || pixels[grid[y][x][layer]].animated; });
+        drawGrid(function() { return true });
     }
     else if (gameTick % 100 == 0) {
         updateNoiseGrid();
@@ -444,6 +439,8 @@ var updateGrid = function() {
     }
     for (var i = 0; i < gridSize; i++) {
         for (var j = 0; j < gridSize; j++) {
+            // if (redrawGrid)
+            // nextGrid[i][j] = [null, null];
             redrawGrid[i][j] = [false, false];
         }
     }
@@ -485,7 +482,7 @@ var clickLine = function(startX, startY, endX, endY) {
         var pixelX = Math.max(gridX - clickSize + 1, 0);
         for (var j = Math.max(gridY - clickSize + 1, 0); j <= Math.min(gridY + clickSize - 1, gridSize - 1); j++) {
             for (var k = Math.max(gridX - clickSize + 1, 0); k <= Math.min(gridX + clickSize - 1, gridSize - 1); k++) {
-                if (clickPixel == AIR) {
+                if (clickPixel == "air") {
                     if ((sandbox == true || placeableGrid[j][k]) && (grid[j][k][0] != clickPixel || grid[j][k][1] != clickPixel)) {
                         if (pixel == false) {
                             pixel = true;
@@ -511,7 +508,7 @@ var clickLine = function(startX, startY, endX, endY) {
                         pixel = false;
                     }
                 }
-                else if (clickPixel == PLACEABLE) {
+                else if (clickPixel == "placeable") {
                     if (placeableGrid[j][k] == false) {
                         if (pixel == false) {
                             pixel = true;
@@ -521,13 +518,13 @@ var clickLine = function(startX, startY, endX, endY) {
                     }
                     else if (pixel == true) {
                         pixels[clickPixel].drawBackground(pixelX, j, k - pixelX, offscreenPlaceableCtx);
-                        // for (var l = pixelX; l < k; l++) {
-                        //     drawPixel(clickPixel, l, j, offscreenPlaceableCtx);
-                        // }
+                        for (var l = pixelX; l < k; l++) {
+                            drawPixel(clickPixel, l, j, offscreenPlaceableCtx);
+                        }
                         pixel = false;
                     }
                 }
-                else if (clickPixel == NOT_PLACEABLE) {
+                else if (clickPixel == "not_placeable") {
                     if (placeableGrid[j][k] == true) {
                         if (pixel == false) {
                             pixel = true;
@@ -549,7 +546,7 @@ var clickLine = function(startX, startY, endX, endY) {
                         if (sandbox == false) {
                             pixelInventory[clickPixel] -= 1;
                         }
-                        if (grid[j][k][layer] != AIR) {
+                        if (grid[j][k][layer] != "air") {
                             pixelInventory[grid[j][k][layer]] += 1;
                         }
                         grid[j][k][layer] = clickPixel;
@@ -564,13 +561,13 @@ var clickLine = function(startX, startY, endX, endY) {
                 }
             }
             if (pixel == true) {
-                if (clickPixel == PLACEABLE) {
+                if (clickPixel == "placeable") {
                     pixels[clickPixel].drawBackground(pixelX, j, Math.min(gridX + clickSize, gridSize) - pixelX, offscreenPlaceableCtx);
                     for (var k = pixelX; k < Math.min(gridX + clickSize, gridSize); k++) {
                         drawPixel(clickPixel, k, j, offscreenPlaceableCtx);
                     }
                 }
-                else if (clickPixel == NOT_PLACEABLE) {
+                else if (clickPixel == "not_placeable") {
                     pixels[clickPixel].drawBackground(pixelX, j, Math.min(gridX + clickSize, gridSize) - pixelX, offscreenPlaceableCtx);
                 }
                 else {
@@ -578,7 +575,7 @@ var clickLine = function(startX, startY, endX, endY) {
                     for (var k = pixelX; k < Math.min(gridX + clickSize, gridSize); k++) {
                         drawPixel(clickPixel, k, j, context);
                     }
-                    if (clickPixel == AIR) {
+                    if (clickPixel == "air") {
                         offscreenEffectCtx.clearRect(pixelX * pixelSize, j * pixelSize, (Math.min(gridX + clickSize, gridSize) - pixelX) * pixelSize, pixelSize);
                     }
                 }
@@ -589,6 +586,8 @@ var clickLine = function(startX, startY, endX, endY) {
         x += Math.cos(angle);
         y += Math.sin(angle);
     }
+    updateDisabled();
+    setDescription(clickPixel);
 };
 var updateClick = function() {
     if (cursorX >= 0 && cursorX <= 600 && cursorY >= 0 && cursorY <= 600) {
@@ -596,24 +595,22 @@ var updateClick = function() {
             return;
         }
         if (leftClicking) {
-            if (sandbox == false && clickPixel != AIR && pixelInventory[clickPixel] == 0) {
+            if (sandbox == false && clickPixel != "air" && pixelInventory[clickPixel] == 0) {
                 return;
             }
             clickLine(Math.floor((cameraX * cameraZoom + cursorX) / (pixelSize * cameraZoom)), Math.floor((cameraY * cameraZoom + cursorY) / (pixelSize * cameraZoom)), Math.floor((cameraX * cameraZoom + pastCursorX) / (pixelSize * cameraZoom)), Math.floor((cameraY * cameraZoom + pastCursorY) / (pixelSize * cameraZoom)));
         }
         else if (rightClicking) {
             var pixel = clickPixel;
-            clickPixel = AIR;
+            clickPixel = "air";
             clickLine(Math.floor((cameraX * cameraZoom + cursorX) / (pixelSize * cameraZoom)), Math.floor((cameraY * cameraZoom + cursorY) / (pixelSize * cameraZoom)), Math.floor((cameraX * cameraZoom + pastCursorX) / (pixelSize * cameraZoom)), Math.floor((cameraY * cameraZoom + pastCursorY) / (pixelSize * cameraZoom)));
             clickPixel = pixel;
         }
-        updateDisabled();
-        setClickDescription(clickPixel);
     }
 };
 var updateOverlay = function() {
     overlayCtx.clearRect(0, 0, 600, 600);
-    if ((sandbox == false && clickPixel != AIR && pixelInventory[clickPixel] == 0) || rightClicking) {
+    if ((sandbox == false && clickPixel != "air" && pixelInventory[clickPixel] == 0) || rightClicking) {
         overlayCtx.fillStyle = "rgba(255, 0, 0, 0.5)";
     }
     else {
@@ -708,9 +705,6 @@ var update = function() {
         }
         catch (error) {
             promptNotification(`An error has occured. ${error.stack}`);
-            running = false;
-            simulating = false;
-            updateButtons();
         }
     }
 

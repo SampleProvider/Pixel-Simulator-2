@@ -15,10 +15,9 @@ var ctx = document.getElementById("canvas").getContext("2d");
 var placeableCtx = document.getElementById("placeableCanvas").getContext("2d");
 var overlayCtx = document.getElementById("overlayCanvas").getContext("2d");
 
-// var offscreenCanvas = document.getElementById("canvas").transferControlToOffscreen;
-var offscreenCanvas = new OffscreenCanvas(600, 600);
+var offscreenCanvas = document.getElementById("canvas").transferControlToOffscreen();
 var offscreenCtx = offscreenCanvas.getContext("2d");
-var offscreenEffectCanvas = new OffscreenCanvas(600, 600);
+var offscreenEffectCanvas = document.getElementById("effectCanvas").transferControlToOffscreen();
 var offscreenEffectCtx = offscreenEffectCanvas.getContext("2d");
 var offscreenPlaceableCanvas = new OffscreenCanvas(600, 600);
 var offscreenPlaceableCtx = offscreenPlaceableCanvas.getContext("2d");
@@ -704,7 +703,6 @@ var update = function() {
             cameraY = Math.floor(rawCameraY / cameraZoom);
             ctx.drawImage(offscreenCanvas, cameraX, cameraY, 600 / cameraZoom, 600 / cameraZoom, 0, 0, 600 / cameraZoom, 600 / cameraZoom);
             ctx.drawImage(offscreenEffectCanvas, cameraX, cameraY, 600 / cameraZoom, 600 / cameraZoom, 0, 0, 600 / cameraZoom, 600 / cameraZoom);
-            ctx.drawImage(offscreenPlaceableCanvas, cameraX, cameraY, 600 / cameraZoom, 600 / cameraZoom, 0, 0, 600 / cameraZoom, 600 / cameraZoom);
         }
         catch (error) {
             promptNotification(`An error has occured. ${error.stack}`);
