@@ -75,7 +75,6 @@ var loadSaveCode = function(saveCode) {
                         return;
                     }
                     level = true;
-                    loadLevel(saveCode.substring(0, i));
                     index = i + 1;
                     continue;
                 }
@@ -97,7 +96,6 @@ var loadSaveCode = function(saveCode) {
                 break;
             }
         }
-        resetGrid();
     }
     catch (error) {
         gridSize = 100;

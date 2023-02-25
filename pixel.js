@@ -12,12 +12,13 @@ document.getElementById("placeableCanvas").height = 600;
 document.getElementById("overlayCanvas").width = 600;
 document.getElementById("overlayCanvas").height = 600;
 var ctx = document.getElementById("canvas").getContext("2d");
+var effectCtx = document.getElementById("effectCanvas").getContext("2d");
 var placeableCtx = document.getElementById("placeableCanvas").getContext("2d");
 var overlayCtx = document.getElementById("overlayCanvas").getContext("2d");
 
 // var offscreenCanvas = document.getElementById("canvas").transferControlToOffscreen;
 var offscreenCanvas = new OffscreenCanvas(600, 600);
-var offscreenCtx = offscreenCanvas.getContext("2d");
+var offscreenCtx = offscreenCanvas.getContext("2d", { alpha: false });
 var offscreenEffectCanvas = new OffscreenCanvas(600, 600);
 var offscreenEffectCtx = offscreenEffectCanvas.getContext("2d");
 var offscreenPlaceableCanvas = new OffscreenCanvas(600, 600);
@@ -31,8 +32,15 @@ ctx.fillRect(0, 0, 600, 600);
 
 ctx.imageSmoothingEnabled = false;
 ctx.webkitImageSmoothingEnabled = false;
+offscreenCtx.imageSmoothingEnabled = false;
+offscreenCtx.webkitImageSmoothingEnabled = false;
+offscreenEffectCtx.imageSmoothingEnabled = false;
+offscreenEffectCtx.webkitImageSmoothingEnabled = false;
+offscreenPlaceableCtx.imageSmoothingEnabled = false;
+offscreenPlaceableCtx.webkitImageSmoothingEnabled = false;
 offscreenCtx.fillStyle = "rgb(255, 255, 255)";
 offscreenCtx.fillRect(0, 0, 600, 600);
+
 
 var gameTick = 0;
 
@@ -102,6 +110,7 @@ var setLerpColor = function() {
 var drawPixel = function(pixel, x, y, ctx) {
     if (pixels[pixel].drawNoise) {
         if (pixels[pixel].animated) {
+            updateNoiseGrid(x, y);
             ctx.fillStyle = colorTint(colors[pixel], animatedNoiseGrid[y][x]);
             ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
         }
@@ -110,7 +119,17 @@ var drawPixel = function(pixel, x, y, ctx) {
             ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
         }
     }
-    pixels[pixel].draw(x, y, ctx);
+    if (pixels[pixel].renderedCanvas) {
+        if (pixels[pixel].renderedCanvas.length) {
+            ctx.drawImage(pixels[pixel].renderedCanvas[gameTick % 60], x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+        }
+        else {
+            ctx.drawImage(pixels[pixel].renderedCanvas, x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+        }
+    }
+    if (pixels[pixel].drawDetail) {
+        pixels[pixel].drawDetail(x, y, ctx);
+    }
 }
 var drawGrid = function(criteria) {
     var pixel = null;
@@ -123,7 +142,9 @@ var drawGrid = function(criteria) {
                     pixelX = j;
                 }
                 if (pixel != grid[i][j][0]) {
-                    pixels[pixel].drawBackground(pixelX, i, j - pixelX, offscreenCtx);
+                    if (pixels[pixel].draw) {
+                        pixels[pixel].draw(pixelX, i, j - pixelX, offscreenCtx);
+                    }
                     for (var k = pixelX; k < j; k++) {
                         drawPixel(pixel, k, i, offscreenCtx);
                     }
@@ -132,7 +153,9 @@ var drawGrid = function(criteria) {
                 }
             }
             else if (pixel != null) {
-                pixels[pixel].drawBackground(pixelX, i, j - pixelX, offscreenCtx);
+                if (pixels[pixel].draw) {
+                    pixels[pixel].draw(pixelX, i, j - pixelX, offscreenCtx);
+                }
                 for (var k = pixelX; k < j; k++) {
                     drawPixel(pixel, k, i, offscreenCtx);
                 }
@@ -140,7 +163,9 @@ var drawGrid = function(criteria) {
             }
         }
         if (pixel != null) {
-            pixels[pixel].drawBackground(pixelX, i, gridSize - pixelX, offscreenCtx);
+            if (pixels[pixel].draw) {
+                pixels[pixel].draw(pixelX, i, gridSize - pixelX, offscreenCtx);
+            }
             for (var k = pixelX; k < gridSize; k++) {
                 drawPixel(pixel, k, i, offscreenCtx);
             }
@@ -157,7 +182,9 @@ var drawGrid = function(criteria) {
                 }
                 if (pixel != grid[i][j][1]) {
                     if (pixel != AIR) {
-                        pixels[pixel].drawBackground(pixelX, i, j - pixelX, offscreenEffectCtx);
+                        if (pixels[pixel].draw) {
+                            pixels[pixel].draw(pixelX, i, j - pixelX, offscreenEffectCtx);
+                        }
                         for (var k = pixelX; k < j; k++) {
                             drawPixel(pixel, k, i, offscreenEffectCtx);
                         }
@@ -171,7 +198,9 @@ var drawGrid = function(criteria) {
             }
             else if (pixel != null) {
                 if (pixel != AIR) {
-                    pixels[pixel].drawBackground(pixelX, i, j - pixelX, offscreenEffectCtx);
+                    if (pixels[pixel].draw) {
+                        pixels[pixel].draw(pixelX, i, j - pixelX, offscreenEffectCtx);
+                    }
                     for (var k = pixelX; k < j; k++) {
                         drawPixel(pixel, k, i, offscreenEffectCtx);
                     }
@@ -184,7 +213,9 @@ var drawGrid = function(criteria) {
         }
         if (pixel != null) {
             if (pixel != AIR) {
-                pixels[pixel].drawBackground(pixelX, i, gridSize - pixelX, offscreenEffectCtx);
+                if (pixels[pixel].draw) {
+                    pixels[pixel].draw(pixelX, i, gridSize - pixelX, offscreenEffectCtx);
+                }
                 for (var k = pixelX; k < j; k++) {
                     drawPixel(pixel, k, i, offscreenEffectCtx);
                 }
@@ -209,7 +240,7 @@ var drawPlaceableGrid = function() {
             }
             if (pixel != placeableGrid[i][j]) {
                 if (!pixel) {
-                    pixels[NOT_PLACEABLE].drawBackground(pixelX, i, j - pixelX, offscreenPlaceableCtx);
+                    pixels[NOT_PLACEABLE].draw(pixelX, i, j - pixelX, offscreenPlaceableCtx);
                     for (var k = pixelX; k < j; k++) {
                         drawPixel(NOT_PLACEABLE, k, i, offscreenPlaceableCtx);
                     }
@@ -219,7 +250,7 @@ var drawPlaceableGrid = function() {
             }
         }
         if (!pixel) {
-            pixels[NOT_PLACEABLE].drawBackground(pixelX, i, gridSize - pixelX, offscreenPlaceableCtx);
+            pixels[NOT_PLACEABLE].draw(pixelX, i, gridSize - pixelX, offscreenPlaceableCtx);
             for (var k = pixelX; k < gridSize; k++) {
                 drawPixel(NOT_PLACEABLE, k, i, offscreenPlaceableCtx);
             }
@@ -246,13 +277,13 @@ var createGrid = function() {
             placeableGrid[i][j] = true;
         }
     }
+    setNoiseGrid();
 };
 var resetGrid = function() {
     gameTick = 0;
     document.getElementById("tickDisplay").innerHTML = `Tick: ${gameTick}`;
     resetRandom();
     pixelSize = 600 / gridSize;
-    setNoiseGrid();
     setLerpColor();
     drawGrid(function() { return true });
     drawPlaceableGrid();
@@ -264,6 +295,27 @@ var resetGrid = function() {
     resetable = false;
     updateButtons();
     updateDisabled();
+};
+var renderPixels = function() {
+    for (var i = 0; i < pixels.length; i++) {
+        if (pixels[i].render) {
+            if (pixels[i].renderedCanvas == null) {
+                pixels[i].renderedCanvas = new OffscreenCanvas(6, 6);
+                var context = pixels[i].renderedCanvas.getContext("2d");
+                context.imageSmoothingEnabled = false;
+                context.webkitImageSmoothingEnabled = false;
+                pixels[i].render(context);
+            }
+            else if (pixels[i].renderedCanvas.length == 0) {
+                for (var j = 0; j < 60; j++) {
+                    gameTick = j;
+                    setLerpColor();
+                    pixels[i].renderedCanvas[j] = new OffscreenCanvas(6, 6);
+                    pixels[i].render(pixels[i].renderedCanvas[j].getContext("2d"));
+                }
+            }
+        }
+    }
 };
 var setRedrawGrid = function() {
     for (var i = 0; i < gridSize; i++) {
@@ -430,7 +482,6 @@ var updateGrid = function() {
     }
 
     if (!simulating) {
-        updateNoiseGrid();
         // drawGrid(function(x, y, layer) { return (nextGrid[y][x][layer] != null && nextGrid[y][x][layer] != grid[y][x][layer]) || pixels[grid[y][x][layer]].animated; });
         // drawGrid(function() { return true });
         // drawGrid(function(x, y, layer) { return (nextGrid[y][x][layer] != null) || pixels[grid[y][x][layer]].animated; });
@@ -439,7 +490,6 @@ var updateGrid = function() {
         // drawGrid(function() { return true });
     }
     else if (gameTick % 100 == 0) {
-        updateNoiseGrid();
         drawGrid(function() { return true });
     }
     for (var i = 0; i < gridSize; i++) {
@@ -503,7 +553,9 @@ var clickLine = function(startX, startY, endX, endY) {
                         grid[j][k][1] = clickPixel;
                     }
                     else if (pixel == true) {
-                        pixels[clickPixel].drawBackground(pixelX, j, k - pixelX, context);
+                        if (pixels[clickPixel].draw) {
+                            pixels[clickPixel].draw(pixelX, j, k - pixelX, context);
+                        }
                         for (var l = pixelX; l < k; l++) {
                             drawPixel(clickPixel, l, j, context);
                         }
@@ -520,7 +572,7 @@ var clickLine = function(startX, startY, endX, endY) {
                         placeableGrid[j][k] = true;
                     }
                     else if (pixel == true) {
-                        pixels[clickPixel].drawBackground(pixelX, j, k - pixelX, offscreenPlaceableCtx);
+                        pixels[clickPixel].draw(pixelX, j, k - pixelX, offscreenPlaceableCtx);
                         // for (var l = pixelX; l < k; l++) {
                         //     drawPixel(clickPixel, l, j, offscreenPlaceableCtx);
                         // }
@@ -536,7 +588,7 @@ var clickLine = function(startX, startY, endX, endY) {
                         placeableGrid[j][k] = false;
                     }
                     else if (pixel == true) {
-                        pixels[clickPixel].drawBackground(pixelX, j, k - pixelX, offscreenPlaceableCtx);
+                        pixels[clickPixel].draw(pixelX, j, k - pixelX, offscreenPlaceableCtx);
                         pixel = false;
                     }
                 }
@@ -555,7 +607,9 @@ var clickLine = function(startX, startY, endX, endY) {
                         grid[j][k][layer] = clickPixel;
                     }
                     else if (pixel == true) {
-                        pixels[clickPixel].drawBackground(pixelX, j, k - pixelX, context);
+                        if (pixels[clickPixel].draw) {
+                            pixels[clickPixel].draw(pixelX, j, k - pixelX, context);
+                        }
                         for (var l = pixelX; l < k; l++) {
                             drawPixel(clickPixel, l, j, context);
                         }
@@ -565,16 +619,18 @@ var clickLine = function(startX, startY, endX, endY) {
             }
             if (pixel == true) {
                 if (clickPixel == PLACEABLE) {
-                    pixels[clickPixel].drawBackground(pixelX, j, Math.min(gridX + clickSize, gridSize) - pixelX, offscreenPlaceableCtx);
+                    pixels[clickPixel].draw(pixelX, j, Math.min(gridX + clickSize, gridSize) - pixelX, offscreenPlaceableCtx);
                     for (var k = pixelX; k < Math.min(gridX + clickSize, gridSize); k++) {
                         drawPixel(clickPixel, k, j, offscreenPlaceableCtx);
                     }
                 }
                 else if (clickPixel == NOT_PLACEABLE) {
-                    pixels[clickPixel].drawBackground(pixelX, j, Math.min(gridX + clickSize, gridSize) - pixelX, offscreenPlaceableCtx);
+                    pixels[clickPixel].draw(pixelX, j, Math.min(gridX + clickSize, gridSize) - pixelX, offscreenPlaceableCtx);
                 }
                 else {
-                    pixels[clickPixel].drawBackground(pixelX, j, Math.min(gridX + clickSize, gridSize) - pixelX, context);
+                    if (pixels[clickPixel].draw) {
+                        pixels[clickPixel].draw(pixelX, j, Math.min(gridX + clickSize, gridSize) - pixelX, context);
+                    }
                     for (var k = pixelX; k < Math.min(gridX + clickSize, gridSize); k++) {
                         drawPixel(clickPixel, k, j, context);
                     }
@@ -589,6 +645,7 @@ var clickLine = function(startX, startY, endX, endY) {
         x += Math.cos(angle);
         y += Math.sin(angle);
     }
+    storeGrid();
 };
 var updateClick = function() {
     if (cursorX >= 0 && cursorX <= 600 && cursorY >= 0 && cursorY <= 600) {

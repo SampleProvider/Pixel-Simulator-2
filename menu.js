@@ -1,6 +1,8 @@
 document.getElementById("menuCanvas").width = window.innerWidth;
 document.getElementById("menuCanvas").height = window.innerHeight;
 var menuCtx = document.getElementById("menuCanvas").getContext("2d");
+menuCtx.imageSmoothingEnabled = false;
+menuCtx.webkitImageSmoothingEnabled = false;
 menuCtx.fillStyle = "rgb(0, 0, 0)";
 menuCtx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 var menuAnimationStage = 0;
@@ -38,17 +40,34 @@ menuPixelFinalY = 3 / 5;
 var menuPixelsLerped = 0;
 
 var menuPixelLerp = function(pixel) {
-    var lerpAmount = menuSpedUp ? 0.08 : 0.04;
-    menuPixelX[pixel] = (1 - lerpAmount) * menuPixelX[pixel] + lerpAmount * (menuPixelStartX - (menuPixelStartX - menuPixelFinalX) * 11 / 10);
-    menuPixelY[pixel] = (1 - lerpAmount) * menuPixelY[pixel] + lerpAmount * (menuPixelStartY - (menuPixelStartY - menuPixelFinalY) * 11 / 10);
-    if (menuPixelX[pixel] < menuPixelFinalX) {
-        menuPixelX[pixel] = menuPixelFinalX;
+    var lerpAmount = 0.04;
+    if (menuSpedUp) {
+        for (var i = 0; i < 4; i++) {
+            menuPixelX[pixel] = (1 - lerpAmount) * menuPixelX[pixel] + lerpAmount * (menuPixelStartX - (menuPixelStartX - menuPixelFinalX) * 11 / 10);
+            menuPixelY[pixel] = (1 - lerpAmount) * menuPixelY[pixel] + lerpAmount * (menuPixelStartY - (menuPixelStartY - menuPixelFinalY) * 11 / 10);
+            if (menuPixelX[pixel] < menuPixelFinalX) {
+                menuPixelX[pixel] = menuPixelFinalX;
+            }
+            if (menuPixelY[pixel] > menuPixelFinalY) {
+                menuPixelY[pixel] = menuPixelFinalY;
+            }
+        }
+        if (menuPixelX[pixel] == menuPixelFinalX && menuPixelY[pixel] == menuPixelFinalY) {
+            menuPixelsLerped += 1;
+        }
     }
-    if (menuPixelY[pixel] > menuPixelFinalY) {
-        menuPixelY[pixel] = menuPixelFinalY;
-    }
-    if (menuPixelX[pixel] == menuPixelFinalX && menuPixelY[pixel] == menuPixelFinalY) {
-        menuPixelsLerped += 1;
+    else {
+        menuPixelX[pixel] = (1 - lerpAmount) * menuPixelX[pixel] + lerpAmount * (menuPixelStartX - (menuPixelStartX - menuPixelFinalX) * 11 / 10);
+        menuPixelY[pixel] = (1 - lerpAmount) * menuPixelY[pixel] + lerpAmount * (menuPixelStartY - (menuPixelStartY - menuPixelFinalY) * 11 / 10);
+        if (menuPixelX[pixel] < menuPixelFinalX) {
+            menuPixelX[pixel] = menuPixelFinalX;
+        }
+        if (menuPixelY[pixel] > menuPixelFinalY) {
+            menuPixelY[pixel] = menuPixelFinalY;
+        }
+        if (menuPixelX[pixel] == menuPixelFinalX && menuPixelY[pixel] == menuPixelFinalY) {
+            menuPixelsLerped += 1;
+        }
     }
 };
 var menuPixelCircle = function(pixel) {
@@ -81,9 +100,12 @@ var menuPixelDraw = function(i) {
     animatedNoiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize] = 0.5;
     randomGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize] = [];
     randomGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize] = [0.4, 0.1, 0.1, 0.4, 0.7, 0.7, 0.8, 0.1];
-    pixels[menuPixels[i]].drawBackground((menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize, 1, menuCtx);
+    if (pixels[menuPixels[i]].draw) {
+        pixels[menuPixels[i]].draw((menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize, 1, menuCtx);
+    }
     drawPixel(menuPixels[i], (menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize, menuCtx);
 };
+renderPixels();
 
 var inLevelSelect = false;
 
@@ -120,6 +142,7 @@ document.getElementById("sandboxButton").onclick = async function() {
     setClickPixel();
     gridSize = 100;
     createGrid();
+    fetchGrid();
     resetGrid();
 };
 document.getElementById("levelsButton").onclick = function() {
@@ -166,6 +189,8 @@ var loadLevel = async function(level) {
     loadSaveCode(levels[level].saveCode);
     sandbox = false;
     loadPixelInventory(levels[level].pixelInventory);
+    fetchGrid();
+    resetGrid();
     document.getElementById("levelDescriptionName").innerHTML = level + ": " + levels[level].name;
     document.getElementById("levelDescriptionText").innerHTML = levels[level].description;
     document.getElementById("sidebar").scrollTop = 0;

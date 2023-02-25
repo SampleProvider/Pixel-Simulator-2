@@ -183,7 +183,7 @@ var levels = {
         description: "The room is flooding with monsters! Wait, is that a cloner? Cloners clone the pixel behind them and push it in front of them! We can use this to destroy all the monsters.",
     },
     "4-A": {
-        saveCode: "20;OBSIDIAN-16:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-i:AIR-2:OBSIDIAN-i:AIR-2:OBSIDIAN-4:MONSTER-c:OBSIDIAN-2:AIR-2:OBSIDIAN-4:MONSTER-c:OBSIDIAN-2:AIR-2:OBSIDIAN-4:MONSTER-c:OBSIDIAN-2:AIR-2:OBSIDIAN-4:MONSTER-c:OBSIDIAN-2:AIR-2:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-16:AIR-b4:0;16:4:g:4:g:4:g:4:g:4:g:4:g:4:g:4:5y:",
+        saveCode: "20;OBSIDIAN-16:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-i:AIR-2:OBSIDIAN-i:AIR-2:OBSIDIAN-4:AIR-a:MONSTER-2:OBSIDIAN-2:AIR-2:OBSIDIAN-4:AIR-a:MONSTER-2:OBSIDIAN-2:AIR-2:OBSIDIAN-4:AIR-c:OBSIDIAN-2:AIR-2:OBSIDIAN-4:AIR-c:OBSIDIAN-2:AIR-2:OBSIDIAN-4:AIR-g:OBSIDIAN-4:AIR-g:OBSIDIAN-16:AIR-b4:0;16:4:g:4:g:4:g:4:g:4:g:4:g:4:g:4:5y:",
         pixelInventory: {
             cloner_left: 1,
             cloner_right: 4,

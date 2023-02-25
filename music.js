@@ -19,35 +19,50 @@ request.open("GET", "./music/PixelSimulator2.mp3", true);
 request.responseType = "arraybuffer";
 request.onload = function() {
     audioContext.decodeAudioData(request.response, function(buffer) {
-        bufferPixelSimulator2 = audioContext.createBufferSource();
-        bufferPixelSimulator2.buffer = buffer;
-        bufferPixelSimulator2.loop = true;
-        bufferPixelSimulator2.connect(audioContext.destination);
-        if (muted) {
-            bufferPixelSimulator2.start();
-            bufferPixelSimulator2.stop();
-        }
-        else {
-            bufferPixelSimulator2.start();
+        sourcePixelSimulator2 = audioContext.createBufferSource();
+        sourcePixelSimulator2.buffer = buffer;
+        bufferPixelSimulator2 = buffer;
+        sourcePixelSimulator2.loop = true;
+        sourcePixelSimulator2.connect(audioContext.destination);
+        if (!muted) {
+            sourcePixelSimulator2.start();
         }
     });
 }
 request.send();
-var bufferPixelSimulator2;
+var sourcePixelSimulator2;
+var bufferPixelSimulator2
 // var musicPixelSimulator2 = new Audio("./music/PixelSimulator2.mp3");
 
 var toggleMuted = function() {
     muted = !muted;
+    document.cookie = `muted=${muted ? 1 : 0}`;
     document.getElementById("muteButton").innerHTML = muted ? "UNMUTE" : "MUTE";
     document.getElementById("muteButton").style.background = muted ? "#ff0000" : "#00ff00";
     if (muted) {
-        if (bufferPixelSimulator2) {
-            bufferPixelSimulator2.stop();
+        if (sourcePixelSimulator2) {
+            sourcePixelSimulator2.stop();
         }
     }
     else {
         if (bufferPixelSimulator2) {
-            bufferPixelSimulator2.play();
+            sourcePixelSimulator2 = audioContext.createBufferSource();
+            sourcePixelSimulator2.buffer = bufferPixelSimulator2;
+            sourcePixelSimulator2.loop = true;
+            sourcePixelSimulator2.connect(audioContext.destination);
+            sourcePixelSimulator2.start();
+        }
+    }
+}
+var cookie = document.cookie.split(";");
+for (var i = 0; i < cookie.length; i++) {
+    var c = cookie[i];
+    while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+    }
+    if (c.indexOf("muted=") == 0) {
+        if (c.substring(6, c.length) == "1") {
+            toggleMuted();
         }
     }
 }

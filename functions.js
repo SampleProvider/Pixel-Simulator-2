@@ -21,12 +21,12 @@ var setNoiseGrid = function() {
         }
     }
 };
-var updateNoiseGrid = function() {
-    for (var i = 0; i < gridSize; i++) {
-        for (var j = 0; j < gridSize; j++) {
-            animatedNoiseGrid[i][j] = noise(j / 4, i / 4, gameTick / 10);
-        }
-    }
+var updateNoiseGrid = function(x, y) {
+    // for (var i = 0; i < gridSize; i++) {
+    //     for (var j = 0; j < gridSize; j++) {
+    animatedNoiseGrid[y][x] = noise(x / 4, y / 4, gameTick / 10);
+    //     }
+    // }
 };
 randomSeed(1);
 var getRandom = function() {

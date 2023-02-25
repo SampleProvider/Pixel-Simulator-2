@@ -64,7 +64,7 @@ document.onkeydown = function(event) {
     }
     if (event.key == " ") {
         if (menuSpedUp == false) {
-            menuAnimationTime = Math.floor(menuAnimationTime / 2);
+            menuAnimationTime = Math.floor(menuAnimationTime / 4);
             menuCircleSpeed *= 4;
         }
         menuSpedUp = true;

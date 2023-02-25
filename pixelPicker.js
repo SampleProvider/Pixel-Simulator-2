@@ -52,7 +52,7 @@ for (let id in pixels) {
 }
 
 var setClickDescription = function(id) {
-    if (id == "air" || sandbox == true) {
+    if (id == AIR || sandbox == true) {
         document.getElementById("pixelDescriptionName").innerHTML = pixels[id].name;
     }
     else {
@@ -73,7 +73,7 @@ var updateDisabled = function() {
         if (pixels[i].hidden) {
             continue;
         }
-        if (i == "air") {
+        if (i == AIR) {
             document.getElementById(`picker-${i}`).style.display = "inline-block";
             continue;
         }

@@ -83,6 +83,7 @@ main {
     left: 0px;
     width: 100vw;
     height: 100vh;
+    image-rendering: pixelated;
 }
 /* #winCanvas {
     position: absolute;

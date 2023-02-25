@@ -229,13 +229,10 @@ document.getElementById("uploadSaveCodeButton").onclick = function() {
         reader.onload = async function(event) {
             if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
                 ping();
+                await transition();
                 var saveCode = atob(event.target.result);
-                if (sandbox) {
-                    loadSaveCode(saveCode);
-                }
-                else {
-                    loadLevelSaveCode(saveCode);
-                }
+                loadSaveCode(saveCode);
+                resetGrid();
                 saveCodes[input.files[0].name.substring(0, input.files[0].name.length - 6)] = saveCode;
             }
         };
@@ -255,8 +252,10 @@ document.getElementById("parseSaveCodeButton").onclick = function() {
         reader.onload = async function(event) {
             if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
                 ping();
+                await transition();
                 var saveCode = atob(event.target.result);
                 parseSaveCode(saveCode);
+                resetGrid();
                 saveCodes[input.files[0].name.substring(0, input.files[0].name.length - 6)] = saveCode;
             }
         };
@@ -272,19 +271,18 @@ document.getElementById("loadCopiedSaveCodeButton").onclick = async function() {
     var saveCode = await navigator.clipboard.readText();
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
         ping();
-        if (sandbox) {
-            loadSaveCode(saveCode);
-        }
-        else {
-            loadLevelSaveCode(saveCode);
-        }
+        await transition();
+        loadSaveCode(saveCode);
+        resetGrid();
     }
 };
 document.getElementById("parseCopiedSaveCodeButton").onclick = async function() {
     var saveCode = await navigator.clipboard.readText();
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
         ping();
+        await transition();
         parseSaveCode(saveCode);
+        resetGrid();
     }
 };
 document.getElementById("loadStoredSaveCodeButton").onclick = async function() {
@@ -299,8 +297,10 @@ document.getElementById("loadStoredSaveCodeButton").onclick = async function() {
     inTransition = true;
     await new Promise(p => setTimeout(p, 500));
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
-        loadSaveCode(saveCodes[saveCodeName]);
         ping();
+        await transition();
+        loadSaveCode(saveCodes[saveCodeName]);
+        resetGrid();
     }
 };
 document.getElementById("changeGridSizeButton").onclick = async function() {
@@ -312,6 +312,7 @@ document.getElementById("changeGridSizeButton").onclick = async function() {
     await new Promise(p => setTimeout(p, 500));
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
         ping();
+        await transition();
         gridSize = newGridSize;
         createGrid();
         resetGrid();
@@ -351,6 +352,7 @@ document.getElementById("restartButton").onclick = async function() {
 document.getElementById("resetGridButton").onclick = async function() {
     if (await promptQuestion("Are you sure? This will delete your current simulation.")) {
         ping();
+        await transition();
         createGrid();
         resetGrid();
     }
@@ -365,6 +367,7 @@ document.getElementById("menuButton").onclick = async function() {
 document.getElementById("winResetGrid").onclick = async function() {
     if (resetable) {
         ping();
+        await transition();
         for (var i = 0; i < gridSize; i++) {
             for (var j = 0; j < gridSize; j++) {
                 grid[i][j] = lastGrid[i][j];
