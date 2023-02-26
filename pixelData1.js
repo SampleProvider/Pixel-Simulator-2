@@ -3,7 +3,7 @@ var pixels = [
     {
         draw: function(x, y, width, ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -32,7 +32,7 @@ var pixels = [
     {
         draw: function(x, y, width, ctx) {
             ctx.fillStyle = colors[DIRT];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[DIRT];
@@ -43,7 +43,7 @@ var pixels = [
                 changePixel(x, y, MUD, null);
                 return;
             }
-            if (getTouchingDiagonalLessDense(x, y, pixels[DIRT].density) >= 5) {
+            if (getTouchingDiagonalLessDense(x, y, this.density) >= 5) {
                 fall(x, y, 0);
             }
         },
@@ -68,7 +68,7 @@ var pixels = [
     {
         draw: function(x, y, width, ctx) {
             ctx.fillStyle = colors[GRASS];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[GRASS];
@@ -92,7 +92,7 @@ var pixels = [
                     changePixel(x1, y1, GRASS, null);
                 }
             });
-            if (getTouchingDiagonalLessDense(x, y, pixels[GRASS].density) >= 5) {
+            if (getTouchingDiagonalLessDense(x, y, this.density) >= 5) {
                 fall(x, y, 0);
             }
         },
@@ -117,7 +117,7 @@ var pixels = [
     {
         draw: function(x, y, width, ctx) {
             ctx.fillStyle = colors[SAND];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[SAND];
@@ -220,7 +220,7 @@ var pixels = [
     {
         draw: function(x, y, width, ctx) {
             ctx.fillStyle = colors[LEAF];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[LEAF];
@@ -404,7 +404,7 @@ var pixels = [
                 changePixel(x, y, DRIED_MUD, null);
                 return;
             }
-            if (getTouchingDiagonalLessDense(x, y, pixels[MUD].density) >= 4) {
+            if (getTouchingDiagonalLessDense(x, y, this.density) >= 4) {
                 flow(x, y, 4, 0);
             }
         },
@@ -436,7 +436,7 @@ var pixels = [
                 changePixel(x, y, MUD, null);
                 return;
             }
-            if (getTouchingDiagonalLessDense(x, y, pixels[DRIED_MUD].density) >= 6) {
+            if (getTouchingDiagonalLessDense(x, y, this.density) >= 6) {
                 fall(x, y, 0);
             }
         },
@@ -532,10 +532,10 @@ var pixels = [
     {
         drawDetail: function(x, y, ctx) {
             ctx.fillStyle = colorTintTransparent(colors[FIRE][2], randomGrid[y][x][0] / 2 + 0.3, randomGrid[y][x][0]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+            ctx.fillRect(x * 6, y * 6, 6, 6);
         },
         draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.clearRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -900,7 +900,7 @@ var pixels = [
     {
         draw: function(x, y, width, ctx) {
             ctx.fillStyle = colors[SNOW];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[SNOW];
@@ -946,13 +946,13 @@ var pixels = [
     {
         drawDetail: function(x, y, ctx) {
             ctx.fillStyle = colors[ICE][1];
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 3);
+            ctx.fillRect(x * 6 + 6 * 2 / 3, y * 6, 6 / 3, 6 / 3);
+            ctx.fillRect(x * 6 + 6 / 3, y * 6 + 6 / 3, 6 / 3, 6 / 3);
+            ctx.fillRect(x * 6, y * 6 + 6 * 2 / 3, 6 / 3, 6 / 3);
         },
         draw: function(x, y, width, ctx) {
             ctx.fillStyle = colors[ICE][0];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[ICE][0];
@@ -1052,10 +1052,10 @@ var pixels = [
     {
         drawDetail: function(x, y, ctx) {
             ctx.fillStyle = colorTintTransparent(colors[FROST_FIRE][2], randomGrid[y][x][0] / 2 + 0.3, randomGrid[y][x][1]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+            ctx.fillRect(x * 6, y * 6, 6, 6);
         },
         draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.clearRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -1632,7 +1632,7 @@ var pixels = [
             ctx.fillStyle = colorToRGB(colors[STONE]);
             ctx.fillRect(0, 0, 6, 6);
             ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(0, 2, 3, 2);
+            ctx.fillRect(3, 2, 3, 2);
             ctx.fillRect(2, 1, 2, 1);
             ctx.fillRect(2, 4, 2, 1);
         },
@@ -1688,15 +1688,14 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 2);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(2, 0, 2, 3);
+            ctx.fillRect(1, 2, 1, 2);
+            ctx.fillRect(4, 2, 1, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -1750,15 +1749,14 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 2, pixelSize / 3, pixelSize / 2);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(2, 3, 2, 3);
+            ctx.fillRect(1, 2, 1, 2);
+            ctx.fillRect(4, 2, 1, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -1812,19 +1810,18 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 5 / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 2, pixelSize / 6);
-            ctx.fillStyle = colors[CLONE_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 2, pixelSize / 2, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(2, 5, 2, 1);
+            ctx.fillRect(1, 1, 1, 4);
+            ctx.fillRect(0, 2, 3, 1);
+            ctx.fillStyle = colors[CLONE_LERP];
+            ctx.fillRect(2, 0, 2, 1);
+            ctx.fillRect(4, 1, 1, 4);
+            ctx.fillRect(3, 3, 3, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -1889,19 +1886,18 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 2, pixelSize / 2, pixelSize / 6);
-            ctx.fillStyle = colors[CLONE_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 5 / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 3, pixelSize / 2, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(2, 0, 2, 1);
+            ctx.fillRect(1, 1, 1, 4);
+            ctx.fillRect(0, 3, 3, 1);
+            ctx.fillStyle = colors[CLONE_LERP];
+            ctx.fillRect(2, 5, 2, 1);
+            ctx.fillRect(4, 1, 1, 4);
+            ctx.fillRect(3, 2, 3, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -1966,19 +1962,18 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize, pixelSize / 6, pixelSize);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 6, pixelSize / 2, pixelSize / 6);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize * 2 / 3, pixelSize / 2, pixelSize / 6);
-            ctx.fillStyle = colors[CLONE_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize, pixelSize / 6, pixelSize);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 2, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize * 2 / 3, pixelSize / 2, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(1, 0, 1, 6);
+            ctx.fillRect(0, 1, 3, 1);
+            ctx.fillRect(0, 4, 3, 1);
+            ctx.fillStyle = colors[CLONE_LERP];
+            ctx.fillRect(4, 0, 1, 6);
+            ctx.fillRect(3, 1, 3, 1);
+            ctx.fillRect(3, 4, 3, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -2031,34 +2026,24 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(1, 1, 1, 1);
+            ctx.fillRect(4, 1, 1, 1);
+            ctx.fillRect(1, 4, 1, 1);
+            ctx.fillRect(4, 4, 1, 1);
+            ctx.fillRect(2, 2, 2, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
             ctx.fillRect(0, 0, 60, 60);
             ctx.fillStyle = colors[PUSH];
-            // ctx.fillRect(20, 0, 20, 10);
-            // ctx.fillRect(0, 10, 60, 10);
-            // ctx.fillRect(10, 20, 10, 30);
-            // ctx.fillRect(40, 20, 10, 30);
-            // ctx.fillRect(10, 50, 40, 10);
-            // ctx.fillRect(0, 0, 10, 10);
             ctx.fillRect(10, 10, 10, 10);
-            // ctx.fillRect(50, 0, 10, 10);
             ctx.fillRect(40, 10, 10, 10);
-            // ctx.fillRect(0, 50, 10, 10);
             ctx.fillRect(10, 40, 10, 10);
-            // ctx.fillRect(50, 50, 10, 10);
             ctx.fillRect(40, 40, 10, 10);
             ctx.fillRect(20, 20, 20, 20);
         },
@@ -2082,17 +2067,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 5 / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize, pixelSize / 6, pixelSize / 2);
-            ctx.fillStyle = colors[CLONE_LERP];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize * 2 / 3, pixelSize * 5 / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 2);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(1, 1, 5, 1);
+            ctx.fillRect(4, 0, 1, 3);
+            ctx.fillStyle = colors[CLONE_LERP];
+            ctx.fillRect(0, 4, 5, 1);
+            ctx.fillRect(1, 3, 1, 3);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -2103,10 +2087,6 @@ var pixels = [
             ctx.fillStyle = colors[CLONE];
             ctx.fillRect(0, 40, 50, 10);
             ctx.fillRect(10, 30, 10, 30);
-            // ctx.fillRect(0, 10, 10, 40);
-            // ctx.fillRect(10, 20, 10, 20);
-            // ctx.fillRect(40, 20, 10, 20);
-            // ctx.fillRect(50, 10, 10, 40);
         },
         update: function(x, y) {
             if (x == 0 || x == gridSize - 1) {
@@ -2137,17 +2117,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 5 / 6);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize * 2 / 3, pixelSize / 2, pixelSize / 6);
-            ctx.fillStyle = colors[CLONE_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize, pixelSize / 6, pixelSize * 5 / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 2, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(1, 1, 1, 5);
+            ctx.fillRect(0, 4, 3, 1);
+            ctx.fillStyle = colors[CLONE_LERP];
+            ctx.fillRect(4, 0, 1, 5);
+            ctx.fillRect(3, 1, 3, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -2158,11 +2137,6 @@ var pixels = [
             ctx.fillStyle = colors[CLONE];
             ctx.fillRect(40, 0, 10, 50);
             ctx.fillRect(30, 10, 30, 10);
-            // ctx.fillStyle = colors[CLONE];
-            // ctx.fillRect(10, 0, 40, 10);
-            // ctx.fillRect(20, 10, 20, 10);
-            // ctx.fillRect(20, 40, 20, 10);
-            // ctx.fillRect(10, 50, 40, 10);
         },
         update: function(x, y) {
             if (y == 0 || y == gridSize - 1) {
@@ -2193,13 +2167,12 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(0, 2, 6, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -2228,13 +2201,12 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(2, 0, 2, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -2263,14 +2235,13 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[PUSH_LERP];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: [],
+        render: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PUSH_LERP];
+            ctx.fillRect(0, 2, 6, 2);
+            ctx.fillRect(2, 0, 2, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colorToRGB(colors[STONE]);
@@ -2300,17 +2271,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[REFLECTOR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 2, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[REFLECTOR];
+            ctx.fillRect(0, 0, 2, 2);
+            ctx.fillRect(1, 1, 2, 2);
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillRect(3, 3, 2, 2);
+            ctx.fillRect(4, 4, 2, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -2343,17 +2313,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[REFLECTOR];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize, pixelSize / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[REFLECTOR];
+            ctx.fillRect(0, 4, 2, 2);
+            ctx.fillRect(1, 3, 2, 2);
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillRect(3, 1, 2, 2);
+            ctx.fillRect(4, 0, 2, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -2386,18 +2355,17 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 5 / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 0, 2, 1);
+            ctx.fillRect(0, 2, 1, 2);
+            ctx.fillRect(2, 5, 2, 1);
+            ctx.fillRect(5, 2, 1, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2438,16 +2406,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(0, 2, 1, 2);
+            ctx.fillRect(1, 1, 2, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2488,16 +2455,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(5, 2, 1, 2);
+            ctx.fillRect(3, 1, 2, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2538,16 +2504,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 0, 2, 1);
+            ctx.fillRect(1, 1, 4, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2588,16 +2553,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 5 / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize * 2 / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 5, 2, 1);
+            ctx.fillRect(1, 3, 4, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2638,16 +2602,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(0, 2, 4, 2);
+            ctx.fillRect(2, 1, 2, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2694,16 +2657,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 2, 4, 2);
+            ctx.fillRect(2, 1, 2, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2750,16 +2712,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 0, 2, 4);
+            ctx.fillRect(1, 2, 4, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2806,16 +2767,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 2, 2, 4);
+            ctx.fillRect(1, 2, 4, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2862,17 +2822,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(0, 2, 4, 2);
+            ctx.fillRect(3, 1, 2, 1);
+            ctx.fillRect(3, 4, 2, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2914,17 +2873,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 2, 4, 2);
+            ctx.fillRect(1, 1, 2, 1);
+            ctx.fillRect(1, 4, 2, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -2966,17 +2924,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 0, 2, 4);
+            ctx.fillRect(1, 3, 1, 2);
+            ctx.fillRect(4, 3, 1, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -3018,17 +2975,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 2, 2, 4);
+            ctx.fillRect(1, 1, 1, 2);
+            ctx.fillRect(4, 1, 1, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][1];
@@ -3070,12 +3026,10 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-        },
         draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.clearRect(x * 6, y * 6, width * 6, 6);
             ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, width * pixelSize, pixelSize / 3);
+            ctx.fillRect(x * 6, y * 6 + 6 / 3, width * 6, 6 / 3);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -3122,12 +3076,10 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-        },
         draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.clearRect(x * 6, y * 6, width * 6, 6);
             ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, width * pixelSize, pixelSize / 3);
+            ctx.fillRect(x * 6, y * 6 + 6 / 3, width * 6, 6 / 3);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -3174,12 +3126,10 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
-        },
-        draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(2, 0, 2, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -3226,12 +3176,10 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
-        },
-        draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(2, 0, 2, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -3278,18 +3226,17 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(0, 2, 2, 2);
+            ctx.fillStyle = colors[EXPLOSIVE][1];
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(4, 2, 1, 2);
+            ctx.fillRect(5, 1, 1, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -3335,18 +3282,17 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(4, 2, 2, 2);
+            ctx.fillStyle = colors[EXPLOSIVE][1];
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(1, 2, 1, 2);
+            ctx.fillRect(0, 1, 1, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -3392,18 +3338,17 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 5 / 6, pixelSize * 2 / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(2, 0, 2, 2);
+            ctx.fillStyle = colors[EXPLOSIVE][1];
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 4, 2, 1);
+            ctx.fillRect(1, 5, 4, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -3449,18 +3394,17 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize, pixelSize * 2 / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[EXPLOSIVE][0];
+            ctx.fillRect(2, 4, 2, 2);
+            ctx.fillStyle = colors[EXPLOSIVE][1];
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillStyle = colors[EXPLOSIVE][2];
+            ctx.fillRect(2, 1, 2, 1);
+            ctx.fillRect(1, 0, 4, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -3506,18 +3450,17 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 5 / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 0, 2, 1);
+            ctx.fillRect(0, 2, 1, 2);
+            ctx.fillRect(2, 5, 2, 1);
+            ctx.fillRect(5, 2, 1, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3558,16 +3501,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(0, 2, 1, 2);
+            ctx.fillRect(1, 1, 2, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3603,16 +3545,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(5, 2, 1, 2);
+            ctx.fillRect(3, 1, 2, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3648,16 +3589,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 0, 2, 1);
+            ctx.fillRect(1, 1, 4, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3693,16 +3633,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 5 / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize * 2 / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 5, 2, 1);
+            ctx.fillRect(1, 3, 4, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3738,16 +3677,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(0, 2, 4, 2);
+            ctx.fillRect(2, 1, 2, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3791,16 +3729,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 2, 4, 2);
+            ctx.fillRect(2, 1, 2, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3844,16 +3781,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 0, 2, 4);
+            ctx.fillRect(1, 2, 4, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3897,16 +3833,15 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 2, 2, 4);
+            ctx.fillRect(1, 2, 4, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3950,17 +3885,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 2, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(0, 2, 4, 2);
+            ctx.fillRect(3, 1, 2, 1);
+            ctx.fillRect(3, 4, 2, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -3999,17 +3933,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize * 2 / 3, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 2, 4, 2);
+            ctx.fillRect(1, 1, 2, 1);
+            ctx.fillRect(1, 4, 2, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -4048,17 +3981,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 0, 2, 4);
+            ctx.fillRect(1, 3, 1, 2);
+            ctx.fillRect(4, 3, 1, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -4097,17 +4029,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize * 2 / 3);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 2, 2, 4);
+            ctx.fillRect(1, 1, 1, 2);
+            ctx.fillRect(4, 1, 1, 2);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
@@ -4146,12 +4077,10 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-        },
         draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.clearRect(x * 6, y * 6, width * 6, 6);
             ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, width * pixelSize, pixelSize / 3);
+            ctx.fillRect(x * 6, y * 6 + 6 / 3, width * 6, 6 / 3);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -4198,12 +4127,10 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-        },
         draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.clearRect(x * 6, y * 6, width * 6, 6);
             ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, width * pixelSize, pixelSize / 3);
+            ctx.fillRect(x * 6, y * 6 + 6 / 3, width * 6, 6 / 3);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -4250,12 +4177,10 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
-        },
-        draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(2, 0, 2, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -4302,12 +4227,10 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize);
-        },
-        draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(2, 0, 2, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -4354,18 +4277,17 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize + pixelSize * 5 / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(0, 2, 2, 2);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(4, 2, 1, 2);
+            ctx.fillRect(5, 1, 1, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -4408,18 +4330,17 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 3);
-            ctx.fillRect(x * pixelSize, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize * 2 / 3);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(4, 2, 2, 2);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(1, 2, 1, 2);
+            ctx.fillRect(0, 1, 1, 4);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -4462,18 +4383,17 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 5 / 6, pixelSize * 2 / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(2, 0, 2, 2);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 4, 2, 1);
+            ctx.fillRect(1, 5, 4, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -4516,18 +4436,17 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
-            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 6, pixelSize / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize, pixelSize * 2 / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[AIR];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][0];
+            ctx.fillRect(2, 4, 2, 2);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][1];
+            ctx.fillRect(2, 2, 2, 2);
+            ctx.fillStyle = colors[FROST_EXPLOSIVE][2];
+            ctx.fillRect(2, 1, 2, 1);
+            ctx.fillRect(1, 0, 4, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
@@ -4570,20 +4489,19 @@ var pixels = [
         hidden: true,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[MONSTER][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[MONSTER][0];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 3, pixelSize / 6, pixelSize / 6);
-            ctx.fillStyle = colors[MONSTER][3];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[MONSTER][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[MONSTER][1];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[MONSTER][0];
+            ctx.fillRect(1, 2, 1, 1);
+            ctx.fillRect(4, 2, 1, 1);
+            ctx.fillStyle = colors[MONSTER][3];
+            ctx.fillRect(1, 1, 1, 1);
+            ctx.fillRect(4, 1, 1, 1);
+            ctx.fillRect(2, 4, 2, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[MONSTER][2];
@@ -4619,19 +4537,18 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[MONSTER][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[MONSTER][3];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 2, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize * 2 / 3, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[MONSTER][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[MONSTER][1];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[MONSTER][3];
+            ctx.fillRect(1, 1, 1, 1);
+            ctx.fillRect(4, 1, 1, 1);
+            ctx.fillRect(1, 3, 1, 1);
+            ctx.fillRect(4, 3, 1, 1);
+            ctx.fillRect(1, 4, 4, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[MONSTER][2];
@@ -4666,19 +4583,18 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[MONSTER][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[MONSTER][3];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 2, pixelSize * 2 / 3, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize * 2 / 3, pixelSize / 6, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[MONSTER][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[MONSTER][1];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[MONSTER][3];
+            ctx.fillRect(1, 1, 1, 1);
+            ctx.fillRect(4, 1, 1, 1);
+            ctx.fillRect(1, 4, 1, 1);
+            ctx.fillRect(4, 4, 1, 1);
+            ctx.fillRect(1, 3, 4, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[MONSTER][2];
@@ -4688,9 +4604,9 @@ var pixels = [
             ctx.fillStyle = colors[MONSTER][3];
             ctx.fillRect(10, 10, 10, 10);
             ctx.fillRect(40, 10, 10, 10);
-            ctx.fillRect(10, 30, 40, 10);
             ctx.fillRect(10, 40, 10, 10);
             ctx.fillRect(40, 40, 10, 10);
+            ctx.fillRect(10, 30, 40, 10);
             // ctx.fillRect(20, 30, 20, 20);
         },
         update: function(x, y) {
@@ -4713,17 +4629,16 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            ctx.fillStyle = colors[MONSTER][1];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize * 2 / 3, pixelSize * 2 / 3);
-            ctx.fillStyle = colors[MONSTER][3];
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize * 2 / 3, y * pixelSize + pixelSize / 6, pixelSize / 6, pixelSize / 6);
-            ctx.fillRect(x * pixelSize + pixelSize / 6, y * pixelSize + pixelSize * 2 / 3, pixelSize / 6, pixelSize / 6);
-        },
-        draw: function(x, y, width, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
             ctx.fillStyle = colors[MONSTER][2];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[MONSTER][1];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[MONSTER][3];
+            ctx.fillRect(1, 1, 1, 1);
+            ctx.fillRect(4, 1, 1, 1);
+            ctx.fillRect(1, 4, 4, 1);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[MONSTER][2];
@@ -4756,17 +4671,54 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
-            // ctx.fillStyle = colors[PLACEABLE];
-            // ctx.fillRect(x * pixelSize + pixelSize / 3, y * pixelSize + pixelSize / 3, pixelSize / 3, pixelSize / 3);
+        renderedCanvas: null,
+        render: function(ctx) {
+            ctx.fillStyle = colors[MONSTER][2];
+            ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[MONSTER][1];
+            ctx.fillRect(1, 1, 4, 4);
+            ctx.fillStyle = colors[MONSTER][3];
+            ctx.fillRect(1, 1, 1, 1);
+            ctx.fillRect(4, 1, 1, 1);
+            ctx.fillRect(2, 3, 2, 2);
         },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors[MONSTER][2];
+            ctx.fillRect(0, 0, 60, 60);
+            ctx.fillStyle = colors[MONSTER][1];
+            ctx.fillRect(10, 10, 40, 40);
+            ctx.fillStyle = colors[MONSTER][3];
+            ctx.fillRect(10, 10, 10, 10);
+            ctx.fillRect(40, 10, 10, 10);
+            ctx.fillRect(20, 30, 20, 20);
+        },
+        update: function(x, y) {
+        },
+        updateStage: -1,
+        updateDirection: null,
+        animated: false,
+        drawNoise: false,
+        density: 0,
+        liquid: false,
+        pushable: true,
+        whenPushed: 0,
+        flammable: 10,
+        blastResistance: 1,
+        monster: true,
+        name: "Scared Monster",
+        description: "Afraid of you! Can be destroyed with any pixel. All monsters need to be destroyed to finish the level.",
+        type: "Level Construction",
+        amountColor: "rgb(255, 255, 255)",
+        hidden: false,
+    },
+    {
         draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.clearRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
             ctx.fillRect(0, 0, 60, 60);
-            ctx.fillStyle = colors[PLACEABLE];
+            ctx.fillStyle = colors[PLACEABLE][0];
             ctx.fillRect(0, 0, 20, 10);
             ctx.fillRect(0, 10, 10, 10);
             ctx.fillRect(40, 0, 20, 10);
@@ -4797,17 +4749,29 @@ var pixels = [
         hidden: false,
     },
     {
-        draw: function(x, y, ctx) {
+        renderedCanvas: null,
+        render: function(ctx) {
+            // ctx.fillStyle = colors[PLACEABLE][0];
+            // ctx.fillRect(0, 0, 6, 6);
+            ctx.fillStyle = colors[PLACEABLE][1];
+            ctx.fillRect(0, 0, 2, 1);
+            ctx.fillRect(0, 1, 3, 1);
+            ctx.fillRect(1, 2, 3, 1);
+            ctx.fillRect(2, 3, 3, 1);
+            ctx.fillRect(3, 4, 3, 1);
+            ctx.fillRect(4, 5, 2, 1);
+            ctx.fillRect(5, 0, 1, 1);
+            ctx.fillRect(0, 5, 1, 1);
         },
         draw: function(x, y, width, ctx) {
-            ctx.clearRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
-            ctx.fillStyle = colors[PLACEABLE];
-            ctx.fillRect(x * pixelSize, y * pixelSize, width * pixelSize, pixelSize);
+            ctx.clearRect(x * 6, y * 6, width * 6, 6);
+            ctx.fillStyle = colors[PLACEABLE][0];
+            ctx.fillRect(x * 6, y * 6, width * 6, 6);
         },
         drawPreview: function(ctx) {
             ctx.fillStyle = colors[AIR];
             ctx.fillRect(0, 0, 60, 60);
-            ctx.fillStyle = colors[PLACEABLE];
+            ctx.fillStyle = colors[PLACEABLE][0];
             ctx.fillRect(0, 0, 10, 10);
             ctx.fillRect(10, 10, 10, 10);
             ctx.fillRect(50, 0, 10, 10);
@@ -4836,6 +4800,47 @@ var pixels = [
         description: "Prevents placing on these tiles in levels.",
         type: "Level Construction",
         amountColor: "rgb(0, 0, 0)",
+        hidden: false,
+    },
+    {
+        renderedCanvas: [],
+        render: function(ctx) {
+            ctx.fillStyle = colors[RGB_LERP][0];
+            ctx.fillRect(0, 0, 3, 3);
+            ctx.fillStyle = colors[RGB_LERP][1];
+            ctx.fillRect(3, 0, 3, 3);
+            ctx.fillStyle = colors[RGB_LERP][2];
+            ctx.fillRect(0, 3, 3, 3);
+            ctx.fillStyle = colors[RGB_LERP][3];
+            ctx.fillRect(3, 3, 3, 3);
+        },
+        drawPreview: function(ctx) {
+            ctx.fillStyle = colors[RGB_LERP][0];
+            ctx.fillRect(0, 0, 30, 30);
+            ctx.fillStyle = colors[RGB_LERP][1];
+            ctx.fillRect(30, 0, 30, 30);
+            ctx.fillStyle = colors[RGB_LERP][2];
+            ctx.fillRect(0, 30, 30, 30);
+            ctx.fillStyle = colors[RGB_LERP][3];
+            ctx.fillRect(30, 30, 30, 30);
+        },
+        update: function(x, y) {
+        },
+        updateStage: -1,
+        updateDirection: null,
+        animated: true,
+        drawNoise: false,
+        density: Infinity,
+        liquid: false,
+        pushable: true,
+        whenPushed: 0,
+        flammable: Infinity,
+        blastResistance: Infinity,
+        monster: false,
+        name: "RGB Pixel",
+        description: "Animated RGB pixel.",
+        type: "Secret Pixels",
+        amountColor: "rgb(255, 255, 255)",
         hidden: false,
     },
 ];

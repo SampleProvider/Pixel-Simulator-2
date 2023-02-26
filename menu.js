@@ -7,8 +7,9 @@ menuCtx.fillStyle = "rgb(0, 0, 0)";
 menuCtx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 var menuAnimationStage = 0;
 var menuAnimationTime = 0;
+var menuPixelTime = 0;
 
-var menuPixelSize = Math.ceil(window.innerHeight / 20);
+var menuPixelSize = Math.ceil(window.innerHeight / 120) * 6;
 
 var menuCircleSpeed = 40;
 
@@ -81,8 +82,7 @@ var menuPixelCircle = function(pixel) {
     }
 };
 var menuPixelDrawAll = function() {
-    menuPixelSize = Math.ceil(window.innerHeight / 20);
-    pixelSize = menuPixelSize;
+    menuPixelSize = Math.ceil(window.innerHeight / 120) * 6;
     var startIndex = Math.round(((menuPixelAngle[0] * 180 / Math.PI + 90) % 360) / 360 * menuPixelCount);
     for (var i = 0; i <= Math.floor(menuPixelCount / 2); i++) {
         if ((startIndex + i) % menuPixelCount < menuPixelsLerped) {
@@ -94,16 +94,43 @@ var menuPixelDrawAll = function() {
     }
 };
 var menuPixelDraw = function(i) {
-    noiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize] = [];
-    animatedNoiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize] = [];
-    noiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize] = 0.5;
-    animatedNoiseGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize] = 0.5;
-    randomGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize] = [];
-    randomGrid[(menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize][(menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize] = [0.4, 0.1, 0.1, 0.4, 0.7, 0.7, 0.8, 0.1];
-    if (pixels[menuPixels[i]].draw) {
-        pixels[menuPixels[i]].draw((menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize, 1, menuCtx);
+    var drawn = false;
+    var pixel = menuPixels[i];
+    if (pixels[pixel].drawNoise) {
+        if (pixels[pixel].animated) {
+            menuCtx.fillStyle = colorTint(colors[pixel], 0.375 + sin(menuPixelTime / 2) / 4);
+            menuCtx.fillRect(menuPixelX[i] * window.innerWidth - menuPixelSize / 2, menuPixelY[i] * window.innerHeight - menuPixelSize / 2, menuPixelSize, menuPixelSize);
+        }
+        else {
+            menuCtx.fillStyle = colorTint(colors[pixel], 0.375 + sin(menuPixelTime / 4) / 4);
+            menuCtx.fillRect(menuPixelX[i] * window.innerWidth - menuPixelSize / 2, menuPixelY[i] * window.innerHeight - menuPixelSize / 2, menuPixelSize, menuPixelSize);
+        }
+        drawn = true;
     }
-    drawPixel(menuPixels[i], (menuPixelX[i] * window.innerWidth - menuPixelSize / 2) / menuPixelSize, (menuPixelY[i] * window.innerHeight - menuPixelSize / 2) / menuPixelSize, menuCtx);
+    if (pixels[pixel].renderedCanvas) {
+        if (pixels[pixel].renderedCanvas.length) {
+            menuCtx.drawImage(pixels[pixel].renderedCanvas[menuPixelTime % 60], menuPixelX[i] * window.innerWidth - menuPixelSize / 2, menuPixelY[i] * window.innerHeight - menuPixelSize / 2, menuPixelSize, menuPixelSize);
+        }
+        else {
+            menuCtx.drawImage(pixels[pixel].renderedCanvas, menuPixelX[i] * window.innerWidth - menuPixelSize / 2, menuPixelY[i] * window.innerHeight - menuPixelSize / 2, menuPixelSize, menuPixelSize);
+        }
+        drawn = true;
+    }
+    if (pixel == FIRE) {
+        menuCtx.fillStyle = colorTint(colors[pixel][2], 0.375 + sin(menuPixelTime / 4) / 4);
+        menuCtx.fillRect(menuPixelX[i] * window.innerWidth - menuPixelSize / 2, menuPixelY[i] * window.innerHeight - menuPixelSize / 2, menuPixelSize, menuPixelSize);
+        drawn = true;
+    }
+    if (!drawn) {
+        menuCtx.fillStyle = colors[pixel];
+        menuCtx.fillRect(menuPixelX[i] * window.innerWidth - menuPixelSize / 2, menuPixelY[i] * window.innerHeight - menuPixelSize / 2, menuPixelSize, menuPixelSize);
+    }
+    // if (pixels[pixel].drawDetail) {
+    //     pixels[pixel].drawDetail(x, y, ctx);
+    // }
+    // if (pixels[pixel].drawDetail) {
+    //     pixels[pixel].drawDetail(x, y, ctx);
+    // }
 };
 renderPixels();
 
@@ -127,7 +154,7 @@ document.getElementById("sandboxButton").onclick = async function() {
     if (inLevelSelect || menuAnimationStage == 0) {
         return;
     }
-    ping();
+    click();
     await showGameScreen();
     sandbox = true;
     var levelTools = document.getElementsByClassName("levelTool");
@@ -149,7 +176,7 @@ document.getElementById("levelsButton").onclick = function() {
     if (menuAnimationStage == 0) {
         return;
     }
-    ping();
+    click();
     document.getElementById("levelSelect").style.visibility = "visible";
     document.getElementById("levelSelect").style.transform = "translateY(0px)";
     inLevelSelect = true;
@@ -231,5 +258,6 @@ var updateMenu = function() {
         menuPixelDrawAll();
     }
     menuAnimationTime += 1;
+    menuPixelTime += Math.PI / 60;
 };
 window.requestAnimationFrame(update);

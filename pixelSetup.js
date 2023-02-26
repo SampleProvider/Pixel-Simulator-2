@@ -92,8 +92,10 @@ var MONSTER = 90;
 var HAPPY_MONSTER = 91;
 var SAD_MONSTER = 92;
 var TOUGH_MONSTER = 93;
-var PLACEABLE = 94;
-var NOT_PLACEABLE = 95;
+var SCARED_MONSTER = 94;
+var PLACEABLE = 95;
+var NOT_PLACEABLE = 96;
+var RGB_PIXEL = 97;
 
 var isPixel = function(array, pixel, effect) {
     if (pixel != null && array[0] != pixel) {
@@ -609,7 +611,7 @@ var rise = function(x, y, layer) {
     if (y == 0) {
         return false;
     }
-    if (grid[y - 1][x][layer] == AIR) {
+    if (pixels[grid[y - 1][x][layer]].density <= 0) {
         return move(x, y, [{ x: 0, y: -1 }], layer);
     }
     return false;

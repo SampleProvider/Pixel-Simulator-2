@@ -5,6 +5,7 @@ var CLONE_LERP = 30;
 var REFLECTOR = 46;
 var EXPLOSIVE = 48;
 var FROST_EXPLOSIVE = 69;
+var RGB_LERP = 97;
 
 var colors = {
     0: "rgb(255, 255, 255)",
@@ -46,5 +47,12 @@ var colors = {
     48: ["rgb(255, 25, 25)", "rgb(175, 25, 25)", "rgb(125, 25, 25)"],
     69: ["rgb(175, 175, 255)", "rgb(125, 125, 175)", "rgb(75, 75, 125)"],
     90: ["rgb(255, 255, 255)", "rgb(255, 0, 0)", "rgb(175, 0, 0)", "rgb(0, 0, 0)"],
-    94: "rgba(0, 0, 0, 0.3)",
+    95: ["rgba(0, 0, 0, 0.2)", "rgba(0, 0, 0, 0.15)"],
+    update_rgb_color: function() {
+        colors[RGB_LERP][0] = colorLerp([255, 255, 0, 0, 0, 255], 60);
+        colors[RGB_LERP][1] = colorLerp([255, 0, 125, 0, 125, 255], 60);
+        colors[RGB_LERP][2] = colorLerp([0, 255, 125, 125, 0, 255], 60);
+        colors[RGB_LERP][3] = colorLerp([0, 0, 255, 255, 255, 125], 60);
+    },
+    97: ["rgb(255, 255, 0)", "rgb(255, 0, 125)", "rgb(0, 255, 125)", "rgb(0, 0, 255)"],
 };

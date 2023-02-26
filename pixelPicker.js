@@ -24,7 +24,7 @@ for (let id in pixels) {
             if (box.disabled) {
                 return;
             }
-            ping();
+            click();
             clickPixel = parseInt(id, 10);
             setClickPixel();
         };
@@ -64,6 +64,8 @@ var setClickDescription = function(id) {
 var setClickPixel = function() {
     pixelPicker.children.forEach(div => div.classList.remove("pickerPixelSelected"));
     document.getElementById(`picker-${clickPixel}`).classList.add("pickerPixelSelected");
+    createOverlayCanvas();
+    updateOverlay();
     setClickDescription(clickPixel);
 };
 setClickPixel();

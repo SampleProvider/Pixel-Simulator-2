@@ -1,14 +1,15 @@
-var pingMusic = new Audio("./music/ping.mp3");
+var clickMusic = new Audio("./music/click.wav");
+clickMusic.volume = 0.5;
 var winMusic = new Audio("./music/win.mp3");
 
 var muted = false;
 
-var ping = function() {
-    if (muted) {
-        return;
-    }
-    pingMusic.currentTime = 0;
-    pingMusic.play();
+var click = function() {
+    // if (muted) {
+    //     return;
+    // }
+    clickMusic.currentTime = 0;
+    clickMusic.play();
 };
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -23,20 +24,28 @@ request.onload = function() {
         sourcePixelSimulator2.buffer = buffer;
         bufferPixelSimulator2 = buffer;
         sourcePixelSimulator2.loop = true;
-        sourcePixelSimulator2.connect(audioContext.destination);
+        volumePixelSimulator2 = audioContext.createGain();
         if (!muted) {
-            sourcePixelSimulator2.start();
+            volumePixelSimulator2.gain.setValueAtTime(0, audioContext.currentTime);
+            volumePixelSimulator2.gain.linearRampToValueAtTime(1, audioContext.currentTime + 1);
         }
+        else {
+            volumePixelSimulator2.gain.value = 0;
+        }
+        sourcePixelSimulator2.connect(volumePixelSimulator2);
+        volumePixelSimulator2.connect(audioContext.destination);
+        sourcePixelSimulator2.start();
     });
 }
 request.send();
 var sourcePixelSimulator2;
-var bufferPixelSimulator2
+var bufferPixelSimulator2;
+var volumePixelSimulator2;
 // var musicPixelSimulator2 = new Audio("./music/PixelSimulator2.mp3");
 
 var toggleMuted = function() {
     muted = !muted;
-    document.cookie = `muted=${muted ? 1 : 0}`;
+    localStorage.setItem("muted", muted ? 1 : 0);
     document.getElementById("muteButton").innerHTML = muted ? "UNMUTE" : "MUTE";
     document.getElementById("muteButton").style.background = muted ? "#ff0000" : "#00ff00";
     if (muted) {
@@ -46,23 +55,21 @@ var toggleMuted = function() {
     }
     else {
         if (bufferPixelSimulator2) {
+            if (sourcePixelSimulator2) {
+                sourcePixelSimulator2.stop();
+            }
             sourcePixelSimulator2 = audioContext.createBufferSource();
             sourcePixelSimulator2.buffer = bufferPixelSimulator2;
-            sourcePixelSimulator2.loop = true;
-            sourcePixelSimulator2.connect(audioContext.destination);
+            sourcePixelSimulator2.loop = true
+            volumePixelSimulator2 = audioContext.createGain();
+            volumePixelSimulator2.gain.setValueAtTime(0, audioContext.currentTime);
+            volumePixelSimulator2.gain.linearRampToValueAtTime(1, audioContext.currentTime + 1);
+            sourcePixelSimulator2.connect(volumePixelSimulator2);
+            volumePixelSimulator2.connect(audioContext.destination);
             sourcePixelSimulator2.start();
         }
     }
 }
-var cookie = document.cookie.split(";");
-for (var i = 0; i < cookie.length; i++) {
-    var c = cookie[i];
-    while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-    }
-    if (c.indexOf("muted=") == 0) {
-        if (c.substring(6, c.length) == "1") {
-            toggleMuted();
-        }
-    }
+if (localStorage.getItem("muted") == "1") {
+    toggleMuted();
 }

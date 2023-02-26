@@ -22,9 +22,7 @@ var showWinScreen = function() {
         updateNoiseGrid();
         drawGrid(function() { return true });
     }
-    ctx.drawImage(offscreenCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
-    ctx.drawImage(offscreenEffectCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
-    ctx.drawImage(offscreenPlaceableCanvas, cameraX, cameraY, 600, 600, 0, 0, 600, 600);
+    drawCanvas();
     winMusic.currentTime = 0;
     winMusic.play();
     // winOpacity = 1;
